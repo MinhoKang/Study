@@ -8,7 +8,7 @@ export class Home {
   }
   render() {
     console.log(this.path);
-    history.pushState({}, "", "/home");
+    // history.pushState({}, "", this.path);
 
     this.$target.innerHTML = `
         <div>홈페이지</div>

@@ -2,13 +2,14 @@ import "./style.css";
 import { Todo } from "./pages/Todo.js";
 import { Home } from "./pages/Home.js";
 import { Login } from "./pages/Login.js";
+import { Main } from "./pages/Main.js";
 
 const $appElement = document.querySelector("#app");
 
 const routers = [
   // TODO: 페이지 라우터 정의;
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     element: new Home($appElement),
   },
@@ -22,6 +23,11 @@ const routers = [
     name: "Login",
     element: new Login($appElement),
   },
+  {
+    path: "/main",
+    name: "Main",
+    element: new Main($appElement),
+  },
 ];
 
 class App {
@@ -30,7 +36,6 @@ class App {
 
     this.$target = $target;
     this.render();
-    // this.windowEvent();
   }
 
   render() {
@@ -40,22 +45,59 @@ class App {
     <button class='btn'>Home</button>
     <button class='btn'>Todo</button>
     <button class='btn'>Login</button>
+    <button class='btn'>Main</button>
     `;
-    let link;
     // TODO: 함수 만들어서 링크 누르면 url pathname변경. 그리고 그에 따라서 렌더링(url.pathname)
+    const routersSelect = () => {
+      routers.forEach((route) => {
+        route.path === location.pathname
+          ? route.element.render()
+          : console.log("실패");
+      });
+    };
+
+    let link;
     const btns = document.querySelectorAll(".btn");
     console.log(btns);
-    btns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        console.log(btn.innerText);
-        link = btn.innerText;
-        routers.forEach((route) => {
-          route.name === link ? route.element.render() : console.log("실패");
-        });
-      });
-    });
+    // btns.forEach((btn) => {
+    //   btn.addEventListener("click", () => {
+    //     link = btn.innerText;
+    //     routers.forEach((route) => {
+    //       route.name === link ? route.element.render() : console.log("실패");
+    //       return;
+    //     });
+    //     routersSelect();
+    //   });
+    // });
     console.log(location.href);
   }
 }
+
+export const changeUrl = (requestedUrl, pushState = true) => {
+  // history.pushState를 사용해 url을 변경한다.
+  history.pushState(null, null, requestedUrl);
+
+  // routes 배열에서 url에 맞는 컴포넌트를 찾아 main.App에 렌더링 한다.
+  const route = routers.find((route) => route.path === requestedUrl);
+  route.element.render();
+  // routers.forEach((route) => {
+  //   route.path === requestedUrl ? route.element.render() : console.log("실패");
+  // });
+};
+
+window.addEventListener("click", (e) => {
+  if (e.target.innerText === "Home") {
+    console.log("홈ㅎ모");
+    changeUrl("/home");
+  } else if (e.target.innerText === "Todo") {
+    changeUrl("/todo");
+  } else if (e.target.innerText === "Login") {
+    changeUrl("/login");
+  }
+});
+
+window.addEventListener("popstate", () => {
+  changeUrl(window.location.pathname, false);
+});
 
 new App($appElement);

@@ -5,11 +5,13 @@ export class Todo {
     this.$target = $target;
     this.render();
     this.path = "/todo";
+    const navigate = () => {
+      history.pushState({}, "", this.path);
+    };
   }
 
   render() {
     console.log(this.path);
-    history.pushState({}, "", "/todo");
 
     this.$target.innerHTML = `
         <div>투두앱니다</div>
