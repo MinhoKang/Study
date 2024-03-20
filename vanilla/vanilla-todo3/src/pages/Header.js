@@ -26,6 +26,7 @@ export default class Header {
       if (e.target.className === "homeMenu") {
         console.log("home");
         location.href = "/";
+        
       } else if (e.target.className === "loginMenu") {
         console.log("login");
         location.href = "/login";

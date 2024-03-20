@@ -1,6 +1,7 @@
 // 라우팅을 위한 app.js
 
 import Header from "./pages/Header";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 
 const routes = [
@@ -31,6 +32,7 @@ class App {
     const path = location.pathname;
     if (path === "/") {
       console.log("home");
+      new Home($app);
     } else if (path === "/login") {
       console.log("login");
       new Login($app);
