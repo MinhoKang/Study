@@ -1,5 +1,4 @@
 // TODO: 투두 클래스 정의
-
 export class Todo {
   constructor($target) {
     this.$target = $target;
@@ -9,7 +8,6 @@ export class Todo {
       history.pushState({}, "", this.path);
     };
   }
-
   render() {
     console.log(this.path);
 

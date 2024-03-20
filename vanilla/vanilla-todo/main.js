@@ -33,7 +33,7 @@ const routers = [
 class App {
   constructor($target) {
     // TODO: window location api를 활용하여 주소의 변경 event를 감지하여 변경된 주소가 라우터 배열에 있는지 확인하고 만약 같은 클래스가 있다면 해당 엘리먼트의 render() 메서드를 실행하여 화면을 업데이트
-
+    window.addEventListener("popstate", this.render.bind(this));
     this.$target = $target;
     this.render();
   }
@@ -47,33 +47,28 @@ class App {
     <button class='btn'>Login</button>
     <button class='btn'>Main</button>
     `;
-    // TODO: 함수 만들어서 링크 누르면 url pathname변경. 그리고 그에 따라서 렌더링(url.pathname)
-    const routersSelect = () => {
-      routers.forEach((route) => {
-        route.path === location.pathname
-          ? route.element.render()
-          : console.log("실패");
-      });
-    };
+    // const routersSelect = () => {
+    //   routers.forEach((route) => {
+    //     route.path === location.pathname
+    //       ? route.element.render()
+    //       : console.log("실패");
+    //   });
+    // };
 
     let link;
     const btns = document.querySelectorAll(".btn");
     console.log(btns);
-    // btns.forEach((btn) => {
-    //   btn.addEventListener("click", () => {
-    //     link = btn.innerText;
-    //     routers.forEach((route) => {
-    //       route.name === link ? route.element.render() : console.log("실패");
-    //       return;
-    //     });
-    //     routersSelect();
-    //   });
-    // });
+    btns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        link = btn.innerText.toLowerCase();
+        changeUrl(`/${link}`);
+      });
+    });
     console.log(location.href);
   }
 }
 
-export const changeUrl = (requestedUrl, pushState = true) => {
+export const changeUrl = (requestedUrl) => {
   // history.pushState를 사용해 url을 변경한다.
   history.pushState(null, null, requestedUrl);
 
@@ -97,7 +92,7 @@ window.addEventListener("click", (e) => {
 });
 
 window.addEventListener("popstate", () => {
-  changeUrl(window.location.pathname, false);
+  changeUrl(window.location.pathname);
 });
 
 new App($appElement);
