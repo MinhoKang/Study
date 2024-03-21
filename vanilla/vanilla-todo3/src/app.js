@@ -20,30 +20,37 @@ const routes = [
 ];
 
 const $app = document.querySelector("#app");
-
+const currentPath = window.location.pathname;
 class App {
   constructor() {
     this.routeTo();
     this.render();
+    new Header($app);
   }
 
   routeTo() {
-    console.log("aaa");
-    const path = location.pathname;
-    if (path === "/") {
-      console.log("home");
-      new Home($app);
-    } else if (path === "/login") {
-      console.log("login");
-      new Login($app);
-    } else if (path === "/todo") {
-      console.log("todo");
-    }
+    window.onpopstate = () => {
+      console.log("aaa");
+      const path = location.pathname;
+      if (path === "/") {
+        console.log("home");
+        new Home($app);
+      } else if (path === "/login") {
+        console.log("login");
+        new Login($app);
+      } else if (path === "/todo") {
+        console.log("todo");
+      }
+    };
   }
   render() {
     console.log("app", $app);
   }
+  //   route({ currentPath, path, component }) {
+  //     return currentPath === path ? new component($app) : null;
+  //   }
+  start() {}
 }
 
-new Header($app);
+
 new App($app);
