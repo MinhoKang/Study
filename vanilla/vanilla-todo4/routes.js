@@ -12,7 +12,7 @@ const TodoPage = Todo;
 // const TodoPage = new Todo($app);
 
 export const routes = {
-  "/": HomePage,
+  "/home": HomePage,
   "/login": LoginPage,
   "/todo": TodoPage,
 };

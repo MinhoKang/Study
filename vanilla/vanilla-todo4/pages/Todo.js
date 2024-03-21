@@ -1,12 +1,15 @@
 export default class Todo {
-  constructor($target) {
-    this.$target = $target;
+  constructor() {
   }
   render() {
-    this.setContent();
+    return this.setContent();
   }
   setContent() {
-    this.$target.innerHTML = `<h1>Todo</h1>`;
+    const content = `<h1>Todo</h1>`;
+    console.log('컨텐츠',content)
+
     console.log("투두");
+    return content;
+
   }
 }

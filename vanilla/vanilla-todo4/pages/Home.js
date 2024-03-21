@@ -1,12 +1,12 @@
 export default class Home {
-  constructor($target) {
-    this.$target = $target;
-  }
+  constructor() {}
   render() {
-    this.setContent();
+    return this.setContent();
   }
   setContent() {
-    this.$target.innerHTML = `<h1>Home</h1>`;
-    console.log('홈')
+    const content = `<h1>Home</h1>`;
+    console.log("컨텐츠", content);
+    console.log("홈");
+    return content;
   }
 }
