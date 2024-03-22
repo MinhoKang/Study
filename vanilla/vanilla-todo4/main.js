@@ -32,15 +32,14 @@ import { routes } from "./routes";
 
 const $app = document.querySelector("#app");
 
-class Main {
+export default class Main {
   constructor() {
-    this.render();
     window.onpopstate = () => this.render();
   }
+  
 
   render() {
     const pathName = window.location.pathname;
-    console.log(pathName);
     this.routeTo(pathName);
     this.menuClick();
     window.history.pushState({}, "", pathName);
@@ -79,4 +78,15 @@ class Main {
   }
 }
 
-new Main();
+new Main().render();
+
+
+// 로그인 구현
+// TODO: 로그인 FORM을 구현하고 유저가 입력한 값을 상태를 관리하여, 
+// 유저가 입력한 값을 API를 요청한다.
+// EX) HANDLEsUBMIT() 이 함수가 PROMISE를 반환하는 비동기 방식으로 구현 
+
+
+
+// 인자를 숫자를 받아서 2의 배수면 TRUE를 비동기로 리턴하는 함수를 작성하라.
+

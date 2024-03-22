@@ -6,9 +6,7 @@ export default class Todo {
   }
   setContent() {
     const content = `<h1>Todo</h1>`;
-    console.log('컨텐츠',content)
 
-    console.log("투두");
     return content;
 
   }
