@@ -47,7 +47,7 @@ class Main {
   }
 
   routeTo(pathName) {
-    const PageComponent = routes[pathName];
+    const PageComponent = routes[pathName.toLowerCase()];
     if (PageComponent) {
       // TODO: 헤더 컴포넌트를 먼저 $APP 에 넣기.
 
