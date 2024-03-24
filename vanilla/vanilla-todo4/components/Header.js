@@ -3,20 +3,35 @@ import Main from "../main";
 const $app = document.querySelector("#app");
 
 export default class Header {
-  constructor() {
-    
-  }
+  constructor() {}
   render() {
     return this.setContent();
   }
   setContent() {
-    const content = `
-    <ul>
-    <li class="menuItem">Home</li>
-    <li class="menuItem">Login</li>
-    </ul>
-    `;
-    return content;
+    const isAccept = localStorage.getItem("isAccept");
+    if (isAccept === "true") {
+      const content = `
+      <ul>
+      <li id='logoutBtn' class='menuItem'>Logout</li>
+      </ul>
+      `;
+      return content;
+    } else if (isAccept === "false") {
+      const content = `
+      <ul>
+      <li class="menuItem">Home</li>
+      <li class="menuItem">Login</li>
+      </ul>
+      `;
+      return content;
+    }
+    // const content = `
+    //   <ul>
+    //   <li class="menuItem">Home</li>
+    //   <li class="menuItem">Login</li>
+    //   </ul>
+    //   `;
+    // return content;
   }
   changePathname() {
     document.querySelectorAll(".menuItem").forEach((item) => {

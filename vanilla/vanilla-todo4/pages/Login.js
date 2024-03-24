@@ -15,7 +15,7 @@ export default class Login {
       Password
       <input type="password" id="password" name="password" autoComplete='on' required/>
     </label>
-    <button class='loginBtn' data-path="/login">Login</button>
+    <button class='loginBtn' id="loginBtn" data-path="/login">Login</button>
     </form>
 
     `;
