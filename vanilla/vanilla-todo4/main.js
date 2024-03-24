@@ -6,10 +6,12 @@ const $app = document.querySelector("#app");
 
 export default class Main {
   isAccept;
+  todoArr;
   constructor() {
     window.onpopstate = () => this.render();
     this.isAccept = false;
     localStorage.setItem("isAccept", this.isAccept);
+    this.todoArr = [];
   }
 
   render() {
@@ -19,6 +21,7 @@ export default class Main {
     window.history.pushState({}, "", pathName);
     this.handleSubmit();
     this.logout();
+    this.addTodo();
   }
 
   routeTo(pathName) {
@@ -94,6 +97,35 @@ export default class Main {
         localStorage.setItem("isAccept", false);
         window.history.pushState({}, "", "/home");
         $app.innerHTML = "";
+        this.render();
+      });
+    }
+  }
+
+  addTodo() {
+    if (
+      window.location.pathname === "/todo" &&
+      localStorage.getItem("isAccept") === "true"
+    ) {
+      const todoList = document.getElementById("todoList");
+      const todoItem = document.getElementById("todoInput");
+      const addBtn = document.getElementById("addBtn");
+      addBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const todoListItem = todoItem.value;
+
+        // const content = `<li seq='${this.todoArr.length}'>${todoListItem}</li> <button id='deleteBtn'>삭제</button>`;
+        this.todoArr.push({
+          seq: this.todoArr.length,
+          content: todoListItem,
+        });
+        // console.log(content);
+        console.log(this.todoArr);
+        todoList.innerHTML = this.todoArr.map((item) => {
+          return `<li seq=${item.seq}>${item.content}</li>`;
+        });
+        $app.innerHTML = "";
+
         this.render();
       });
     }
