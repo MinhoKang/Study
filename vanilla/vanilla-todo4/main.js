@@ -1,7 +1,6 @@
 import Header from "./components/Header";
 import Router from "./router";
 import Auth from "./utils/auth";
-import Rendering from "./utils/rendering";
 import Todo from "./utils/todo";
 
 const $app = document.querySelector("#app");
