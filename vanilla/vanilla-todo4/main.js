@@ -16,8 +16,7 @@ export default class Main {
 
   render() {
     $app.innerHTML = "";
-    const pathName = window.location.pathname;
-    router.routeTo(pathName);
+    router.routeTo(window.location.pathname);
     header.changePathname();
     auth.handleSubmit();
     auth.logout();
