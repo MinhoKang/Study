@@ -1,8 +1,9 @@
 import Header from "./components/Header";
 import { routes } from "./routes";
-import account from "./json/account.json" assert { type: "json" };
+import Auth from "./utils/auth";
 
 const $app = document.querySelector("#app");
+const login = new Auth();
 
 export default class Main {
   isAccept;
@@ -20,7 +21,7 @@ export default class Main {
     this.routeTo(pathName);
     this.menuClick();
     // window.history.pushState({}, "", pathName);
-    this.handleSubmit();
+    login.handleSubmit();
     this.logout();
     this.addTodo();
     // this.removeTodo();
@@ -52,36 +53,6 @@ export default class Main {
   menuClick() {
     const header = new Header();
     header.changePathname();
-  }
-
-  handleSubmit() {
-    if (window.location.pathname === "/login") {
-      const loginBtn = document.getElementById("loginBtn");
-      loginBtn.addEventListener("click", async (e) => {
-        e.preventDefault();
-        const id = document.querySelector("#id").value;
-        const password = document.querySelector("#password").value;
-
-        if (id === account.id && password === account.password) {
-          await new Promise((resolve, reject) => {
-            resolve();
-          })
-            .then((response) => {
-              this.isAccept = true;
-            })
-            .then((response) => {
-              localStorage.setItem("isAccept", this.isAccept);
-            })
-            .catch((error) => {
-              console.log(new Error());
-            });
-          window.history.pushState({}, "", "/todo");
-          this.render();
-        } else {
-          alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-        }
-      });
-    }
   }
 
   logout() {
@@ -170,19 +141,15 @@ new Main().render();
 
 // 인자를 숫자를 받아서 2의 배수면 TRUE를 비동기로 리턴하는 함수를 작성하라.
 
-
 // 1. 일단 돌아가게 만든다.
-// 2. 잘 동작하게 만든다. 
-// 3. 빠르게 동작하게 만든다. 
-
+// 2. 잘 동작하게 만든다.
+// 3. 빠르게 동작하게 만든다.
 
 // 1. 역할별로 분리
-// 재사용성, 명확성, 가독성, 
-
+// 재사용성, 명확성, 가독성,
 
 // 로그인이라는 클래스는 무슨 역할을 하는가?
 // -> 로그인 관련 모든 것을 담당
 // -> 로컬스토리지 관련 유틸을 만들던
 // -> 상태값에 고민을 해보고
-// isLogin 
-
+// isLogin
