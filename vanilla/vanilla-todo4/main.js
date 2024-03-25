@@ -1,36 +1,34 @@
 import Header from "./components/Header";
 import { routes } from "./routes";
 import Auth from "./utils/auth";
+import Todo from "./utils/todo";
 
 const $app = document.querySelector("#app");
+const header = new Header();
 const auth = new Auth();
+const todoClass = new Todo();
 
 export default class Main {
-  isAccept;
-  todoArr;
   constructor() {
     window.onpopstate = () => this.render();
     this.isAccept = localStorage.getItem("isAccept") === "true";
     localStorage.setItem("isAccept", this.isAccept);
-    this.todoArr = [];
   }
 
   render() {
     $app.innerHTML = "";
     const pathName = window.location.pathname;
     this.routeTo(pathName);
-    this.menuClick();
-    // window.history.pushState({}, "", pathName);
+    header.changePathname();
     auth.handleSubmit();
     auth.logout();
-    this.addTodo();
-    // this.removeTodo();
+    todoClass.addTodo();
   }
 
   routeTo(pathName) {
     const PageComponent = routes[pathName.toLowerCase()];
     if (PageComponent) {
-      this.setHeader(new Header().render());
+      this.setHeader(new Header());
       const page = new PageComponent();
       this.setBody(page);
     } else {
@@ -40,7 +38,7 @@ export default class Main {
 
   setHeader(page) {
     const $header = document.createElement("header");
-    $header.innerHTML = page;
+    $header.innerHTML = page.render();
     $app.appendChild($header);
   }
 
@@ -48,76 +46,6 @@ export default class Main {
     const $body = document.createElement("main");
     $body.innerHTML = page.render();
     $app.appendChild($body);
-  }
-
-  menuClick() {
-    const header = new Header();
-    header.changePathname();
-  }
-
-  addTodo() {
-    if (
-      window.location.pathname === "/todo" &&
-      localStorage.getItem("isAccept") === "true"
-    ) {
-      const todoItem = document.getElementById("todoInput");
-      const addBtn = document.getElementById("addBtn");
-      addBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const todoListItem = todoItem.value;
-        if (todoListItem) {
-          // const content = `<li seq='${this.todoArr.length}'>${todoListItem}</li> <button id='deleteBtn'>삭제</button>`;
-          // this.todoArr = [
-          //   ...this.todoArr,
-          //   { seq: this.todoArr.length, content: todoListItem },
-          // ];
-          this.todoArr.push({
-            seq: this.todoArr.length,
-            content: todoListItem,
-          });
-          // console.log(content);
-
-          // todoList.innerHTML = this.todoArr.map((item) => {
-          //   return `<li seq=${item.seq}>${item.content}</li><button class='removeBtn' seq=${item.seq}>삭제</button>`;
-          // });
-          todoItem.value = "";
-          this.renderTodo();
-          // this.removeTodo(); //?
-        } else {
-          alert("내용을 입력하세요");
-        }
-      });
-    }
-  }
-  removeTodo() {
-    const removeBtns = document.querySelectorAll(".removeBtn");
-    removeBtns.forEach((removeBtn) =>
-      removeBtn.addEventListener("click", (e) => {
-        // const items = [...this.todoArr];
-        console.log("아이템", this.todoArr);
-        const seq = e.target.getAttribute("seq");
-        const seqNum = parseInt(seq);
-        this.todoArr.splice(seqNum, 1);
-        for (let i = seqNum; i < this.todoArr.length; i++) {
-          this.todoArr[i].seq = i;
-        }
-        this.renderTodo();
-      })
-    );
-  }
-
-  renderTodo() {
-    console.log("렌더전");
-    const todoList = document.getElementById("todoList");
-    todoList.innerHTML = this.todoArr
-      .map((item) => {
-        console.log(item);
-        console.log(todoList);
-        return `<li seq=${item.seq}>${item.content}</li><button class='removeBtn' seq=${item.seq}>삭제</button>`;
-      })
-      .join("");
-    console.log("렌더후");
-    this.removeTodo();
   }
 }
 

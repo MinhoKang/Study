@@ -16,7 +16,7 @@ export default class Header {
       </ul>
       `;
       return content;
-    } else if (isAccept === "false") {
+    } else {
       const content = `
       <ul>
       <li class="menuItem">Home</li>
@@ -25,14 +25,8 @@ export default class Header {
       `;
       return content;
     }
-    // const content = `
-    //   <ul>
-    //   <li class="menuItem">Home</li>
-    //   <li class="menuItem">Login</li>
-    //   </ul>
-    //   `;
-    // return content;
   }
+
   changePathname() {
     document.querySelectorAll(".menuItem").forEach((item) => {
       item.addEventListener("click", (e) => {
