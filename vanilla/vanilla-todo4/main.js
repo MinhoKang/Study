@@ -1,5 +1,5 @@
 import Header from "./components/Header";
-import { routes } from "./routes";
+import Router from "./router";
 import Auth from "./utils/auth";
 import Rendering from "./utils/rendering";
 import Todo from "./utils/todo";
@@ -8,7 +8,7 @@ const $app = document.querySelector("#app");
 const header = new Header();
 const auth = new Auth();
 const todoClass = new Todo();
-const rendering = new Rendering();
+const router = new Router();
 
 export default class Main {
   constructor() {
@@ -18,22 +18,11 @@ export default class Main {
   render() {
     $app.innerHTML = "";
     const pathName = window.location.pathname;
-    this.routeTo(pathName);
+    router.routeTo(pathName);
     header.changePathname();
     auth.handleSubmit();
     auth.logout();
     todoClass.addTodo();
-  }
-
-  routeTo(pathName) {
-    const PageComponent = routes[pathName.toLowerCase()];
-    if (PageComponent) {
-      rendering.setHeader(header);
-      const page = new PageComponent();
-      rendering.setBody(page);
-    } else {
-      console.error("페이지가 없습니다");
-    }
   }
 }
 
