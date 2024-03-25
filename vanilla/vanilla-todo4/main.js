@@ -11,8 +11,6 @@ const todoClass = new Todo();
 export default class Main {
   constructor() {
     window.onpopstate = () => this.render();
-    this.isAccept = localStorage.getItem("isAccept") === "true";
-    localStorage.setItem("isAccept", this.isAccept);
   }
 
   render() {

@@ -3,7 +3,10 @@ import Main from "../main";
 const $app = document.querySelector("#app");
 
 export default class Header {
-  constructor() {}
+  constructor() {
+    this.isAccept = localStorage.getItem("isAccept") === "true";
+    localStorage.setItem("isAccept", this.isAccept);
+  }
   render() {
     return this.setContent();
   }

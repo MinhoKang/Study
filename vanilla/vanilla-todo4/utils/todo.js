@@ -5,9 +5,8 @@ export default class Todo {
   }
   addTodo() {
     if (
-      window.location.pathname === "/todo"
-      // &&
-      // localStorage.getItem("isAccept") === "true"
+      window.location.pathname === "/todo" &&
+      localStorage.getItem("isAccept") === "true"
     ) {
       const todoItem = document.getElementById("todoInput");
       const addBtn = document.getElementById("addBtn");
