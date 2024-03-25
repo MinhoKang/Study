@@ -1,3 +1,7 @@
+import LocalStorageUtil from "./localStorage";
+
+const LocalStorageAction = new LocalStorageUtil();
+
 export default class Todo {
   todoArr;
   constructor() {
@@ -6,7 +10,7 @@ export default class Todo {
   addTodo() {
     if (
       window.location.pathname === "/todo" &&
-      localStorage.getItem("isAccept") === "true"
+      LocalStorageAction.storage("get", "isAccept")
     ) {
       const todoItem = document.getElementById("todoInput");
       const addBtn = document.getElementById("addBtn");

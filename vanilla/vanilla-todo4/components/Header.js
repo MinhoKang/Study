@@ -1,17 +1,20 @@
 import Main from "../main";
+import LocalStorageUtil from "../utils/localStorage";
 
 const $app = document.querySelector("#app");
+const LocalStorageAction = new LocalStorageUtil();
 
 export default class Header {
   constructor() {
-    this.isAccept = localStorage.getItem("isAccept") === "true";
-    localStorage.setItem("isAccept", this.isAccept);
+    this.isAccept = LocalStorageAction.storage("get", "isAccept") === "true";
+    // localStorage.setItem("isAccept", this.isAccept);
+    LocalStorageAction.storage("set", "isAccept", this.isAccept);
   }
   render() {
     return this.setContent();
   }
   setContent() {
-    const isAccept = localStorage.getItem("isAccept");
+    const isAccept = LocalStorageAction.storage("get", "isAccept");
     if (isAccept === "true") {
       const content = `
       <ul>

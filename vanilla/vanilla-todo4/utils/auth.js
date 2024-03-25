@@ -1,13 +1,17 @@
 import Header from "../components/Header";
 import account from "../json/account.json" assert { type: "json" };
 import Main from "../main";
+import LocalStorageUtil from "./localStorage";
+
+const LocalStorageAction = new LocalStorageUtil();
 
 export default class Auth {
   logout() {
-    if (localStorage.getItem("isAccept") === "true") {
+    if (LocalStorageAction.storage("get", "isAccept") === "true") {
       const logoutBtn = document.getElementById("logoutBtn");
       logoutBtn.addEventListener("click", () => {
-        localStorage.setItem("isAccept", false);
+        // localStorage.setItem("isAccept", false);
+        LocalStorageAction.storage("set", "isAccept", false);
         window.history.pushState({}, "", "/home");
         new Main().render();
       });
@@ -28,7 +32,7 @@ export default class Auth {
           })
             .then((response) => {
               console.log("asdasd");
-              localStorage.setItem("isAccept", true);
+              LocalStorageAction.storage("set", "isAccept", true);
             })
             .then((response) => {
               window.history.pushState({}, "", "/todo");
