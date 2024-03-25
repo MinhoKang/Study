@@ -22,6 +22,7 @@ export default class Main {
     this.handleSubmit();
     this.logout();
     this.addTodo();
+    this.removeTodo();
   }
 
   routeTo(pathName) {
@@ -115,20 +116,53 @@ export default class Main {
         const todoListItem = todoItem.value;
 
         // const content = `<li seq='${this.todoArr.length}'>${todoListItem}</li> <button id='deleteBtn'>삭제</button>`;
+        // this.todoArr = [
+        //   ...this.todoArr,
+        //   { seq: this.todoArr.length, content: todoListItem },
+        // ];
         this.todoArr.push({
           seq: this.todoArr.length,
           content: todoListItem,
         });
         // console.log(content);
-        console.log(this.todoArr);
-        todoList.innerHTML = this.todoArr.map((item) => {
-          return `<li seq=${item.seq}>${item.content}</li>`;
-        });
-        $app.innerHTML = "";
 
-        this.render();
+        // todoList.innerHTML = this.todoArr.map((item) => {
+        //   return `<li seq=${item.seq}>${item.content}</li><button class='removeBtn' seq=${item.seq}>삭제</button>`;
+        // });
+        todoItem.value = "";
+        this.removeTodo();
+        this.renderTodo();
       });
     }
+  }
+  removeTodo() {
+    const removeBtns = document.querySelectorAll(".removeBtn");
+    removeBtns.forEach((removeBtn) =>
+      removeBtn.addEventListener("click", (e) => {
+        // const items = [...this.todoArr];
+        console.log("아이템", this.todoArr);
+        const seq = e.target.getAttribute("seq");
+        const seqNum = parseInt(seq);
+        this.todoArr.splice(seqNum, 1);
+        console.log("아이템2", this.todoArr);
+        for (let i = seqNum; i < this.todoArr.length; i++) {
+          this.todoArr[i].seq = i;
+        }
+        this.renderTodo();
+      })
+    );
+  }
+
+  renderTodo() {
+    console.log("렌더전");
+    const todoList = document.getElementById("todoList");
+    todoList.innerHTML = this.todoArr.map((item) => {
+      console.log(item);
+      console.log(todoList);
+      return `<li seq=${item.seq}>${item.content}</li><button class='removeBtn' seq=${item.seq}>삭제</button>`;
+    });
+    console.log("렌더후");
+    this.removeTodo();
   }
 }
 

@@ -1,6 +1,6 @@
 export default class Todo {
   constructor() {}
-  ㅕ;
+
   render() {
     return this.setContent();
   }
