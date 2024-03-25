@@ -20,7 +20,7 @@ export default class Main {
     const pathName = window.location.pathname;
     this.routeTo(pathName);
     this.menuClick();
-    window.history.pushState({}, "", pathName);
+    // window.history.pushState({}, "", pathName);
     this.handleSubmit();
     this.logout();
     this.addTodo();
@@ -34,7 +34,7 @@ export default class Main {
       const page = new PageComponent();
       this.setBody(page);
     } else {
-      console.error("Route not found");
+      console.error("페이지가 없습니다");
     }
   }
 
@@ -59,15 +59,12 @@ export default class Main {
     if (window.location.pathname === "/login") {
       const loginBtn = document.getElementById("loginBtn");
       loginBtn.addEventListener("click", async (e) => {
-        // 비동기로 이벤트 핸들링
         e.preventDefault();
         const id = document.querySelector("#id").value;
         const password = document.querySelector("#password").value;
 
-        // 아이디와 비밀번호 비교
         if (id === account.id && password === account.password) {
           await new Promise((resolve, reject) => {
-            // 비동기 처리를 위한 Promise
             resolve();
           })
             .then((response) => {
@@ -75,31 +72,22 @@ export default class Main {
             })
             .then((response) => {
               localStorage.setItem("isAccept", this.isAccept);
-              window.addEventListener("storage", (e) => {
-                if (e.key === "isAccept") {
-                  console.log("키변경");
-                }
-              });
             });
-          // 로그인 성공 시 경로 변경 및 Todo 페이지 렌더링
           window.history.pushState({}, "", "/todo");
-          $app.innerHTML = "";
-          // new Header.render();
           this.render();
         } else {
-          console.log("아이디 또는 비밀번호가 일치하지 않습니다.");
+          alert("아이디 또는 비밀번호가 일치하지 않습니다.");
         }
       });
     }
   }
 
   logout() {
-    if (document.querySelector(".menuItem").innerHTML === "Logout") {
+    if (localStorage.getItem("isAccept") === "true") {
       const logoutBtn = document.getElementById("logoutBtn");
       logoutBtn.addEventListener("click", () => {
         localStorage.setItem("isAccept", false);
         window.history.pushState({}, "", "/home");
-        $app.innerHTML = "";
         this.render();
       });
     }
@@ -110,30 +98,32 @@ export default class Main {
       window.location.pathname === "/todo" &&
       localStorage.getItem("isAccept") === "true"
     ) {
-      const todoList = document.getElementById("todoList");
       const todoItem = document.getElementById("todoInput");
       const addBtn = document.getElementById("addBtn");
       addBtn.addEventListener("click", (e) => {
         e.preventDefault();
         const todoListItem = todoItem.value;
+        if (todoListItem) {
+          // const content = `<li seq='${this.todoArr.length}'>${todoListItem}</li> <button id='deleteBtn'>삭제</button>`;
+          // this.todoArr = [
+          //   ...this.todoArr,
+          //   { seq: this.todoArr.length, content: todoListItem },
+          // ];
+          this.todoArr.push({
+            seq: this.todoArr.length,
+            content: todoListItem,
+          });
+          // console.log(content);
 
-        // const content = `<li seq='${this.todoArr.length}'>${todoListItem}</li> <button id='deleteBtn'>삭제</button>`;
-        // this.todoArr = [
-        //   ...this.todoArr,
-        //   { seq: this.todoArr.length, content: todoListItem },
-        // ];
-        this.todoArr.push({
-          seq: this.todoArr.length,
-          content: todoListItem,
-        });
-        // console.log(content);
-
-        // todoList.innerHTML = this.todoArr.map((item) => {
-        //   return `<li seq=${item.seq}>${item.content}</li><button class='removeBtn' seq=${item.seq}>삭제</button>`;
-        // });
-        todoItem.value = "";
-        this.removeTodo();
-        this.renderTodo();
+          // todoList.innerHTML = this.todoArr.map((item) => {
+          //   return `<li seq=${item.seq}>${item.content}</li><button class='removeBtn' seq=${item.seq}>삭제</button>`;
+          // });
+          todoItem.value = "";
+          this.renderTodo();
+          this.removeTodo(); //?
+        } else {
+          alert("내용을 입력하세요");
+        }
       });
     }
   }

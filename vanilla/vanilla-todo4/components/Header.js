@@ -38,7 +38,7 @@ export default class Header {
       item.addEventListener("click", (e) => {
         const pathname = e.target.innerText.toLowerCase();
         window.history.pushState({}, "", pathname);
-        $app.innerHTML = "";
+        // $app.innerHTML = "";
         new Main().render();
       });
     });
