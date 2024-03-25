@@ -3,6 +3,18 @@ import Main from "../main";
 
 export default class Auth {
   isAccept;
+
+  logout() {
+    if (localStorage.getItem("isAccept") === "true") {
+      const logoutBtn = document.getElementById("logoutBtn");
+      logoutBtn.addEventListener("click", () => {
+        localStorage.setItem("isAccept", false);
+        window.history.pushState({}, "", "/home");
+        new Main().render();
+      });
+    }
+  }
+
   handleSubmit() {
     if (window.location.pathname === "/login") {
       const loginBtn = document.getElementById("loginBtn");

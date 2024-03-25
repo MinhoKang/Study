@@ -3,7 +3,7 @@ import { routes } from "./routes";
 import Auth from "./utils/auth";
 
 const $app = document.querySelector("#app");
-const login = new Auth();
+const auth = new Auth();
 
 export default class Main {
   isAccept;
@@ -21,8 +21,8 @@ export default class Main {
     this.routeTo(pathName);
     this.menuClick();
     // window.history.pushState({}, "", pathName);
-    login.handleSubmit();
-    this.logout();
+    auth.handleSubmit();
+    auth.logout();
     this.addTodo();
     // this.removeTodo();
   }
@@ -53,17 +53,6 @@ export default class Main {
   menuClick() {
     const header = new Header();
     header.changePathname();
-  }
-
-  logout() {
-    if (localStorage.getItem("isAccept") === "true") {
-      const logoutBtn = document.getElementById("logoutBtn");
-      logoutBtn.addEventListener("click", () => {
-        localStorage.setItem("isAccept", false);
-        window.history.pushState({}, "", "/home");
-        this.render();
-      });
-    }
   }
 
   addTodo() {
