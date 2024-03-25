@@ -10,7 +10,6 @@ export default class Auth {
     if (LocalStorageAction.storage("get", "isAccept") === "true") {
       const logoutBtn = document.getElementById("logoutBtn");
       logoutBtn.addEventListener("click", () => {
-        // localStorage.setItem("isAccept", false);
         LocalStorageAction.storage("set", "isAccept", false);
         window.history.pushState({}, "", "/home");
         new Main().render();
@@ -40,8 +39,6 @@ export default class Auth {
             .then((response) => {
               console.log("메인 체인지");
               new Main().render();
-
-              // new Main().routeTo("/todo");
             })
             .then((response) => {
               console.log("object");

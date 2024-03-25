@@ -1,13 +1,12 @@
 import Main from "../main";
 import LocalStorageUtil from "../utils/localStorage";
 
-const $app = document.querySelector("#app");
 const LocalStorageAction = new LocalStorageUtil();
 
 export default class Header {
   constructor() {
     this.isAccept = LocalStorageAction.storage("get", "isAccept") === "true";
-    // localStorage.setItem("isAccept", this.isAccept);
+
     LocalStorageAction.storage("set", "isAccept", this.isAccept);
   }
   render() {
@@ -38,7 +37,6 @@ export default class Header {
       item.addEventListener("click", (e) => {
         const pathname = e.target.innerText.toLowerCase();
         window.history.pushState({}, "", pathname);
-        // $app.innerHTML = "";
         new Main().render();
       });
     });
