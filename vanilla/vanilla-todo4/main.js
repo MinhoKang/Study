@@ -26,7 +26,7 @@ export default class Main {
   routeTo(pathName) {
     const PageComponent = routes[pathName.toLowerCase()];
     if (PageComponent) {
-      this.setHeader(new Header());
+      this.setHeader(header);
       const page = new PageComponent();
       this.setBody(page);
     } else {
