@@ -9,12 +9,14 @@ export default class Main {
   todoArr;
   constructor() {
     window.onpopstate = () => this.render();
+
     this.isAccept = false;
     localStorage.setItem("isAccept", this.isAccept);
     this.todoArr = [];
   }
 
   render() {
+    $app.innerHTML = "";
     const pathName = window.location.pathname;
     this.routeTo(pathName);
     this.menuClick();
