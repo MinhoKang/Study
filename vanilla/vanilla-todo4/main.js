@@ -9,7 +9,6 @@ export default class Main {
   todoArr;
   constructor() {
     window.onpopstate = () => this.render();
-
     this.isAccept = false;
     localStorage.setItem("isAccept", this.isAccept);
     this.todoArr = [];
@@ -24,7 +23,7 @@ export default class Main {
     this.handleSubmit();
     this.logout();
     this.addTodo();
-    this.removeTodo();
+    // this.removeTodo();
   }
 
   routeTo(pathName) {
@@ -72,6 +71,9 @@ export default class Main {
             })
             .then((response) => {
               localStorage.setItem("isAccept", this.isAccept);
+            })
+            .catch((error) => {
+              console.log(new Error());
             });
           window.history.pushState({}, "", "/todo");
           this.render();
@@ -120,7 +122,7 @@ export default class Main {
           // });
           todoItem.value = "";
           this.renderTodo();
-          this.removeTodo(); //?
+          // this.removeTodo(); //?
         } else {
           alert("내용을 입력하세요");
         }
@@ -136,7 +138,6 @@ export default class Main {
         const seq = e.target.getAttribute("seq");
         const seqNum = parseInt(seq);
         this.todoArr.splice(seqNum, 1);
-        console.log("아이템2", this.todoArr);
         for (let i = seqNum; i < this.todoArr.length; i++) {
           this.todoArr[i].seq = i;
         }
@@ -148,11 +149,13 @@ export default class Main {
   renderTodo() {
     console.log("렌더전");
     const todoList = document.getElementById("todoList");
-    todoList.innerHTML = this.todoArr.map((item) => {
-      console.log(item);
-      console.log(todoList);
-      return `<li seq=${item.seq}>${item.content}</li><button class='removeBtn' seq=${item.seq}>삭제</button>`;
-    });
+    todoList.innerHTML = this.todoArr
+      .map((item) => {
+        console.log(item);
+        console.log(todoList);
+        return `<li seq=${item.seq}>${item.content}</li><button class='removeBtn' seq=${item.seq}>삭제</button>`;
+      })
+      .join("");
     console.log("렌더후");
     this.removeTodo();
   }

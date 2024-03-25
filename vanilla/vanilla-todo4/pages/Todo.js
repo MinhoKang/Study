@@ -8,7 +8,7 @@ export default class Todo {
     const content = `<h1>Todo</h1>
     <section>
       <form>
-        <input id='todoInput' type='text' placeholder='todo 입력'/>
+        <input id='todoInput' type='text' placeholder='todo 입력' autofocus='true'/>
         <button id='addBtn'>추가</button>
       </form>
       <ul id='todoList'>
