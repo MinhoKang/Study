@@ -1,6 +1,6 @@
 import { router } from "./router";
 
-export const $app = document.querySelector("#app");
+export const $app: HTMLElement | null = document.querySelector("#app");
 export const $header = document.createElement("header");
 export const $body = document.createElement("main");
 
@@ -13,8 +13,10 @@ class Main {
   }
 
   render() {
-    $app.innerHTML = "";
-    router.rendering(window.location.pathname);
+    if ($app !== null) {
+      $app.innerHTML = "";
+      router.rendering(window.location.pathname);
+    }
   }
 }
 

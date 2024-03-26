@@ -12,7 +12,7 @@ const routes = {
 };
 
 class Router {
-  rendering(pathName) {
+  rendering(pathName: string) {
     const PageComponent = routes[pathName.toLowerCase()] || routes[404];
     this.setHeader(header);
     this.setBody(PageComponent);
@@ -21,7 +21,7 @@ class Router {
   setHeader(page) {
     const $header = document.createElement("header");
     $header.innerHTML = page.render();
-    // $app.appendChild($header);
+    $app.appendChild($header);
   }
 
   setBody(page) {
