@@ -39,7 +39,6 @@ class Auth {
       //   });
       await LocalStorageAction.storage("set", "isAccept", true);
       await window.history.pushState({}, "", "/todo");
-      await new Main().render();
     } else {
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");
     }

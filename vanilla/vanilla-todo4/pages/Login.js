@@ -1,4 +1,4 @@
-import { $app, $body } from "../main";
+import Main, { $app, $body } from "../main";
 import { auth } from "../utils/auth";
 
 export default class Login {
@@ -27,21 +27,18 @@ export default class Login {
     $body.innerHTML = content;
     $app.appendChild($body);
     // this.render();
-    this.isAuth();
+    this.handleLogin();
   }
 
-  isAuth() {
+  handleLogin() {
     this.loginBtn = document.querySelector("#loginBtn");
     this.loginBtn.addEventListener("click", async (e) => {
       e.preventDefault();
       const id = await document.querySelector("#id").value;
       const password = await document.querySelector("#password").value;
-      console.log(id);
-      console.log(password);
       await auth.login(id, password);
-      console.log("로긍ㄴ");
+      await new Main().render();
     });
-    console.log(this.loginBtn);
   }
 }
 
