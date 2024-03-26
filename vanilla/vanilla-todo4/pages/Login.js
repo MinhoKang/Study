@@ -2,7 +2,11 @@ import { $app, $body } from "../main";
 
 export default class Login {
   constructor() {}
-  render() {}
+  render() {
+    // this.setContent();
+    this.loginBtn = document.querySelector("#loginBtn");
+    console.log(this.loginBtn);
+  }
   setContent() {
     const content = `<h1>Login</h1>
     <form>
@@ -19,8 +23,8 @@ export default class Login {
     `;
 
     $body.innerHTML = content;
-    console.log($body.innerHTML);
     $app.appendChild($body);
+    this.render();
   }
 }
 

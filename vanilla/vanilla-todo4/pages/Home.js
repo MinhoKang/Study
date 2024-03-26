@@ -1,4 +1,4 @@
-import { $app } from "../main";
+import { $app, $body } from "../main";
 
 class Home {
   constructor() {}
@@ -6,7 +6,6 @@ class Home {
   setContent() {
     const content = `<h1>Home</h1>`;
 
-    const $body = document.createElement("main");
     $body.innerHTML = content;
     $app.appendChild($body);
   }

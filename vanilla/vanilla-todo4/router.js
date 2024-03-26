@@ -1,5 +1,4 @@
 import { header } from "./components/Header";
-import { $app } from "./main";
 import { errorPage } from "./pages/Error";
 import { homePage } from "./pages/Home";
 import { loginPage } from "./pages/Login";
@@ -17,6 +16,7 @@ class Router {
     const PageComponent = routes[pathName.toLowerCase()] || routes[404];
     this.setHeader(header);
     this.setBody(PageComponent);
+
   }
   setBody(page) {
     const $body = document.createElement("main");
