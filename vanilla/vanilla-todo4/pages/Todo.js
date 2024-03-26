@@ -27,7 +27,7 @@ export default class Todo {
 
     $body.innerHTML = content;
     $app.appendChild($body);
-    // this.addTodo();
+    this.addTodo();
   }
 
   addTodo() {
@@ -41,7 +41,6 @@ export default class Todo {
       addBtn.addEventListener("click", (e) => {
         e.preventDefault();
         const todoListItem = this.todoItem.value;
-        console.log(todoListItem);
         if (todoListItem) {
           this.todoArr.push({
             seq: this.todoArr.length,

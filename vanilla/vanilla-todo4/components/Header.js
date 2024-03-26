@@ -32,9 +32,7 @@ class Header {
       $header.innerHTML = content;
     }
     $app.appendChild($header);
-
     this.handleLogout();
-
     this.changePathname();
   }
 
@@ -56,7 +54,6 @@ class Header {
         if (pathname === "logout") {
           pathname = "home";
         }
-        console.log(pathname);
         window.history.pushState({}, "", pathname);
         main.render();
       });

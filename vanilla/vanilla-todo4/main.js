@@ -1,7 +1,4 @@
 import { router } from "./router";
-import { auth } from "./utils/auth";
-import { todoPage } from "./pages/Todo";
-import { header } from "./components/Header";
 
 export const $app = document.querySelector("#app");
 export const $header = document.createElement("header");
@@ -18,8 +15,6 @@ class Main {
   render() {
     $app.innerHTML = "";
     router.rendering(window.location.pathname);
-    // auth.logout();
-    todoPage.addTodo();
   }
 }
 
