@@ -23,12 +23,12 @@ export default class Router {
   }
   setBody(page) {
     const $body = document.createElement("main");
-    $body.innerHTML = page.render();
+    $body.innerHTML = page.setContent();
     $app.appendChild($body);
   }
   setHeader(page) {
     const $header = document.createElement("header");
-    $header.innerHTML = page.render();
+    $header.innerHTML = page.setContent();
     $app.appendChild($header);
   }
 }

@@ -21,7 +21,7 @@ export default class Main {
     $app.innerHTML = "";
     router.rendering(window.location.pathname);
     header.changePathname();
-    // auth.login();
+    auth.login();
     auth.logout();
     todoClass.addTodo();
     todoClass.renderTodo();

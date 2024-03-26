@@ -61,7 +61,7 @@ export default class Todo {
     );
   }
 
-  render() {
+  setContent() {
     const content = `<h1>Todo</h1>
     <section>
       <form>
