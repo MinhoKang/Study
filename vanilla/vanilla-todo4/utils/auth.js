@@ -18,24 +18,28 @@ class Auth {
 
   async login(id, password) {
     if (id === account.id && password === account.password) {
-      await new Promise((resolve, reject) => {
-        resolve();
-      })
-        .then((response) => {
-          console.log("asdasd");
-          LocalStorageAction.storage("set", "isAccept", true);
-        })
-        .then((response) => {
-          console.log("주소변경");
-          window.history.pushState({}, "", "/todo");
-        })
-        .then((response) => {
-          console.log("렌더");
-          new Main().render();
-        })
-        .catch((error) => {
-          console.log(new Error());
-        });
+      // new Promise((resolve, reject) => {
+      //   resolve();
+      // })
+      //   .then((response) => {
+      //     console.log("asdasd");
+      //     LocalStorageAction.storage("set", "isAccept", true);
+      //   })
+      //   .then((response) => {
+      //     console.log("주소변경");
+      //     window.history.pushState({}, "", "/todo");
+      //   })
+      //   .then((response) => {
+      //     console.log("렌더");
+      //     new Main().render();
+      //   })
+      //   .catch((error) => {
+      //     console.log(new Error());
+
+      //   });
+      await LocalStorageAction.storage("set", "isAccept", true);
+      await window.history.pushState({}, "", "/todo");
+      await new Main().render();
     } else {
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");
     }

@@ -39,6 +39,7 @@ export default class Login {
       console.log(id);
       console.log(password);
       await auth.login(id, password);
+      console.log("로긍ㄴ");
     });
     console.log(this.loginBtn);
   }

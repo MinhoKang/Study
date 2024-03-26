@@ -1,12 +1,33 @@
-import Main from "../main";
+import Main, { $app, $body } from "../main";
 import LocalStorageUtil from "../utils/localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();
 
 export default class Todo {
   todoArr;
+  todoItem;
+  addBtn;
+  todoList;
   constructor() {
     this.todoArr = [];
+  }
+
+  setContent() {
+    const content = `<h1>Todo</h1>
+    <section>
+      <form>
+        <input id='todoInput' type='text' placeholder='todo 입력' autofocus='true'/>
+        <button id='addBtn'>추가</button>
+      </form>
+      <ul id='todoList'>
+      
+      </ul>
+    </section>
+    `;
+
+    $body.innerHTML = content;
+    $app.appendChild($body);
+    // this.addTodo();
   }
 
   addTodo() {
@@ -14,27 +35,30 @@ export default class Todo {
       window.location.pathname === "/todo" &&
       LocalStorageAction.storage("get", "isAccept")
     ) {
-      const todoItem = document.getElementById("todoInput");
-      const addBtn = document.getElementById("addBtn");
+      this.todoItem = document.getElementById("todoInput");
+      this.addBtn = document.getElementById("addBtn");
+
       addBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        const todoListItem = todoItem.value;
+        const todoListItem = this.todoItem.value;
+        console.log(todoListItem);
         if (todoListItem) {
           this.todoArr.push({
             seq: this.todoArr.length,
             content: todoListItem,
           });
-          todoItem.value = "";
+
           this.renderTodo();
         } else {
           alert("내용을 입력하세요");
         }
+        this.todoItem.value = "";
       });
     }
   }
 
   renderTodo() {
-    const todoList = document.getElementById("todoList");
+    this.todoList = document.getElementById("todoList");
     if (todoList) {
       todoList.innerHTML = this.todoArr
         .map(
@@ -60,22 +84,6 @@ export default class Todo {
       })
     );
   }
-
-  setContent() {
-    const content = `<h1>Todo</h1>
-    <section>
-      <form>
-        <input id='todoInput' type='text' placeholder='todo 입력' autofocus='true'/>
-        <button id='addBtn'>추가</button>
-      </form>
-      <ul id='todoList'>
-      
-      </ul>
-    </section>
-    `;
-
-    return content;
-  }
 }
 
-export const todoPage = new Todo()
+export const todoPage = new Todo();
