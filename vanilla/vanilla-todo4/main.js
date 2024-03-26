@@ -3,7 +3,9 @@ import { auth } from "./utils/auth";
 import { todoPage } from "./pages/Todo";
 import { header } from "./components/Header";
 
-const $app = document.querySelector("#app");
+export const $app = document.querySelector("#app");
+export const $header = document.createElement("header");
+export const $body = document.createElement("main");
 
 export default class Main {
   constructor() {
@@ -17,8 +19,8 @@ export default class Main {
     $app.innerHTML = "";
     router.rendering(window.location.pathname);
     header.changePathname();
-    auth.login();
-    auth.logout();
+    // auth.login();
+    // auth.logout();
     todoPage.addTodo();
     todoPage.renderTodo();
   }

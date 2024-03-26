@@ -1,3 +1,5 @@
+import { $app, $body } from "../main";
+
 export default class Login {
   constructor() {}
   render() {}
@@ -16,7 +18,9 @@ export default class Login {
     </form>
     `;
 
-    return content;
+    $body.innerHTML = content;
+    console.log($body.innerHTML);
+    $app.appendChild($body);
   }
 }
 

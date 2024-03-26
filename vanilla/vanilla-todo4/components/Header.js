@@ -1,4 +1,4 @@
-import Main from "../main";
+import Main, { $app, $header } from "../main";
 import LocalStorageUtil from "../utils/localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();
@@ -13,13 +13,14 @@ class Header {
 
   setContent() {
     const isAccept = LocalStorageAction.storage("get", "isAccept");
+
     if (isAccept === "true") {
       const content = `
       <ul>
       <li id='logoutBtn' class='menuItem'>Logout</li>
       </ul>
       `;
-      return content;
+      $header.innerHTML = content;
     } else {
       const content = `
       <ul>
@@ -27,8 +28,9 @@ class Header {
       <li class="menuItem">Login</li>
       </ul>
       `;
-      return content;
+      $header.innerHTML = content;
     }
+    $app.appendChild($header);
   }
 
   changePathname() {
