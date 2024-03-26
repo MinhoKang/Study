@@ -17,16 +17,14 @@ export default class Main {
     });
   }
 
-  async render() {
+  render() {
     $app.innerHTML = "";
-    await router.rendering(window.location.pathname);
-    await header.changePathname();
-    await auth.login();
-    await auth.logout();
-    // todoClass.addTodo();
-
-    await todoClass.addTodo();
-    await todoClass.renderTodo();
+    router.rendering(window.location.pathname);
+    header.changePathname();
+    // auth.login();
+    auth.logout();
+    todoClass.addTodo();
+    todoClass.renderTodo();
   }
 }
 
