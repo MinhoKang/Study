@@ -13,7 +13,7 @@ const routes = {
 
 const $app = document.querySelector("#app");
 
-export default class Router {
+class Router {
   rendering(pathName) {
     const PageComponent = routes[pathName.toLowerCase()] || routes[404];
     // const page = new PageComponent();
@@ -31,3 +31,5 @@ export default class Router {
     $app.appendChild($header);
   }
 }
+
+export const router = new Router();

@@ -1,5 +1,4 @@
 import Main from "../main";
-import Auth from "../utils/auth";
 import LocalStorageUtil from "../utils/localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();

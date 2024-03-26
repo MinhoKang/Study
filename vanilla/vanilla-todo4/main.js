@@ -1,12 +1,9 @@
-import Router from "./router";
-import Auth from "./utils/auth";
-import Todo from "./pages/Todo";
+import { router } from "./router";
+import { auth } from "./utils/auth";
+import { todoPage } from "./pages/Todo";
 import { header } from "./components/Header";
 
 const $app = document.querySelector("#app");
-const auth = new Auth();
-const todoClass = new Todo();
-const router = new Router();
 
 export default class Main {
   constructor() {
@@ -22,8 +19,8 @@ export default class Main {
     header.changePathname();
     auth.login();
     auth.logout();
-    todoClass.addTodo();
-    todoClass.renderTodo();
+    todoPage.addTodo();
+    todoPage.renderTodo();
   }
 }
 

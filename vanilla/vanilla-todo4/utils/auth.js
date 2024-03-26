@@ -4,7 +4,7 @@ import LocalStorageUtil from "./localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();
 
-export default class Auth {
+class Auth {
   logout() {
     if (LocalStorageAction.storage("get", "isAccept") === "true") {
       const logoutBtn = document.getElementById("logoutBtn");
@@ -48,3 +48,5 @@ export default class Auth {
     }
   }
 }
+
+export const auth = new Auth();
