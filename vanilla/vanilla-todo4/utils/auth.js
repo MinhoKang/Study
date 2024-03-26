@@ -17,7 +17,7 @@ export default class Auth {
     }
   }
 
-  handleSubmit() {
+  login() {
     if (window.location.pathname === "/login") {
       const loginBtn = document.getElementById("loginBtn");
       loginBtn.addEventListener("click", async (e) => {
@@ -37,12 +37,7 @@ export default class Auth {
               window.history.pushState({}, "", "/todo");
             })
             .then((response) => {
-              console.log("메인 체인지");
               new Main().render();
-            })
-            .then((response) => {
-              console.log("object");
-              new Header().render();
             })
             .catch((error) => {
               console.log(new Error());

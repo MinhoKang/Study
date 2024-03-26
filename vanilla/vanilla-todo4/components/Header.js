@@ -1,4 +1,5 @@
 import Main from "../main";
+import Auth from "../utils/auth";
 import LocalStorageUtil from "../utils/localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();
@@ -6,12 +7,13 @@ const LocalStorageAction = new LocalStorageUtil();
 export default class Header {
   constructor() {
     this.isAccept = LocalStorageAction.storage("get", "isAccept") === "true";
-
     LocalStorageAction.storage("set", "isAccept", this.isAccept);
   }
+
   render() {
     return this.setContent();
   }
+
   setContent() {
     const isAccept = LocalStorageAction.storage("get", "isAccept");
     if (isAccept === "true") {

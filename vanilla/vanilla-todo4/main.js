@@ -1,7 +1,7 @@
 import Header from "./components/Header";
 import Router from "./router";
 import Auth from "./utils/auth";
-import Todo from "./utils/todo";
+import Todo from "./pages/Todo";
 
 const $app = document.querySelector("#app");
 const header = new Header();
@@ -11,16 +11,22 @@ const router = new Router();
 
 export default class Main {
   constructor() {
-    window.onpopstate = () => this.render();
+    // window.onpopstate = () => this.render();
+    window.addEventListener("popstate", () => {
+      this.render();
+    });
   }
 
-  render() {
+  async render() {
     $app.innerHTML = "";
-    router.rendering(window.location.pathname);
-    header.changePathname();
-    auth.handleSubmit();
-    auth.logout();
-    todoClass.addTodo();
+    await router.rendering(window.location.pathname);
+    await header.changePathname();
+    await auth.login();
+    await auth.logout();
+    // todoClass.addTodo();
+
+    await todoClass.addTodo();
+    await todoClass.renderTodo();
   }
 }
 
