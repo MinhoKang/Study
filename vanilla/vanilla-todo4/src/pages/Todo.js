@@ -25,7 +25,6 @@ export default class Todo {
         <button id='addBtn'>추가</button>
       </form>
       <ul id='todoList'>
-      
       </ul>
     </section>
     `;
