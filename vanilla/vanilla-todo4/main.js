@@ -1,10 +1,9 @@
-import Header from "./components/Header";
 import Router from "./router";
 import Auth from "./utils/auth";
 import Todo from "./pages/Todo";
+import { header } from "./components/Header";
 
 const $app = document.querySelector("#app");
-const header = new Header();
 const auth = new Auth();
 const todoClass = new Todo();
 const router = new Router();

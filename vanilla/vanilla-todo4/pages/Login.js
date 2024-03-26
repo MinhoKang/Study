@@ -1,10 +1,6 @@
 export default class Login {
-  constructor() {
-    
-  }
-  render() {
-
-  }
+  constructor() {}
+  render() {}
   setContent() {
     const content = `<h1>Login</h1>
     <form>
@@ -23,3 +19,5 @@ export default class Login {
     return content;
   }
 }
+
+export const loginPage = new Login();

@@ -4,15 +4,13 @@ import LocalStorageUtil from "../utils/localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();
 
-export default class Header {
+class Header {
   constructor() {
     this.isAccept = LocalStorageAction.storage("get", "isAccept") === "true";
     LocalStorageAction.storage("set", "isAccept", this.isAccept);
   }
 
-  render() {
-    return this.setContent();
-  }
+  render() {}
 
   setContent() {
     const isAccept = LocalStorageAction.storage("get", "isAccept");
@@ -44,3 +42,5 @@ export default class Header {
     });
   }
 }
+
+export const header = new Header();

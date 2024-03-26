@@ -1,9 +1,10 @@
-export default class Home {
+class Home {
   constructor() {}
-  render() {
-  }
+  render() {}
   setContent() {
     const content = `<h1>Home</h1>`;
     return content;
   }
 }
+
+export const homePage = new Home();

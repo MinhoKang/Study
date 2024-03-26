@@ -1,4 +1,3 @@
-import Header from "../components/Header";
 import account from "../json/account.json" assert { type: "json" };
 import Main from "../main";
 import LocalStorageUtil from "./localStorage";

@@ -77,3 +77,5 @@ export default class Todo {
     return content;
   }
 }
+
+export const todoPage = new Todo()
