@@ -1,11 +1,13 @@
 import { $app, $body } from "../main";
+import { auth } from "../utils/auth";
 
 export default class Login {
+  loginBtn;
+  id;
+  password;
   constructor() {}
   render() {
     // this.setContent();
-    this.loginBtn = document.querySelector("#loginBtn");
-    console.log(this.loginBtn);
   }
   setContent() {
     const content = `<h1>Login</h1>
@@ -24,7 +26,21 @@ export default class Login {
 
     $body.innerHTML = content;
     $app.appendChild($body);
-    this.render();
+    // this.render();
+    this.isAuth();
+  }
+
+  isAuth() {
+    this.loginBtn = document.querySelector("#loginBtn");
+    this.loginBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const id = await document.querySelector("#id").value;
+      const password = await document.querySelector("#password").value;
+      console.log(id);
+      console.log(password);
+      await auth.login(id, password);
+    });
+    console.log(this.loginBtn);
   }
 }
 
