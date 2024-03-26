@@ -2,7 +2,9 @@ import { $app } from "../main";
 
 class Error {
   constructor() {}
-  render() {}
+  render() {
+    this.setContent();
+  }
   setContent() {
     const content = `<h1>Error</h1>`;
     const $body = document.createElement("main");

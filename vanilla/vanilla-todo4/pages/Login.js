@@ -1,4 +1,4 @@
-import  { $app, $body, main } from "../main";
+import { $app, $body, main } from "../main";
 import { auth } from "../utils/auth";
 
 export default class Login {
@@ -7,7 +7,8 @@ export default class Login {
   password;
   constructor() {}
   render() {
-    // this.setContent();
+    this.setContent();
+    this.handleLogin();
   }
   setContent() {
     const content = `<h1>Login</h1>
@@ -27,7 +28,7 @@ export default class Login {
     $body.innerHTML = content;
     $app.appendChild($body);
     // this.render();
-    this.handleLogin();
+    // this.handleLogin();
   }
 
   handleLogin() {

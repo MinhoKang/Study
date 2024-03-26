@@ -12,6 +12,11 @@ export default class Todo {
     this.todoArr = [];
   }
 
+  render() {
+    this.setContent();
+    this.addTodo();
+  }
+
   setContent() {
     const content = `<h1>Todo</h1>
     <section>
@@ -27,7 +32,7 @@ export default class Todo {
 
     $body.innerHTML = content;
     $app.appendChild($body);
-    this.addTodo();
+    // this.addTodo();
   }
 
   addTodo() {

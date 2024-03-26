@@ -2,7 +2,9 @@ import { $app, $body } from "../main";
 
 class Home {
   constructor() {}
-  render() {}
+  render() {
+    this.setContent()
+  }
   setContent() {
     const content = `<h1>Home</h1>`;
 

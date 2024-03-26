@@ -12,6 +12,12 @@ class Header {
     // this.setContent();
   }
 
+  render() {
+    this.setContent();
+    this.handleLogout();
+    this.changePathname();
+  }
+
   setContent() {
     let isAccept = LocalStorageAction.storage("get", "isAccept");
 
@@ -32,8 +38,6 @@ class Header {
       $header.innerHTML = content;
     }
     $app.appendChild($header);
-    this.handleLogout();
-    this.changePathname();
   }
 
   handleLogout() {
