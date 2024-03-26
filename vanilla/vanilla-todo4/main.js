@@ -7,7 +7,7 @@ export const $app = document.querySelector("#app");
 export const $header = document.createElement("header");
 export const $body = document.createElement("main");
 
-export default class Main {
+class Main {
   constructor() {
     // window.onpopstate = () => this.render();
     window.addEventListener("popstate", () => {
@@ -18,17 +18,14 @@ export default class Main {
   render() {
     $app.innerHTML = "";
     router.rendering(window.location.pathname);
-    header.changePathname();
-    // auth.login();
     // auth.logout();
     todoPage.addTodo();
-    todoPage.renderTodo();
   }
 }
 
-new Main().render();
+export const main = new Main();
 
-
+main.render();
 
 // 로그인 구현
 // TODO: 로그인 FORM을 구현하고 유저가 입력한 값을 상태를 관리하여,

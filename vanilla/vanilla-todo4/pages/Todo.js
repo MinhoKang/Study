@@ -1,4 +1,4 @@
-import Main, { $app, $body } from "../main";
+import { $app, $body } from "../main";
 import LocalStorageUtil from "../utils/localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();

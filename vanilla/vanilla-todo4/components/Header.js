@@ -1,18 +1,19 @@
-import Main, { $app, $header } from "../main";
+import { $app, $header, main } from "../main";
+import { auth } from "../utils/auth";
 import LocalStorageUtil from "../utils/localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();
 
 class Header {
+  logoutBtn;
   constructor() {
-    this.isAccept = LocalStorageAction.storage("get", "isAccept") === "true";
-    LocalStorageAction.storage("set", "isAccept", this.isAccept);
+    // this.isAccept = LocalStorageAction.storage("get", "isAccept") === "true";
+    // LocalStorageAction.storage("set", "isAccept", this.isAccept);
+    // this.setContent();
   }
 
-  render() {}
-
   setContent() {
-    const isAccept = LocalStorageAction.storage("get", "isAccept");
+    let isAccept = LocalStorageAction.storage("get", "isAccept");
 
     if (isAccept === "true") {
       const content = `
@@ -31,14 +32,33 @@ class Header {
       $header.innerHTML = content;
     }
     $app.appendChild($header);
+
+    this.handleLogout();
+
+    this.changePathname();
+  }
+
+  handleLogout() {
+    this.logoutBtn = document.querySelector("#logoutBtn");
+    if (this.logoutBtn) {
+      this.logoutBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        await auth.logout();
+        await main.render();
+      });
+    }
   }
 
   changePathname() {
     document.querySelectorAll(".menuItem").forEach((item) => {
       item.addEventListener("click", (e) => {
-        const pathname = e.target.innerText.toLowerCase();
+        let pathname = e.target.innerText.toLowerCase();
+        if (pathname === "logout") {
+          pathname = "home";
+        }
+        console.log(pathname);
         window.history.pushState({}, "", pathname);
-        new Main().render();
+        main.render();
       });
     });
   }

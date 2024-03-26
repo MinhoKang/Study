@@ -16,17 +16,18 @@ class Router {
     const PageComponent = routes[pathName.toLowerCase()] || routes[404];
     this.setHeader(header);
     this.setBody(PageComponent);
+  }
 
-  }
-  setBody(page) {
-    const $body = document.createElement("main");
-    $body.innerHTML = page.setContent();
-    // $app.appendChild($body);
-  }
   setHeader(page) {
     const $header = document.createElement("header");
     $header.innerHTML = page.setContent();
     // $app.appendChild($header);
+  }
+
+  setBody(page) {
+    const $body = document.createElement("main");
+    $body.innerHTML = page.setContent();
+    // $app.appendChild($body);
   }
 }
 

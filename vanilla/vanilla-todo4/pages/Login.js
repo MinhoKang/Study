@@ -1,4 +1,4 @@
-import Main, { $app, $body } from "../main";
+import  { $app, $body, main } from "../main";
 import { auth } from "../utils/auth";
 
 export default class Login {
@@ -37,7 +37,7 @@ export default class Login {
       const id = await document.querySelector("#id").value;
       const password = await document.querySelector("#password").value;
       await auth.login(id, password);
-      await new Main().render();
+      await main.render();
     });
   }
 }

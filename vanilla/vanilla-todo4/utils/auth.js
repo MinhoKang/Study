@@ -1,19 +1,15 @@
 import account from "../json/account.json" assert { type: "json" };
-import Main from "../main";
+import { main } from "../main";
 import LocalStorageUtil from "./localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();
 
 class Auth {
-  logout() {
-    if (LocalStorageAction.storage("get", "isAccept") === "true") {
-      const logoutBtn = document.getElementById("logoutBtn");
-      logoutBtn.addEventListener("click", () => {
-        LocalStorageAction.storage("set", "isAccept", false);
-        window.history.pushState({}, "", "/home");
-        new Main().render();
-      });
-    }
+  async logout() {
+    console.log("tfgod");
+    await LocalStorageAction.storage("set", "isAccept", false);
+    console.log(localStorage.getItem("isAccept"));
+    await window.history.pushState({}, "", "/home");
   }
 
   async login(id, password) {
