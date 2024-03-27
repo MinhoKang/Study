@@ -1,4 +1,5 @@
 import { $app, $header, main } from "../main";
+import { TodoItem, store } from "../store/store";
 import { auth } from "../utils/auth";
 import LocalStorageUtil from "../utils/localStorage";
 
@@ -6,10 +7,13 @@ const LocalStorageAction = new LocalStorageUtil();
 
 class Header {
   logoutBtn: Element | null | undefined;
+  todoLength: number;
+  todoLengthElement: Element | null | undefined;
+  // headerAppended: boolean;
+
   constructor() {
-    // this.isAccept = LocalStorageAction.storage("get", "isAccept") === "true";
-    // LocalStorageAction.storage("set", "isAccept", this.isAccept);
-    // this.setContent();
+    // this.headerAppended = false;
+    this.todoLength = 0;
   }
 
   render() {
@@ -20,11 +24,12 @@ class Header {
 
   setContent() {
     let isAccept = LocalStorageAction.storage("get", "isAccept");
-
-    if (isAccept === "true") {
+    // let todoArr = store.get("todoArr");
+    if (isAccept === "true" && window.location.pathname === "/todo") {
       const content = `
       <ul>
       <li id='logoutBtn' class='menuItem'>Logout</li>
+      <p id='todoLength'>${this.todoLength}</p>
       </ul>
       `;
       $header.innerHTML = content;
@@ -38,7 +43,7 @@ class Header {
       $header.innerHTML = content;
     }
     if ($app) {
-      $app.appendChild($header);
+      $app.insertBefore($header, $app.firstChild);
     }
   }
 
@@ -67,6 +72,14 @@ class Header {
         }
       });
     });
+  }
+  setTodoListLength() {
+    let todoList: TodoItem[] = store.get("todoArr");
+    this.todoLength = todoList.length;
+    this.todoLengthElement = document.getElementById("todoLength");
+    if (this.todoLengthElement) {
+      this.todoLengthElement.textContent = this.todoLength.toString();
+    }
   }
 }
 

@@ -1,4 +1,5 @@
 import { $app, $body } from "../main";
+import { TodoItem, store } from "../store/store";
 import LocalStorageUtil from "../utils/localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();
@@ -31,6 +32,7 @@ export default class Todo {
     `;
 
     $body.innerHTML = content;
+
     if ($app) {
       $app.appendChild($body);
     }
@@ -51,11 +53,12 @@ export default class Todo {
             if (this.todoItem) {
               const todoListItem = this.todoItem.value;
               if (todoListItem) {
-                this.todoArr.push({
-                  seq: this.todoArr.length,
-                  content: todoListItem,
-                });
-
+                // this.todoArr.push({
+                //   seq: this.todoArr.length,
+                //   content: todoListItem,
+                // });
+                store.set("todoArr", todoListItem, this.renderTodo.bind(this));
+                console.log(store.data.todoArr);
                 this.renderTodo();
                 this.todoItem.value = "";
               } else {
@@ -71,9 +74,10 @@ export default class Todo {
   renderTodo() {
     this.todoList = document.getElementById("todoList");
     if (this.todoList) {
-      this.todoList.innerHTML = this.todoArr
+      this.todoList.innerHTML = store
+        .get("todoArr")
         .map(
-          (item) =>
+          (item: TodoItem) =>
             `<li seq=${item.seq}>${item.content}</li><button class='removeBtn' seq=${item.seq}>삭제</button>`
         )
         .join("");
@@ -89,11 +93,12 @@ export default class Todo {
         if (target instanceof HTMLElement) {
           const seq = target.getAttribute("seq");
           if (seq) {
-            const seqNum: number = parseInt(seq);
-            this.todoArr.splice(seqNum, 1);
-            for (let i = seqNum; i < this.todoArr.length; i++) {
-              this.todoArr[i].seq = i;
-            }
+            // const seqNum: number = parseInt(seq);
+            // this.todoArr.splice(seqNum, 1);
+            // for (let i = seqNum; i < this.todoArr.length; i++) {
+            //   this.todoArr[i].seq = i;
+            // }
+            store.remove("todoArr", seq, this.renderTodo.bind(this));
             this.renderTodo();
           }
         }
