@@ -5,7 +5,7 @@ import LocalStorageUtil from "../utils/localStorage";
 const LocalStorageAction = new LocalStorageUtil();
 
 class Header {
-  logoutBtn;
+  logoutBtn: Element | null | undefined;
   constructor() {
     // this.isAccept = LocalStorageAction.storage("get", "isAccept") === "true";
     // LocalStorageAction.storage("set", "isAccept", this.isAccept);
@@ -37,13 +37,15 @@ class Header {
       `;
       $header.innerHTML = content;
     }
-    $app.appendChild($header);
+    if ($app) {
+      $app.appendChild($header);
+    }
   }
 
   handleLogout() {
     this.logoutBtn = document.querySelector("#logoutBtn");
     if (this.logoutBtn) {
-      this.logoutBtn.addEventListener("click", async (e) => {
+      this.logoutBtn.addEventListener("click", async (e: Event) => {
         e.preventDefault();
         await auth.logout();
         await main.render();
@@ -53,13 +55,16 @@ class Header {
 
   changePathname() {
     document.querySelectorAll(".menuItem").forEach((item) => {
-      item.addEventListener("click", (e) => {
-        let pathname = e.target.innerText.toLowerCase();
-        if (pathname === "logout") {
-          pathname = "home";
+      item.addEventListener("click", (e: Event) => {
+        e.preventDefault();
+        if (item instanceof HTMLElement) {
+          let pathname = item.innerText.toLowerCase();
+          if (pathname === "logout") {
+            pathname = "home";
+          }
+          window.history.pushState({}, "", pathname);
+          main.render();
         }
-        window.history.pushState({}, "", pathname);
-        main.render();
       });
     });
   }

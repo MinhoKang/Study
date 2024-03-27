@@ -2,10 +2,10 @@ import { $app, $body, main } from "../main";
 import { auth } from "../utils/auth";
 
 export default class Login {
-  loginBtn;
-  id;
-  password;
+  loginBtn: Element | null | undefined;
+
   constructor() {}
+
   render() {
     this.setContent();
     this.handleLogin();
@@ -26,20 +26,30 @@ export default class Login {
     `;
 
     $body.innerHTML = content;
-    $app.appendChild($body);
-    // this.render();
-    // this.handleLogin();
+    if ($app) {
+      $app.appendChild($body);
+    }
   }
 
   handleLogin() {
     this.loginBtn = document.querySelector("#loginBtn");
-    this.loginBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      const id = await document.querySelector("#id").value;
-      const password = await document.querySelector("#password").value;
-      await auth.login(id, password);
-      await main.render();
-    });
+    if (this.loginBtn instanceof HTMLButtonElement) {
+      this.loginBtn.addEventListener("click", async (e: Event) => {
+        e.preventDefault();
+        const idInput = await document.querySelector("#id");
+        const passwordInput = await document.querySelector("#password");
+
+        if (
+          idInput instanceof HTMLInputElement &&
+          passwordInput instanceof HTMLInputElement
+        ) {
+          const id = idInput.value;
+          const password = passwordInput.value;
+          await auth.login(id, password);
+          await main.render();
+        }
+      });
+    }
   }
 }
 
