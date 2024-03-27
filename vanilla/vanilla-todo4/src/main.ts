@@ -13,7 +13,7 @@ class Main {
   }
 
   render() {
-    if ($app !== null) {
+    if ($app) {
       $app.innerHTML = "";
       router.rendering(window.location.pathname);
     }

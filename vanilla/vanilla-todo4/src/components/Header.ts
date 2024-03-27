@@ -1,4 +1,5 @@
 import { $app, $header, main } from "../main";
+import { todoSlice } from "../store/todoSlice";
 import { auth } from "../utils/auth";
 import LocalStorageUtil from "../utils/localStorage";
 
@@ -6,10 +7,20 @@ const LocalStorageAction = new LocalStorageUtil();
 
 class Header {
   logoutBtn: Element | null | undefined;
+  headerAppended: boolean;
+
   constructor() {
-    // this.isAccept = LocalStorageAction.storage("get", "isAccept") === "true";
-    // LocalStorageAction.storage("set", "isAccept", this.isAccept);
-    // this.setContent();
+    this.headerAppended = false;
+    // this.handleTodoArrChange = this.handleTodoArrChange.bind(this);
+    document.addEventListener(
+      "todoArrChange",
+      this.handleTodoArrChange.bind(this) as EventListener
+    );
+  }
+
+  handleTodoArrChange(e: CustomEvent) {
+    const todoArrLength = e.detail.length;
+    this.setContent(todoArrLength);
   }
 
   render() {
@@ -18,13 +29,14 @@ class Header {
     this.changePathname();
   }
 
-  setContent() {
+  setContent(todoArrLength?: string) {
     let isAccept = LocalStorageAction.storage("get", "isAccept");
 
-    if (isAccept === "true") {
+    if (isAccept === "true" && window.location.pathname === "/todo") {
       const content = `
       <ul>
       <li id='logoutBtn' class='menuItem'>Logout</li>
+      <div>${todoArrLength ? todoArrLength : todoSlice.todoArr.length}</div>
       </ul>
       `;
       $header.innerHTML = content;
@@ -38,7 +50,8 @@ class Header {
       $header.innerHTML = content;
     }
     if ($app) {
-      $app.appendChild($header);
+      // $app.appendChild($header);
+      $app.insertBefore($header, $app.firstChild);
     }
   }
 
