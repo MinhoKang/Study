@@ -41,28 +41,30 @@ export default class Todo {
       window.location.pathname === "/todo" &&
       LocalStorageAction.storage("get", "isAccept")
     ) {
-      this.todoItem = document.querySelector("#todoInput") as HTMLInputElement;
-      this.addBtn = document.querySelector("#addBtn") as HTMLButtonElement;
+      this.todoItem = document.querySelector("#todoInput");
+      this.addBtn = document.querySelector("#addBtn");
 
-      this.addBtn.addEventListener("click", (e: Event) => {
-        if (this.todoItem instanceof HTMLInputElement) {
-          e.preventDefault();
-          if (this.todoItem) {
-            const todoListItem = this.todoItem.value;
-            if (todoListItem) {
-              this.todoArr.push({
-                seq: this.todoArr.length,
-                content: todoListItem,
-              });
+      if (this.addBtn instanceof HTMLButtonElement) {
+        this.addBtn.addEventListener("click", (e: Event) => {
+          if (this.todoItem instanceof HTMLInputElement) {
+            e.preventDefault();
+            if (this.todoItem) {
+              const todoListItem = this.todoItem.value;
+              if (todoListItem) {
+                this.todoArr.push({
+                  seq: this.todoArr.length,
+                  content: todoListItem,
+                });
 
-              this.renderTodo();
-              this.todoItem.value = "";
-            } else {
-              alert("내용을 입력하세요");
+                this.renderTodo();
+                this.todoItem.value = "";
+              } else {
+                alert("내용을 입력하세요");
+              }
             }
           }
-        }
-      });
+        });
+      }
     }
   }
 
