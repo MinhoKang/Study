@@ -12,12 +12,14 @@ export default class Todo {
 
   constructor() {
     // this.todoArr = [];
-    store2.addObserver(this.renderTodo.bind(this));
+    store2.addObserver(this.render.bind(this));
   }
 
   render() {
     this.setContent();
+    this.renderTodo();
     this.addTodo();
+    this.removeTodo();
   }
 
   setContent() {
@@ -83,12 +85,10 @@ export default class Todo {
             `<li>${item.content}<button class='removeBtn' seq='${item.seq}'>삭제</button></li>`
         )
         .join("");
-      this.addRemoveTodoEventListeners();
-      // this.removeTodo();
     }
   }
 
-  addRemoveTodoEventListeners() {
+  removeTodo() {
     const removeBtns = document.querySelectorAll(".removeBtn");
     removeBtns.forEach((removeBtn) => {
       removeBtn.addEventListener("click", (e: Event) => {
