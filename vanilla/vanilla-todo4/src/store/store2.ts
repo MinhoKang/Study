@@ -3,8 +3,8 @@ interface TodoItem {
   content: string;
 }
 
-class Store2 {
-  observers: Function[];
+export class Store2 {
+  observers: any[];
   todoArr: TodoItem[];
 
   constructor() {
@@ -12,7 +12,7 @@ class Store2 {
     this.todoArr = [];
   }
 
-  addObserver(observer: Function) {
+  addObserver(observer: any) {
     this.observers.push(observer);
   }
 
@@ -22,7 +22,8 @@ class Store2 {
 
   notifyObservers() {
     this.observers.forEach((observer) => {
-      observer();
+      console.log(observer);
+      observer.render();
     });
   }
 

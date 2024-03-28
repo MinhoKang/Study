@@ -1,5 +1,5 @@
+import { store2 } from "./../store/store2";
 import { $app, $header, main } from "../main";
-import { store2 } from "../store/store2";
 import { auth } from "../utils/auth";
 import LocalStorageUtil from "../utils/localStorage";
 
@@ -7,15 +7,10 @@ const LocalStorageAction = new LocalStorageUtil();
 
 class Header {
   logoutBtn: Element | null | undefined;
-  todoLength: number;
   todoLengthElement: Element | null | undefined;
-  // headerAppended: boolean;
 
   constructor() {
-    // this.headerAppended = false;
-    // this.todoLength = 0;
-    this.todoLength = store2.getTodoItems().length;
-    store2.addObserver(this.updateTodoLength.bind(this));
+    store2.addObserver(this);
   }
 
   render() {
@@ -24,22 +19,13 @@ class Header {
     this.changePathname();
   }
 
-  updateTodoLength() {
-    const todoItems = store2.getTodoItems();
-    this.todoLengthElement = document.getElementById("todoLength");
-    if (this.todoLengthElement) {
-      this.todoLengthElement.textContent = todoItems.length.toString();
-    }
-  }
-
   setContent() {
     let isAccept = LocalStorageAction.storage("get", "isAccept");
-    // let todoArr = store.get("todoArr");
     if (isAccept === "true" && window.location.pathname === "/todo") {
       const content = `
       <ul>
       <li id='logoutBtn' class='menuItem'>Logout</li>
-      <p id='todoLength'>${this.todoLength}</p>
+      <p id='todoLength'>${store2.getTodoItems().length}</p>
       </ul>
       `;
       $header.innerHTML = content;
@@ -83,16 +69,6 @@ class Header {
       });
     });
   }
-
-  // setTodoListLength() {
-  //   // let todoList: TodoItem[] = store.get("todoArr");\
-  //   let todoList: TodoItem[] = store2.getTodoItems();
-  //   // this.todoLength = todoList.length;
-  //   this.todoLengthElement = document.getElementById("todoLength");
-  //   if (this.todoLengthElement) {
-  //     this.todoLengthElement.textContent = this.todoLength.toString();
-  //   }
-  // }
 }
 
 export const header = new Header();
