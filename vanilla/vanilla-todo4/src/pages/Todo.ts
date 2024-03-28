@@ -1,17 +1,19 @@
 import { $app, $body } from "../main";
 import { TodoItem, store } from "../store/store";
+import { store2 } from "../store/store2";
 import LocalStorageUtil from "../utils/localStorage";
 
 const LocalStorageAction = new LocalStorageUtil();
 
 export default class Todo {
-  todoArr: { seq: number; content: string }[];
-  todoItem: Element | null | undefined;
-  addBtn: Element | null | undefined;
+  // todoArr: { seq: number; content: string }[];
+  // todoItem: Element | null | undefined;
+  // addBtn: Element | null | undefined;
   todoList: Element | null | undefined;
 
   constructor() {
-    this.todoArr = [];
+    // this.todoArr = [];
+    // store2.addObserver(this.renderTodo.bind(this));
   }
 
   render() {
@@ -43,24 +45,29 @@ export default class Todo {
       window.location.pathname === "/todo" &&
       LocalStorageAction.storage("get", "isAccept")
     ) {
-      this.todoItem = document.querySelector("#todoInput");
-      this.addBtn = document.querySelector("#addBtn");
+      // this.todoItem = document.querySelector("#todoInput");
+      // this.addBtn = document.querySelector("#addBtn");
 
-      if (this.addBtn instanceof HTMLButtonElement) {
-        this.addBtn.addEventListener("click", (e: Event) => {
-          if (this.todoItem instanceof HTMLInputElement) {
+      const addBtn = document.querySelector("#addBtn");
+      const todoInput = document.querySelector("#todoInput");
+
+      if (addBtn instanceof HTMLButtonElement) {
+        addBtn.addEventListener("click", (e: Event) => {
+          if (todoInput instanceof HTMLInputElement) {
             e.preventDefault();
-            if (this.todoItem) {
-              const todoListItem = this.todoItem.value;
+            if (todoInput) {
+              const todoListItem = todoInput.value;
               if (todoListItem) {
                 // this.todoArr.push({
                 //   seq: this.todoArr.length,
                 //   content: todoListItem,
                 // });
-                store.set("todoArr", todoListItem, this.renderTodo.bind(this));
-                console.log(store.data.todoArr);
+                store2.addTodoItem({
+                  seq: store2.todoArr.length,
+                  content: todoListItem,
+                });
                 this.renderTodo();
-                this.todoItem.value = "";
+                todoInput.value = "";
               } else {
                 alert("내용을 입력하세요");
               }
@@ -72,17 +79,33 @@ export default class Todo {
   }
 
   renderTodo() {
-    this.todoList = document.getElementById("todoList");
-    if (this.todoList) {
-      this.todoList.innerHTML = store
-        .get("todoArr")
+    const todoList = document.getElementById("todoList");
+    const todoItems = store2.getTodoItems();
+    if (todoList) {
+      todoList.innerHTML = todoItems
         .map(
-          (item: TodoItem) =>
-            `<li seq=${item.seq}>${item.content}</li><button class='removeBtn' seq=${item.seq}>삭제</button>`
+          (item) =>
+            `<li>${item.content}<button class='removeBtn' seq='${item.seq}'>삭제</button></li>`
         )
         .join("");
-      this.removeTodo();
+      this.addRemoveTodoEventListeners();
+      // this.removeTodo();
     }
+  }
+
+  addRemoveTodoEventListeners() {
+    const removeBtns = document.querySelectorAll(".removeBtn");
+    removeBtns.forEach((removeBtn) => {
+      removeBtn.addEventListener("click", (e: Event) => {
+        const seq = parseInt(
+          (e.target as HTMLElement).getAttribute("seq") || ""
+        );
+        if (!isNaN(seq)) {
+          store2.removeTodoItem(seq);
+          this.renderTodo();
+        }
+      });
+    });
   }
 
   removeTodo() {
@@ -98,7 +121,9 @@ export default class Todo {
             // for (let i = seqNum; i < this.todoArr.length; i++) {
             //   this.todoArr[i].seq = i;
             // }
-            store.remove("todoArr", seq, this.renderTodo.bind(this));
+            // store.remove("todoArr", seq, this.renderTodo.bind(this));
+            const seqNum = parseInt(seq);
+            store2.removeTodoItem(seqNum);
             this.renderTodo();
           }
         }

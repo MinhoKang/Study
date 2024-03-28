@@ -1,5 +1,6 @@
 import { $app, $header, main } from "../main";
 import { TodoItem, store } from "../store/store";
+import { store2 } from "../store/store2";
 import { auth } from "../utils/auth";
 import LocalStorageUtil from "../utils/localStorage";
 
@@ -13,13 +14,23 @@ class Header {
 
   constructor() {
     // this.headerAppended = false;
-    this.todoLength = 0;
+    // this.todoLength = 0;
+    this.todoLength = store2.getTodoItems().length;
+    store2.addObserver(this.updateTodoLength.bind(this));
   }
 
   render() {
     this.setContent();
     this.handleLogout();
     this.changePathname();
+  }
+
+  updateTodoLength() {
+    const todoItems = store2.getTodoItems();
+    this.todoLengthElement = document.getElementById("todoLength");
+    if (this.todoLengthElement) {
+      this.todoLengthElement.textContent = todoItems.length.toString();
+    }
   }
 
   setContent() {
@@ -74,8 +85,9 @@ class Header {
     });
   }
   setTodoListLength() {
-    let todoList: TodoItem[] = store.get("todoArr");
-    this.todoLength = todoList.length;
+    // let todoList: TodoItem[] = store.get("todoArr");\
+    let todoList: TodoItem[] = store2.getTodoItems();
+    // this.todoLength = todoList.length;
     this.todoLengthElement = document.getElementById("todoLength");
     if (this.todoLengthElement) {
       this.todoLengthElement.textContent = this.todoLength.toString();
