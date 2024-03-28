@@ -1,5 +1,4 @@
 import { $app, $header, main } from "../main";
-import { TodoItem, store } from "../store/store";
 import { store2 } from "../store/store2";
 import { auth } from "../utils/auth";
 import LocalStorageUtil from "../utils/localStorage";
@@ -84,15 +83,16 @@ class Header {
       });
     });
   }
-  setTodoListLength() {
-    // let todoList: TodoItem[] = store.get("todoArr");\
-    let todoList: TodoItem[] = store2.getTodoItems();
-    // this.todoLength = todoList.length;
-    this.todoLengthElement = document.getElementById("todoLength");
-    if (this.todoLengthElement) {
-      this.todoLengthElement.textContent = this.todoLength.toString();
-    }
-  }
+
+  // setTodoListLength() {
+  //   // let todoList: TodoItem[] = store.get("todoArr");\
+  //   let todoList: TodoItem[] = store2.getTodoItems();
+  //   // this.todoLength = todoList.length;
+  //   this.todoLengthElement = document.getElementById("todoLength");
+  //   if (this.todoLengthElement) {
+  //     this.todoLengthElement.textContent = this.todoLength.toString();
+  //   }
+  // }
 }
 
 export const header = new Header();

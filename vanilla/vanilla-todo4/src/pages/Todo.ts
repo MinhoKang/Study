@@ -1,5 +1,4 @@
 import { $app, $body } from "../main";
-import { TodoItem, store } from "../store/store";
 import { store2 } from "../store/store2";
 import LocalStorageUtil from "../utils/localStorage";
 
@@ -13,7 +12,7 @@ export default class Todo {
 
   constructor() {
     // this.todoArr = [];
-    // store2.addObserver(this.renderTodo.bind(this));
+    store2.addObserver(this.renderTodo.bind(this));
   }
 
   render() {
@@ -58,15 +57,11 @@ export default class Todo {
             if (todoInput) {
               const todoListItem = todoInput.value;
               if (todoListItem) {
-                // this.todoArr.push({
-                //   seq: this.todoArr.length,
-                //   content: todoListItem,
-                // });
                 store2.addTodoItem({
                   seq: store2.todoArr.length,
                   content: todoListItem,
                 });
-                this.renderTodo();
+                // this.renderTodo();
                 todoInput.value = "";
               } else {
                 alert("내용을 입력하세요");
@@ -102,34 +97,34 @@ export default class Todo {
         );
         if (!isNaN(seq)) {
           store2.removeTodoItem(seq);
-          this.renderTodo();
+          // this.renderTodo();
         }
       });
     });
   }
 
-  removeTodo() {
-    const removeBtns = document.querySelectorAll(".removeBtn");
-    removeBtns.forEach((removeBtn) =>
-      removeBtn.addEventListener("click", (e: Event) => {
-        const target = e.target;
-        if (target instanceof HTMLElement) {
-          const seq = target.getAttribute("seq");
-          if (seq) {
-            // const seqNum: number = parseInt(seq);
-            // this.todoArr.splice(seqNum, 1);
-            // for (let i = seqNum; i < this.todoArr.length; i++) {
-            //   this.todoArr[i].seq = i;
-            // }
-            // store.remove("todoArr", seq, this.renderTodo.bind(this));
-            const seqNum = parseInt(seq);
-            store2.removeTodoItem(seqNum);
-            this.renderTodo();
-          }
-        }
-      })
-    );
-  }
+  // removeTodo() {
+  //   const removeBtns = document.querySelectorAll(".removeBtn");
+  //   removeBtns.forEach((removeBtn) =>
+  //     removeBtn.addEventListener("click", (e: Event) => {
+  //       const target = e.target;
+  //       if (target instanceof HTMLElement) {
+  //         const seq = target.getAttribute("seq");
+  //         if (seq) {
+  //           // const seqNum: number = parseInt(seq);
+  //           // this.todoArr.splice(seqNum, 1);
+  //           // for (let i = seqNum; i < this.todoArr.length; i++) {
+  //           //   this.todoArr[i].seq = i;
+  //           // }
+  //           // store.remove("todoArr", seq, this.renderTodo.bind(this));
+  //           const seqNum = parseInt(seq);
+  //           store2.removeTodoItem(seqNum);
+  //           // this.renderTodo();
+  //         }
+  //       }
+  //     })
+  //   );
+  // }
 }
 
 export const todoPage = new Todo();
