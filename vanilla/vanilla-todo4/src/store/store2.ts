@@ -12,7 +12,7 @@ class Store2 {
     this.todoArr = [];
   }
 
-  addObserver(observer: any) {
+  addObserver(observer: Function) {
     this.observers.push(observer);
   }
 
