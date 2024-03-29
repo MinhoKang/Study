@@ -14,7 +14,7 @@ export class LoginPage {
     this.$app = $app;
   }
 
-  returnContent() {
+  returnContent(router: Router) {
     const content = `<h1>Login</h1>
     <form>
     <label for="id">
@@ -29,12 +29,12 @@ export class LoginPage {
     </form>
     `;
     this.$main.innerHTML = content;
-
+    this.handleLogin(router);
     return this.$main;
   }
 
-  handleLogin() {
-    this.loginBtn = document.querySelector("#loginBtn");
+  handleLogin(router: Router) {
+    this.loginBtn = this.$main.querySelector("#loginBtn");
     if (this.loginBtn instanceof HTMLButtonElement) {
       this.loginBtn.addEventListener(
         "click",
@@ -50,8 +50,7 @@ export class LoginPage {
             const id = idInput.value;
             const password = passwordInput.value;
             await auth.login(id, password);
-            // await main.render();
-            new Router(this.$app, this.store).render("/todo");
+            router.render(window.location.pathname);
           }
         }
       );

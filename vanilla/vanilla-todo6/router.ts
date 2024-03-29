@@ -49,14 +49,13 @@ export class Router {
 
       // 헤더 렌더링
       const header = new Header(this.$app, this.store);
-      this.$app.appendChild(header.returnContent());
-      header.menuClick(this);
+      this.$app.appendChild(header.returnContent(this));
 
       // 페이지 렌더링
 
       this.routes.forEach((page) => {
         if (pathName.toLowerCase() === page.path) {
-          this.$app.appendChild(page.component.returnContent());
+          this.$app.appendChild(page.component.returnContent(this));
 
           pageFound = true;
         }

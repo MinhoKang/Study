@@ -1,3 +1,4 @@
+import { Router } from "../../router";
 import { Store } from "../store/store";
 
 export class HomePage {
@@ -11,7 +12,7 @@ export class HomePage {
     this.store = store;
   }
 
-  returnContent() {
+  returnContent(router: Router) {
     const content = `<h1>Home</h1>`;
     this.$main.innerHTML = content;
 

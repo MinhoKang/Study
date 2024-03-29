@@ -1,3 +1,4 @@
+
 interface TodoItem {
   seq: number;
   content: string;
@@ -22,8 +23,7 @@ export class Store {
 
   notifyObservers() {
     this.observers.forEach((observer) => {
-      console.log(observer);
-      observer.render();
+      observer.returnContent();
     });
   }
 
@@ -41,3 +41,5 @@ export class Store {
     return this.todoArr;
   }
 }
+
+export const store = new Store();

@@ -1,4 +1,4 @@
-export class LocalStorageUtil {
+export class LocalStorageAction {
   storage(action: string, key: string, value?: boolean) {
     switch (action) {
       case "get":
