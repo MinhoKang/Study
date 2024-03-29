@@ -1,20 +1,24 @@
-import { auth } from "./../../../vanilla-todo4/src/utils/auth";
 import { Store } from "../store/store";
 import { Router } from "../../router";
+import { Auth } from "../../utils/auth";
+
+const auth = new Auth();
 
 export class LoginPage {
   store: Store;
   $app: HTMLElement;
   $main: HTMLElement;
   loginBtn: Element | null | undefined;
+  router: Router;
 
-  constructor($app: HTMLElement, store: Store) {
+  constructor($app: HTMLElement, store: Store, router: Router) {
     this.$main = document.createElement("main");
     this.store = store;
     this.$app = $app;
+    this.router = router;
   }
 
-  returnContent(router: Router) {
+  returnContent() {
     const content = `<h1>Login</h1>
     <form>
     <label for="id">
@@ -29,11 +33,11 @@ export class LoginPage {
     </form>
     `;
     this.$main.innerHTML = content;
-    this.handleLogin(router);
+    this.handleLogin();
     return this.$main;
   }
 
-  handleLogin(router: Router) {
+  handleLogin() {
     this.loginBtn = this.$main.querySelector("#loginBtn");
     if (this.loginBtn instanceof HTMLButtonElement) {
       this.loginBtn.addEventListener(
@@ -50,7 +54,7 @@ export class LoginPage {
             const id = idInput.value;
             const password = passwordInput.value;
             await auth.login(id, password);
-            router.render(window.location.pathname);
+            this.router.render(window.location.pathname);
           }
         }
       );

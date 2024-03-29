@@ -1,23 +1,24 @@
-import { router } from "./../../../vanilla-todo4/src/router";
-import LocalStorageUtil from "../../../vanilla-todo4/src/utils/localStorage";
 import { Router } from "../../router";
+import { LocalStorageAction } from "../../utils/localStorageAction";
 import { Store } from "../store/store";
 
-const LocalStorageAction = new LocalStorageUtil();
+const localStorageAction = new LocalStorageAction();
 
 export class TodoPage {
   store: Store;
   $app: HTMLElement;
   $main: HTMLElement;
+  router: Router;
 
-  constructor($app: HTMLElement, store: Store) {
+  constructor($app: HTMLElement, store: Store, router: Router) {
     this.$main = document.createElement("main");
     this.$app = $app;
     this.store = store;
+    this.router = router;
     this.store.addObserver(this);
   }
 
-  returnContent(router: Router) {
+  returnContent() {
     let content = `<h1>Todo</h1>
     <section>
       <form>
@@ -42,7 +43,7 @@ export class TodoPage {
   addTodo() {
     if (
       window.location.pathname === "/todo" &&
-      LocalStorageAction.storage("get", "isAccept")
+      localStorageAction.storage("get", "isAccept")
     ) {
       const addBtn = this.$main.querySelector("#addBtn");
       const todoInput = this.$main.querySelector("#todoInput");

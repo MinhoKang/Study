@@ -3,7 +3,7 @@ import { LocalStorageAction } from "./localStorageAction";
 
 const localStorageAction = new LocalStorageAction();
 
-class Auth {
+export class Auth {
   async logout() {
     await localStorageAction.storage("set", "isAccept", false);
     await window.history.pushState({}, "", "/home");
@@ -18,5 +18,3 @@ class Auth {
     }
   }
 }
-
-export const auth = new Auth();

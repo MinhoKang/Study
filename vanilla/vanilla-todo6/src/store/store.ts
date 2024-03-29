@@ -1,4 +1,3 @@
-
 interface TodoItem {
   seq: number;
   content: string;

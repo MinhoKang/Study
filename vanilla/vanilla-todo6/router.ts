@@ -19,15 +19,15 @@ export class Router {
     this.routes = [
       {
         path: "/home",
-        component: new HomePage(this.$app, this.store),
+        component: new HomePage(this.$app, this.store, this),
       },
       {
         path: "/login",
-        component: new LoginPage(this.$app, this.store),
+        component: new LoginPage(this.$app, this.store, this),
       },
       {
         path: "/todo",
-        component: new TodoPage(this.$app, this.store),
+        component: new TodoPage(this.$app, this.store, this),
       },
       {
         path: "404",
@@ -48,8 +48,8 @@ export class Router {
       this.$app.innerHTML = "";
 
       // 헤더 렌더링
-      const header = new Header(this.$app, this.store);
-      this.$app.appendChild(header.returnContent(this));
+      const header = new Header(this.$app, this.store, this);
+      this.$app.appendChild(header.returnContent());
 
       // 페이지 렌더링
 

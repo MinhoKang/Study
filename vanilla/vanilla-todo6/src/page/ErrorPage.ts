@@ -1,5 +1,3 @@
-import { Router } from "../../router";
-
 export class ErrorPage {
   $app: HTMLElement;
   $main: HTMLElement;
@@ -9,7 +7,7 @@ export class ErrorPage {
     this.$main = document.createElement("main");
   }
 
-  returnContent(router: Router) {
+  returnContent() {
     const content = `<h1>Error</h1>`;
     this.$main.innerHTML = content;
 
