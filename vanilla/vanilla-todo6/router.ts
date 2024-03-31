@@ -2,7 +2,7 @@ import { Header } from "./src/components/Header";
 import { ErrorPage } from "./src/page/ErrorPage";
 import { HomePage } from "./src/page/HomePage";
 import { LoginPage } from "./src/page/LoginPage";
-import { TodoPage } from "./src/page/TodoPage";
+import { TodoPage } from "./src/page/todoPage/TodoPage";
 import { Store } from "./src/store/store";
 
 type Routes = { path: string; component: any }[];

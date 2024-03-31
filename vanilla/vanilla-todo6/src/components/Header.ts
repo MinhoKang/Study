@@ -24,7 +24,7 @@ export class Header {
   }
 
   returnContent() {
-    let isAccept = localStorageAction.storage("get", "isAccept");
+    const isAccept = localStorageAction.storage("get", "isAccept");
     let content = ``;
     if (isAccept === "true") {
       content = `
