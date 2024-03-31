@@ -71,12 +71,13 @@ export class Header {
   handleLogout() {
     this.logoutBtn = this.$header.querySelector("#logoutBtn");
 
-    if (this.logoutBtn) {
-      this.logoutBtn.addEventListener("click", async (e: Event) => {
-        e.preventDefault();
-        await auth.logout();
-        await this.router.render(window.location.pathname);
-      });
-    }
+    if (!this.logoutBtn) return;
+
+    this.logoutBtn.addEventListener("click", async (e: Event) => {
+      e.preventDefault();
+      await auth.logout();
+      await this.store.clearTodoItem();
+      await this.router.render(window.location.pathname);
+    });
   }
 }

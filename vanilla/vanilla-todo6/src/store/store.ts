@@ -36,9 +36,12 @@ export class Store {
     this.notifyObservers();
   }
 
+  clearTodoItem() {
+    this.todoArr = [];
+    this.notifyObservers();
+  }
+
   getTodoItems(): TodoItem[] {
     return this.todoArr;
   }
 }
-
-export const store = new Store();
