@@ -4,6 +4,9 @@ import { HomePage } from "./src/page/HomePage";
 import { LoginPage } from "./src/page/LoginPage";
 import { TodoPage } from "./src/page/todoPage/TodoPage";
 import { Store } from "./src/store/store";
+import { LocalStorageAction } from "./utils/localStorageAction";
+
+const localStorageAction = new LocalStorageAction();
 
 type Routes = { path: string; component: any }[];
 
@@ -11,26 +14,28 @@ export class Router {
   store: Store;
   routes: Routes;
   $app: HTMLElement;
+  isLogin: string | null | undefined;
 
   constructor($app: HTMLElement, store: Store) {
     this.$app = $app;
     this.store = store;
+    this.isLogin = localStorageAction.storage("get", "isAccept");
     this.routes = [
       {
         path: "/home",
-        component: new HomePage(this.$app, this.store, this),
+        component: new HomePage(),
       },
       {
         path: "/login",
-        component: new LoginPage(this.$app, this.store, this),
+        component: new LoginPage(this),
       },
       {
         path: "/todo",
-        component: new TodoPage(this.$app, this.store, this),
+        component: new TodoPage(this.store),
       },
       {
         path: "404",
-        component: new ErrorPage(this.$app),
+        component: new ErrorPage(),
       },
     ];
 
@@ -43,14 +48,19 @@ export class Router {
 
   render(pathName: string) {
     let pageFound = false;
+
+    this.isLogin = localStorageAction.storage("get", "isAccept");
     this.$app.innerHTML = "";
 
     // 헤더 렌더링
-    const header = new Header(this.$app, this.store, this);
+    const header = new Header(this.store, this.isLogin, this);
     this.$app.appendChild(header.returnContent());
 
     // 페이지 렌더링
-
+    if (this.isLogin !== "true" && pathName.toLowerCase() === "/todo") {
+      alert("로그인이 필요합니다.");
+      window.location.pathname = "/login";
+    }
     this.routes.forEach((page) => {
       if (pathName.toLowerCase() === page.path) {
         this.$app.appendChild(page.component.returnContent(this));

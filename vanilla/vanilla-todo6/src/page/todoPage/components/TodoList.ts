@@ -1,20 +1,11 @@
 import { Store } from "../../../store/store";
 
 export class TodoList {
-  $app: HTMLElement;
-  $main: HTMLElement;
   store: Store;
   $section: HTMLElement;
   todoListSection: HTMLElement;
 
-  constructor(
-    $app: HTMLElement,
-    $main: HTMLElement,
-    store: Store,
-    $section: HTMLElement
-  ) {
-    this.$app = $app;
-    this.$main = $main;
+  constructor(store: Store, $section: HTMLElement) {
     this.store = store;
     this.$section = $section;
     this.todoListSection = document.createElement("div");

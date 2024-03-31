@@ -1,19 +1,10 @@
 import { Store } from "../../../store/store";
 
 export class TodoInput {
-  $app: HTMLElement;
-  $main: HTMLElement;
   store: Store;
   $section: HTMLElement;
 
-  constructor(
-    $app: HTMLElement,
-    $main: HTMLElement,
-    store: Store,
-    $sectoion: HTMLElement
-  ) {
-    this.$app = $app;
-    this.$main = $main;
+  constructor(store: Store, $sectoion: HTMLElement) {
     this.store = store;
     this.$section = $sectoion;
   }

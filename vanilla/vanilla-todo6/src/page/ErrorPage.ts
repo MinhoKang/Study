@@ -1,9 +1,7 @@
 export class ErrorPage {
-  $app: HTMLElement;
   $main: HTMLElement;
 
-  constructor($app: HTMLElement) {
-    this.$app = $app;
+  constructor() {
     this.$main = document.createElement("main");
   }
 

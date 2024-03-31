@@ -1,20 +1,15 @@
-import { Store } from "../store/store";
 import { Router } from "../../router";
 import { Auth } from "../../utils/auth";
 
 const auth = new Auth();
 
 export class LoginPage {
-  store: Store;
-  $app: HTMLElement;
   $main: HTMLElement;
   loginBtn: Element | null | undefined;
   router: Router;
 
-  constructor($app: HTMLElement, store: Store, router: Router) {
+  constructor(router: Router) {
     this.$main = document.createElement("main");
-    this.store = store;
-    this.$app = $app;
     this.router = router;
   }
 
@@ -33,8 +28,12 @@ export class LoginPage {
     </form>
     `;
     this.$main.innerHTML = content;
-    this.handleLogin();
+    this.init();
     return this.$main;
+  }
+
+  init() {
+    this.handleLogin();
   }
 
   handleLogin() {

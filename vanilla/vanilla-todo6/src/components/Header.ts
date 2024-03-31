@@ -1,32 +1,32 @@
 import { Auth } from "./../../utils/auth";
-import { LocalStorageAction } from "./../../utils/localStorageAction";
 import { Router } from "../../router";
 import { Store } from "../store/store";
 
-const localStorageAction = new LocalStorageAction();
 const auth = new Auth();
 
 export class Header {
   store: Store;
-  $app: HTMLElement;
   $header: HTMLElement;
   logoutBtn: Element | null | undefined;
+  isLogin: string | null | undefined;
   router: Router;
 
-  constructor($app: HTMLElement, store: Store, router: Router) {
+  constructor(
+    store: Store,
+    isLogin: string | null | undefined,
+    router: Router
+  ) {
     this.store = store;
-    this.$app = $app;
     this.$header = document.createElement("header");
+    this.isLogin = isLogin;
     this.router = router;
     this.store.addObserver(this);
   }
 
   returnContent() {
-    const isAccept = localStorageAction.storage("get", "isAccept");
-
     let content = ``;
 
-    if (isAccept === "true") {
+    if (this.isLogin === "true") {
       content = `
         <ul>
           <li id='logoutBtn' class='menuItem'>Logout</li>
