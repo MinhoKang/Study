@@ -1,7 +1,6 @@
 import { Auth } from "./../../utils/auth";
 import { LocalStorageAction } from "./../../utils/localStorageAction";
 import { Router } from "../../router";
-import { $header } from "../main";
 import { Store } from "../store/store";
 
 const localStorageAction = new LocalStorageAction();
@@ -17,15 +16,16 @@ export class Header {
   constructor($app: HTMLElement, store: Store, router: Router) {
     this.store = store;
     this.$app = $app;
-    this.$header = $header;
+    this.$header = document.createElement("header");
     this.router = router;
-
     this.store.addObserver(this);
   }
 
   returnContent() {
     const isAccept = localStorageAction.storage("get", "isAccept");
+
     let content = ``;
+
     if (isAccept === "true") {
       content = `
         <ul>
@@ -41,13 +41,14 @@ export class Header {
       </ul>
 `;
     }
+
     this.$header.innerHTML = content;
-    this.func();
+    this.init();
 
     return this.$header;
   }
 
-  func() {
+  init() {
     this.menuClick();
     this.handleLogout();
   }

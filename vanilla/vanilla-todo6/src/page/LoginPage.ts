@@ -39,25 +39,23 @@ export class LoginPage {
 
   handleLogin() {
     this.loginBtn = this.$main.querySelector("#loginBtn");
-    if (this.loginBtn instanceof HTMLButtonElement) {
-      this.loginBtn.addEventListener(
-        "click",
-        async (e: Event): Promise<void> => {
-          e.preventDefault();
-          const idInput = await document.querySelector("#id");
-          const passwordInput = await document.querySelector("#password");
 
-          if (
-            idInput instanceof HTMLInputElement &&
-            passwordInput instanceof HTMLInputElement
-          ) {
-            const id = idInput.value;
-            const password = passwordInput.value;
-            await auth.login(id, password);
-            this.router.render(window.location.pathname);
-          }
-        }
-      );
-    }
+    if (!this.loginBtn) return;
+
+    this.loginBtn.addEventListener("click", async (e: Event): Promise<void> => {
+      e.preventDefault();
+      const idInput = (await document.querySelector("#id")) as HTMLInputElement;
+      const passwordInput = (await document.querySelector(
+        "#password"
+      )) as HTMLInputElement;
+
+      if (!idInput || !passwordInput) return;
+
+      const id = idInput.value;
+      const password = passwordInput.value;
+
+      await auth.login(id, password);
+      this.router.render(window.location.pathname);
+    });
   }
 }

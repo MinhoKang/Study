@@ -15,7 +15,6 @@ export class Router {
   constructor($app: HTMLElement, store: Store) {
     this.$app = $app;
     this.store = store;
-
     this.routes = [
       {
         path: "/home",
@@ -43,27 +42,26 @@ export class Router {
   }
 
   render(pathName: string) {
-    if (this.$app) {
-      let pageFound = false;
-      this.$app.innerHTML = "";
+    let pageFound = false;
+    this.$app.innerHTML = "";
 
-      // 헤더 렌더링
-      const header = new Header(this.$app, this.store, this);
-      this.$app.appendChild(header.returnContent());
+    // 헤더 렌더링
+    const header = new Header(this.$app, this.store, this);
+    this.$app.appendChild(header.returnContent());
 
-      // 페이지 렌더링
+    // 페이지 렌더링
 
-      this.routes.forEach((page) => {
-        if (pathName.toLowerCase() === page.path) {
-          this.$app.appendChild(page.component.returnContent(this));
-          pageFound = true;
-        }
-      });
-      if (!pageFound) {
-        const errorPage = this.routes.find((page) => page.path === "404");
-        if (errorPage) {
-          this.$app.appendChild(errorPage.component.returnContent());
-        }
+    this.routes.forEach((page) => {
+      if (pathName.toLowerCase() === page.path) {
+        this.$app.appendChild(page.component.returnContent(this));
+        pageFound = true;
+      }
+    });
+
+    if (!pageFound) {
+      const errorPage = this.routes.find((page) => page.path === "404");
+      if (errorPage) {
+        this.$app.appendChild(errorPage.component.returnContent());
       }
     }
   }

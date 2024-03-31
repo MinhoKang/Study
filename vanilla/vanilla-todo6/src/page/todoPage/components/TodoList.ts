@@ -1,5 +1,4 @@
 import { Store } from "../../../store/store";
-import { TodoPage } from "../TodoPage";
 
 export class TodoList {
   $app: HTMLElement;
