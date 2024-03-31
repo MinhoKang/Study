@@ -56,7 +56,6 @@ export class Router {
       this.routes.forEach((page) => {
         if (pathName.toLowerCase() === page.path) {
           this.$app.appendChild(page.component.returnContent(this));
-
           pageFound = true;
         }
       });

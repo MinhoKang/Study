@@ -1,6 +1,8 @@
 import { Router } from "../../router";
 import { LocalStorageAction } from "../../utils/localStorageAction";
 import { Store } from "../store/store";
+import { TodoInput } from "./todoPage/components/TodoInput";
+import { TodoList } from "./todoPage/components/TodoList";
 
 const localStorageAction = new LocalStorageAction();
 
@@ -9,32 +11,26 @@ export class TodoPage {
   $app: HTMLElement;
   $main: HTMLElement;
   router: Router;
+  TodoList: TodoList;
+  TodoInput: TodoInput;
 
   constructor($app: HTMLElement, store: Store, router: Router) {
     this.$main = document.createElement("main");
     this.$app = $app;
     this.store = store;
     this.router = router;
+    this.TodoList = new TodoList(this.$app, this.$main, this.store, this);
+    this.TodoInput = new TodoInput(this.$app, this.$main, this.store, this);
     this.store.addObserver(this);
   }
 
   returnContent() {
-    let content = `<h1>Todo</h1>
-    <section>
-      <form>
-        <input id='todoInput' type='text' placeholder='todo 입력' autofocus='true'/>
-        <button id='addBtn'>추가</button>
-      </form>
-      <ul id='todoList'>
-      </ul>
-    </section>
-    `;
-    this.$main.innerHTML = content;
-    this.func();
+    this.TodoInput.returnContent();
+    this.init();
     return this.$main;
   }
 
-  func() {
+  init() {
     this.renderTodo();
     this.addTodo();
     this.removeTodo();
