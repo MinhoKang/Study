@@ -4,14 +4,16 @@ export class TodoForm {
   store: Store;
   $section: HTMLElement;
   $form: HTMLFormElement;
+  $notice: HTMLElement;
 
   constructor(store: Store, $sectoion: HTMLElement) {
     this.store = store;
     this.$section = $sectoion;
     this.$form = document.createElement("form");
     this.$form.addEventListener("click", this.add.bind(this));
-
-    // TODO: Form 이벤트로 리팩토링, 클래스명 바꾸기
+    this.$form.addEventListener("input", this.handleNotice.bind(this));
+    this.$notice = document.createElement("p");
+    this.$notice.innerHTML = `5글자 이상 입력하세요`;
   }
 
   returnContent() {
@@ -22,6 +24,17 @@ export class TodoForm {
     <button id='addBtn' type='submit'>추가</button>
     `;
     this.$section.appendChild(this.$form);
+  }
+
+  handleNotice() {
+    const todoInput: HTMLInputElement =
+      this.$section.querySelector("#todoInput")!;
+
+    if (todoInput.value.length < 5) {
+      this.$form.appendChild(this.$notice);
+    } else if (this.$form.contains(this.$notice)) {
+      this.$form.removeChild(this.$notice);
+    }
   }
 
   add(e: Event) {
@@ -48,25 +61,4 @@ export class TodoForm {
     });
     todoInput.value = "";
   }
-
-  // addTodo() {
-  //   const addBtn = this.$section.querySelector("#addBtn");
-  //   const todoInput: HTMLInputElement =
-  //     this.$section.querySelector("#todoInput")!;
-
-  //   if (!addBtn || !todoInput) return;
-
-  //   addBtn.addEventListener("click", (e: Event) => {
-  //     e.preventDefault();
-  //     if (!todoInput.value) {
-  //       alert("내용을 입력하세요");
-  //       return;
-  //     }
-  //     this.store.addTodoItem({
-  //       seq: this.store.todoArr.length,
-  //       content: todoInput.value,
-  //     });
-  //     todoInput.value = "";
-  //   });
-  // }
 }
