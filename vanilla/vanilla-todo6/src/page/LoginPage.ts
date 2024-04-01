@@ -36,9 +36,9 @@ export class LoginPage {
     this.handleLogin();
   }
 
-  handleLogin() {
+  async handleLogin() {
     this.loginBtn = this.$main.querySelector("#loginBtn");
-
+    // TODO: 로그인 리팩토링 -> Auth 클래스의 login 함수 호출하고 받은 Promise로 사이드이펙트 처리
     if (!this.loginBtn) return;
 
     this.loginBtn.addEventListener("click", async (e: Event): Promise<void> => {

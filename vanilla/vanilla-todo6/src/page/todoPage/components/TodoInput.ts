@@ -7,6 +7,8 @@ export class TodoInput {
   constructor(store: Store, $sectoion: HTMLElement) {
     this.store = store;
     this.$section = $sectoion;
+
+    // TODO: Form 이벤트로 리팩토링, 클래스명 바꾸기 
   }
 
   returnContent() {
