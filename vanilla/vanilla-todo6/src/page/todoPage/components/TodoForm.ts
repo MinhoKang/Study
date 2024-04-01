@@ -1,6 +1,6 @@
 import { Store } from "../../../store/store";
 
-export class TodoInput {
+export class TodoForm {
   store: Store;
   $section: HTMLElement;
 
