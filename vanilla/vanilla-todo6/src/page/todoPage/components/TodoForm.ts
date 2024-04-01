@@ -26,6 +26,7 @@ export class TodoForm {
 
   add(e: Event) {
     e.preventDefault();
+
     if (
       !e.target ||
       !(e.target instanceof HTMLElement) ||

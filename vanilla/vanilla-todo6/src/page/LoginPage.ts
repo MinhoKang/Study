@@ -38,16 +38,19 @@ export class LoginPage {
   async handleLogin1(e: Event) {
     e.preventDefault();
 
-    if (!e.target || !(e.target instanceof HTMLElement)) return;
+    if (
+      !e.target ||
+      !(e.target instanceof HTMLElement) ||
+      !(e.target.tagName === "BUTTON")
+    )
+      return;
 
-    if (e.target.tagName === "BUTTON") {
-      const id = document.querySelector<HTMLInputElement>("#id")!.value;
-      const password =
-        document.querySelector<HTMLInputElement>("#password")!.value;
+    const id = document.querySelector<HTMLInputElement>("#id")!.value;
+    const password =
+      document.querySelector<HTMLInputElement>("#password")!.value;
 
-      await auth.login(id, password);
-      this.router.render(window.location.pathname);
-    }
+    await auth.login(id, password);
+    this.router.render(window.location.pathname);
   }
 
   // async handleLogin() {
