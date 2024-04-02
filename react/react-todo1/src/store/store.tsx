@@ -13,7 +13,7 @@ export const reducer = (state: InitialState, action: Action) => {
   switch (action.type) {
     case "add": {
       const newTodo = {
-        seq: state.length,
+        seq: state && state.length,
         content: action.text,
       };
       return [...state, newTodo];

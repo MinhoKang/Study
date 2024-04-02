@@ -1,4 +1,4 @@
-const TodoForm = () => {
+const TodoForm = ({ add }) => {
   return (
     <div>
       <form>

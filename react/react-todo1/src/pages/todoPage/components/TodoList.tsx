@@ -1,11 +1,15 @@
-import React from 'react'
+import React from "react";
 
-const TodoList = () => {
+const TodoList = ({ state }) => {
   return (
     <div>
-      
+      <ul>
+        {state.map((todo) => {
+          todo.content;
+        })}
+      </ul>
     </div>
-  )
-}
+  );
+};
 
-export default TodoList
+export default TodoList;
