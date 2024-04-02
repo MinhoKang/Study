@@ -1,0 +1,22 @@
+.todo {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  font-size: 20px;
+  .num {
+    background-color: aquamarine;
+  }
+  .content {
+    background-color: antiquewhite;
+  }
+}
+
+.button {
+  display: flex;
+  .delete,
+  .edit {
+    background-color: cornflowerblue;
+    cursor: pointer;
+    margin-left: 30px;
+  }
+}

@@ -1,4 +1,9 @@
-const TodoForm = ({ add }) => {
+import { useState } from "react";
+
+type AddFunction = (text: string) => void;
+
+const TodoForm = ({ add }: { add: AddFunction }) => {
+  const [text, setText] = useState("");
   return (
     <div>
       <form>
@@ -7,8 +12,20 @@ const TodoForm = ({ add }) => {
           id="todoInput"
           placeholder="내용을 입력하세요"
           autoFocus
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         />
-        <button type="submit">add</button>
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            if (!text) return alert("내용 입력");
+            add(text);
+            setText("");
+          }}
+        >
+          add
+        </button>
       </form>
     </div>
   );

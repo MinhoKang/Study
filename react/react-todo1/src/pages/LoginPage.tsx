@@ -12,15 +12,14 @@ const LoginPage: React.FC<{
 
   const login = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    auth
-      .login(id, password)
-      .then(() => {
-        setIsLogin(true);
-        setCurrentPath("todo");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const isAuth = await auth.login(id, password);
+    if (isAuth) {
+      setIsLogin(true);
+      window.history.pushState({}, "", "/todo");
+      console.log(window.location.pathname);
+
+      setCurrentPath(window.location.pathname);
+    }
   };
 
   const setAccount = (e: React.FormEvent<HTMLInputElement>) => {

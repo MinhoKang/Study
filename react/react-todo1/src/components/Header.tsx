@@ -9,19 +9,22 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({
   isLogin,
   setIsLogin,
-  setCurrentPath,
+  setCurrentPath
 }) => {
   const auth = new Auth();
 
   const linkTo = (e: React.MouseEvent<HTMLElement>) => {
     const pathname = (e.target as HTMLElement).textContent!;
-    setCurrentPath(pathname.toLowerCase());
+    setCurrentPath("/" + pathname.toLowerCase());
   };
 
   const logout = async () => {
     await auth.logout().then(() => {
       setIsLogin(false);
-      setCurrentPath("login");
+
+      window.history.pushState({}, "", "/home");
+      setCurrentPath(window.location.pathname);
+      console.log(window.location.pathname);
     });
   };
 

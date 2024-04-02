@@ -10,8 +10,9 @@ type Routes = { path: string; component: React.ReactNode }[];
 const App = () => {
   const [renderPage, setRenderPage] = useState<React.ReactNode>(null);
   const [isLogin, setIsLogin] = useState(false);
-  const [currentPath, setCurrentPath] = useState("");
-
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  console.log(window.location.pathname);
+  console.log(currentPath);
   const routes: Routes = useMemo(
     () => [
       {
@@ -37,12 +38,10 @@ const App = () => {
   );
 
   useEffect(() => {
-    const route = routes.find((route) => route.path === "/" + currentPath);
+    const route = routes.find((route) => route.path === currentPath);
     if (route) {
       window.history.pushState({}, "", currentPath);
       setRenderPage(route.component);
-      console.log(isLogin);
-      console.log("경로", currentPath);
     } else {
       setRenderPage(<ErrorPage />);
     }
