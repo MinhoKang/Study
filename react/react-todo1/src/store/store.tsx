@@ -2,8 +2,8 @@ type Todo = { seq: number; content: string };
 export type InitialState = Todo[];
 export type Action =
   | { type: "add"; text: string }
-  | { type: "delete"; seq: number }
-  | { type: "edit"; text: string; seq: number };
+  | { type: "delete"; seq: number };
+//   | { type: "edit"; text: string; seq: number };
 
 export const initialState: InitialState = [];
 
@@ -19,9 +19,10 @@ export const reducer = (state: InitialState, action: Action) => {
     case "delete": {
       return state.filter((todo) => todo.seq !== action.seq);
     }
-    case "edit": {
-      return;
-    }
+    // case "edit": {
+    //   console.log("수정");
+    //   return;
+    // }
     default:
       return state;
   }

@@ -8,6 +8,8 @@ const TodoPage = () => {
   console.log(state);
   const addTodo = (text: string) => dispatch({ type: "add", text: text });
   const deleteTodo = (seq: number) => dispatch({ type: "delete", seq: seq });
+  // const editTodo = (text: string, seq: number) =>
+  //   dispatch({ type: "edit", text: text, seq: seq });
   return (
     <div>
       <h1>Todo page</h1>
