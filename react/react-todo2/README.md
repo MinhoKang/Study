@@ -6,3 +6,9 @@
 
 3. styled-component
    -css
+
+   <Route path="/" element={isLoggedIn ? <Navigate to="/todo" /> : <Navigate to="/login" />} />
+   <Route path="/login" element={isLoggedIn ? <Navigate to="/todo" /> : <LoginPage />} />
+   <Route path="/signup" element={isLoggedIn ? <Navigate to="/todo" /> : <SignupPage />} />
+   <Route path="/todo" element={isLoggedIn ? <TodoPage /> : <Navigate to="/login" />} />
+   <Route path="\*" element={<NotFoundPage />} />

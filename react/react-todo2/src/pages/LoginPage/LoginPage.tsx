@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const LoginPage = () => {
   return (
-    <div>
+    <Container>
       <h1>TODO APP</h1>
       <h2>LOGIN</h2>
       <form>
@@ -21,8 +21,12 @@ const LoginPage = () => {
           <input type="password" id="password" required autoComplete="true" />
         </label>
       </form>
-    </div>
+    </Container>
   );
 };
 
 export default LoginPage;
+
+const Container = styled.div`
+
+`;
