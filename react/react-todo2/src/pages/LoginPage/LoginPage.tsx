@@ -27,6 +27,12 @@ const LoginPage = () => {
     }
   };
 
+  const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === "Enter") {
+      onLogin(e);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>TODO APP</h1>
@@ -57,6 +63,7 @@ const LoginPage = () => {
             placeholder="PASSWORD"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
         </label>
       </form>
