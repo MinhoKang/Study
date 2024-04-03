@@ -2,7 +2,7 @@ import axiosInstance from "../api";
 
 export const deleteTodo = async (id: number, accessToken: string) => {
   try {
-    const response = await axiosInstance.delete(`/todo/:${id}`, {
+    const response = await axiosInstance.delete(`/todo?id=${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

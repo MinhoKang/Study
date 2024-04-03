@@ -7,7 +7,7 @@ export const editTodo = async (
 ) => {
   try {
     const response = await axiosInstance.put(
-      `/todo/:${id}`,
+      `/todo?id=${id}`,
       { todo },
       {
         headers: {
