@@ -1,0 +1,23 @@
+.itemBox {
+  width: 50%;
+  background-color: #15101c;
+  color: #8d6bb9;
+  border-radius: 10px;
+  padding: 30px 20px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  .todoText {
+    margin: 0;
+  }
+  .buttons {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 20px;
+    .edit {
+      color: #b3b7ee;
+    }
+  }
+}

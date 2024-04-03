@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type TodoList = { id: number; text: string; isComplete: boolean }[];
+export type TodoList = { id: number; text: string; isComplete: boolean }[];
 
 const todoSlice = createSlice({
   name: "todo",
