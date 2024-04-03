@@ -6,7 +6,9 @@ const TodoForm = () => {
       <form action="">
         <label className={styles.label}>
           <input type="text" placeholder="Add a new task" />
-          <button type="submit">+</button>
+          <button type="submit" onClick={(e) => e.preventDefault()}>
+            +
+          </button>
         </label>
       </form>
     </div>

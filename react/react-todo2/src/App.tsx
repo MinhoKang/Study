@@ -3,30 +3,33 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import TodoPage from "./pages/TodoPage/TodoPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import styles from "./app.module.scss";
-import { useState } from "react";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const loginState = useSelector((state) => state.login);
+  console.log(loginState);
 
   return (
     <div className={styles.container}>
       <Routes>
         <Route
           path="/"
-          element={isLogin ? <Navigate to="/todo" /> : <Navigate to="/login" />}
+          element={
+            loginState ? <Navigate to="/todo" /> : <Navigate to="/login" />
+          }
         />
         <Route
           path="/login"
-          element={isLogin ? <Navigate to="/todo" /> : <LoginPage />}
+          element={loginState ? <Navigate to="/todo" /> : <LoginPage />}
         />
         <Route
           path="/signup"
-          element={isLogin ? <Navigate to="/todo" /> : <SignUpPage />}
+          element={loginState ? <Navigate to="/todo" /> : <SignUpPage />}
         />
         <Route
           path="/todo"
-          element={isLogin ? <TodoPage /> : <Navigate to="/login" />}
+          element={loginState ? <TodoPage /> : <Navigate to="/login" />}
         />
         <Route path="\*" element={<ErrorPage />} />
       </Routes>

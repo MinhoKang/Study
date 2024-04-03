@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "./api";
 
 export const singUp = async (
   id: string,
@@ -7,7 +7,7 @@ export const singUp = async (
   phoneNumber: string
 ) => {
   try {
-    const response = await axios.post("/signup", {
+    const response = await axiosInstance.post("/signup", {
       id,
       password,
       passwordCheck,

@@ -1,7 +1,10 @@
+import { useSelector } from "react-redux";
 import styles from "./todoList.module.scss";
 import cn from "classnames";
 
 const TodoList = () => {
+  const toodList = useSelector((state) => state.todo);
+  console.log(toodList);
   return (
     <div className={styles.todoItem}>
       <div className={styles.text}></div>
