@@ -12,6 +12,7 @@ import { editTodo } from "../../../apis/todo/editTodo";
 import { deleteTodo } from "../../../apis/todo/deleteTodo";
 
 const TodoItem = ({ item }) => {
+  const [isCompleted, setIsCompleted] = useState(false);
   const [edited, setEdited] = useState("");
   const accessToken = sessionStorageAction.storage("get", "accessToken");
 
@@ -37,30 +38,46 @@ const TodoItem = ({ item }) => {
     }
   };
 
+  const handleCheck = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsCompleted(!isCompleted);
+  };
+
   return (
     <div className={styles.itemBox}>
-      <p className={styles.todoText}>{item.todo}</p>
-      <div className={styles.buttons}>
-        <div className={cn(styles.button, styles.complete)}>
-          <FontAwesomeIcon icon={faCheck} />
+      <p
+        className={cn(styles.todoText, isCompleted ? styles.lineThrough : null)}
+      >
+        {item.todo}
+      </p>
+      {!isCompleted && (
+        <div className={styles.buttons}>
+          <div
+            className={cn(styles.button, styles.complete)}
+            onClick={(e) => {
+              handleCheck(e);
+            }}
+          >
+            <FontAwesomeIcon icon={faCheck} />
+          </div>
+          <div
+            className={cn(styles.button, styles.edit)}
+            onClick={(e) => {
+              handleEdit(e);
+            }}
+          >
+            <FontAwesomeIcon icon={faPencil} />
+          </div>
+          <div
+            className={cn(styles.button, styles.remove)}
+            onClick={(e) => {
+              handleDelete(e);
+            }}
+          >
+            <FontAwesomeIcon icon={faTrashCan} />
+          </div>
         </div>
-        <div
-          className={cn(styles.button, styles.edit)}
-          onClick={(e) => {
-            handleEdit(e);
-          }}
-        >
-          <FontAwesomeIcon icon={faPencil} />
-        </div>
-        <div
-          className={cn(styles.button, styles.remove)}
-          onClick={(e) => {
-            handleDelete(e);
-          }}
-        >
-          <FontAwesomeIcon icon={faTrashCan} />
-        </div>
-      </div>
+      )}
     </div>
   );
 };
