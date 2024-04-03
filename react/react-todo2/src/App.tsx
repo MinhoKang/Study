@@ -1,23 +1,37 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import styled from "styled-components";
+import TodoPage from "./pages/TodoPage/TodoPage";
+import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import styles from "./app.module.scss";
+import { useState } from "react";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+
   return (
-    <Container>
+    <div className={styles.container}>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={isLogin ? <Navigate to="/todo" /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/login"
+          element={isLogin ? <Navigate to="/todo" /> : <LoginPage />}
+        />
+        <Route
+          path="/signup"
+          element={isLogin ? <Navigate to="/todo" /> : <SignUpPage />}
+        />
+        <Route
+          path="/todo"
+          element={isLogin ? <TodoPage /> : <Navigate to="/login" />}
+        />
+        <Route path="\*" element={<ErrorPage />} />
       </Routes>
-    </Container>
+    </div>
   );
 }
 
 export default App;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #858288;
-`;
