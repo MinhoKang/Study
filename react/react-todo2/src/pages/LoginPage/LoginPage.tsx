@@ -67,13 +67,22 @@ const LoginPage = () => {
           />
         </label>
       </form>
-      <button
-        type="button"
-        className={styles.loginBtn}
-        onClick={(e) => onLogin(e)}
-      >
-        LOGIN
-      </button>
+      <div className={styles.btns}>
+        <button
+          type="button"
+          className={styles.loginBtn}
+          onClick={(e) => onLogin(e)}
+        >
+          LOGIN
+        </button>
+        <button
+          type="button"
+          className={styles.loginBtn}
+          onClick={() => navigate("/signup")}
+        >
+          SIGN UP
+        </button>
+      </div>
     </div>
   );
 };
