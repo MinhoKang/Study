@@ -11,6 +11,7 @@ export type TodoObj = {
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
+
   useEffect(() => {
     getTodoList();
   }, []);

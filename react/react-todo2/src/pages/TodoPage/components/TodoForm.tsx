@@ -6,13 +6,12 @@ import { addTodo } from "../../../apis/todo/addTodo";
 const TodoForm = () => {
   const [todoInput, setTodoInput] = useState("");
 
-  console.log(todoInput);
   const handleAdd = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       const accessToken = sessionStorageAction.storage("get", "accessToken");
       if (!accessToken) return;
-      const result = addTodo(todoInput, accessToken);
+      const result = await addTodo(todoInput, accessToken);
       console.log(result);
     } catch (error) {
       console.log(error);

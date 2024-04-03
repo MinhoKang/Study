@@ -7,8 +7,8 @@ export const editTodo = async (
 ) => {
   try {
     const response = await axiosInstance.put(
-      `/todo/${id}`,
-      { todo: todo },
+      `/todo/:${id}`,
+      { todo },
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

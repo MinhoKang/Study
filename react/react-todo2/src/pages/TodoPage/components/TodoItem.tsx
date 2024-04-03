@@ -18,8 +18,8 @@ const TodoItem = ({ item }) => {
 
   const handleEdit = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if (!accessToken) return;
     try {
+      if (!accessToken) return;
       const result = await editTodo("수정", item.id, accessToken);
       console.log("수정", result);
     } catch (error) {
@@ -29,8 +29,8 @@ const TodoItem = ({ item }) => {
 
   const handleDelete = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if (!accessToken) return;
     try {
+      if (!accessToken) return;
       const result = await deleteTodo(item.id, accessToken);
       console.log("삭제", result);
     } catch (error) {
