@@ -9,32 +9,32 @@ export type TodoObj = {
   todo: string;
 };
 
-const TodoList = () => {
-  const [todos, setTodos] = useState([]);
+const TodoList = ({todos}) => {
+  // const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
-    getTodoList();
-  }, []);
+  // useEffect(() => {
+  //   getTodoList();
+  // }, []);
 
-  const getTodoList = async () => {
-    const accessToken = await sessionStorageAction.storage(
-      "get",
-      "accessToken"
-    );
-    console.log(accessToken);
-    if (!accessToken) return;
+  // const getTodoList = async () => {
+  //   const accessToken = await sessionStorageAction.storage(
+  //     "get",
+  //     "accessToken"
+  //   );
+  //   console.log(accessToken);
+  //   if (!accessToken) return;
 
-    try {
-      const result = await getTodo(accessToken);
-      if (result && result.data) {
-        setTodos(result.data);
-      } else {
-        console.error("에러");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //   try {
+  //     const result = await getTodo(accessToken);
+  //     if (result && result.data) {
+  //       setTodos(result.data);
+  //     } else {
+  //       console.error("에러");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className={styles.container}>

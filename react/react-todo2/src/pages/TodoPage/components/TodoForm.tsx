@@ -3,7 +3,7 @@ import styles from "./todoForm.module.scss";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { addTodo } from "../../../apis/todo/addTodo";
 
-const TodoForm = () => {
+const TodoForm = ({ addTodoList }) => {
   const [todoInput, setTodoInput] = useState("");
 
   const handleAdd = async (e: { preventDefault: () => void }) => {
@@ -13,6 +13,7 @@ const TodoForm = () => {
       if (!accessToken) return;
       const result = await addTodo(todoInput, accessToken);
       console.log(result);
+      await addTodoList(result!.data);
     } catch (error) {
       console.log(error);
     }
