@@ -5,3 +5,5 @@
 2. redux toolkit -로그인 상태, 투두 리스트 등 전역 상태 관리
 
 3. css module, scss, classnames - css중복 방지
+
+4. react-hook-form, yup -유효성 검사

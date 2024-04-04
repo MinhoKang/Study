@@ -9,7 +9,6 @@ import {
 import { useState } from "react";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { editTodo } from "../../../apis/todo/editTodo";
-import { deleteTodo } from "../../../apis/todo/deleteTodo";
 import { TodoObj } from "../../../utils/types";
 import DeleteModal from "./DeleteModal";
 
@@ -29,17 +28,6 @@ const TodoItem = ({ item }: { item: TodoObj }) => {
       setEdited(false);
     } catch (error) {
       console.log("수정", error);
-    }
-  };
-
-  const handleDelete = async (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    try {
-      if (!accessToken) return;
-      const result = await deleteTodo(item.id, accessToken);
-      console.log("삭제", result);
-    } catch (error) {
-      console.log("삭제", error);
     }
   };
 

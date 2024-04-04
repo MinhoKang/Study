@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
@@ -16,11 +15,12 @@ const SignUpPage = () => {
     e.preventDefault();
     const result = await singUp(email, password, checkPassword, phoneNumber);
     console.log(result);
-    if (result?.status === 201) {
-      alert(result?.data?.message);
+    if (!result) return;
+    if (result.status === 201) {
+      alert(result.data.message);
       navigate("/login");
     } else {
-      alert(result?.data?.message);
+      alert(result.data.message);
     }
   };
 
@@ -70,7 +70,6 @@ const SignUpPage = () => {
             onChange={(e) => setPhoneNumber(e.target.value)}
             className={styles.input}
             placeholder="PHONE NUMBER"
-            // pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
           />
         </label>
       </form>
