@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./todoForm.module.scss";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { addTodo } from "../../../apis/todo/addTodo";
@@ -18,7 +18,8 @@ const TodoForm = ({ addTodoList }: TodoFormProps) => {
       if (!accessToken) return;
       const result = await addTodo(todoInput, accessToken);
       console.log(result);
-      await addTodoList(result!.data);
+      addTodoList(result!.data);
+      setTodoInput("");
     } catch (error) {
       console.log(error);
     }

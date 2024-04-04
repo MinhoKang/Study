@@ -15,15 +15,16 @@ import { TodoObj } from "./TodoList";
 const TodoItem = ({ item }: { item: TodoObj }) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [edited, setEdited] = useState(false);
-  const [editedTodo, setEditedTodo] = useState("");
+  const [editedTodo, setEditedTodo] = useState(item.todo);
   const accessToken = sessionStorageAction.storage("get", "accessToken");
 
   const handleEdit = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     try {
       if (!accessToken) return;
-      const result = await editTodo("수정", item.id, accessToken);
+      const result = await editTodo(editedTodo, item.id, accessToken);
       console.log("수정", result);
+      setEdited(false);
     } catch (error) {
       console.log("수정", error);
     }
@@ -47,12 +48,23 @@ const TodoItem = ({ item }: { item: TodoObj }) => {
 
   return (
     <div className={styles.itemBox}>
-      <p
-        className={cn(styles.todoText, isCompleted ? styles.lineThrough : null)}
-      >
-        {item.todo}
-      </p>
-      {!isCompleted && (
+      {!edited ? (
+        <p
+          className={cn(
+            styles.todoText,
+            isCompleted ? styles.lineThrough : null
+          )}
+        >
+          {item.todo}
+        </p>
+      ) : (
+        <input
+          value={editedTodo}
+          onChange={(e) => setEditedTodo(e.target.value)}
+        />
+      )}
+
+      {!isCompleted && !edited && (
         <div className={styles.buttons}>
           <div
             className={cn(styles.button, styles.complete)}
@@ -64,8 +76,8 @@ const TodoItem = ({ item }: { item: TodoObj }) => {
           </div>
           <div
             className={cn(styles.button, styles.edit)}
-            onClick={(e) => {
-              handleEdit(e);
+            onClick={() => {
+              setEdited(true);
             }}
           >
             <FontAwesomeIcon icon={faPencil} />
@@ -78,6 +90,15 @@ const TodoItem = ({ item }: { item: TodoObj }) => {
           >
             <FontAwesomeIcon icon={faTrashCan} />
           </div>
+        </div>
+      )}
+      {edited && (
+        <div
+          onClick={(e) => {
+            handleEdit(e);
+          }}
+        >
+          수정하기
         </div>
       )}
     </div>

@@ -6,7 +6,8 @@ import { sessionStorageAction } from "../../hooks/sessionStorageAction";
 import { getTodo } from "../../apis/todo/getTodo";
 
 const TodoPage = () => {
-  const [todos, setTodos] = useState<TodoObj[]>([]);
+  const [todos, setTodos] = useState([]);
+  const [reRender, setReRender] = useState(false);
 
   useEffect(() => {
     getTodoList();
@@ -32,7 +33,7 @@ const TodoPage = () => {
     }
   };
 
-  const addTodoToList = (newTodo: TodoObj) => {
+  const addTodoToList = (newTodo) => {
     setTodos([...todos, newTodo]);
   };
 

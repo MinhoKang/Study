@@ -14,7 +14,6 @@ const LoginPage = () => {
 
   const onLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log("object");
     const result = await login(email, password);
     console.log(result);
     if (result?.statusText === "OK") {
