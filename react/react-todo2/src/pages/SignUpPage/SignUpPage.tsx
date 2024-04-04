@@ -3,74 +3,138 @@ import styles from "./signUpPage.module.scss";
 import cn from "classnames";
 import { singUp } from "../../apis/signUp";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [checkPassword, setCheckPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [checkPassword, setCheckPassword] = useState("");
+  // const [phoneNumber, setPhoneNumber] = useState("");
+  // const phoneRegExp =
+
+  const formSchema = yup.object({
+    email: yup
+      .string()
+      .required("이메일을 입력하세요")
+      .email("이메일 형식이 아닙니다"),
+    password: yup
+      .string()
+      .required("비밀번호는 영문, 숫자 포함 8자리를 입력하세요")
+      .min(8, "최소 8자 이상 가능합니다")
+      .max(15, "최대 15자 까지 가능합니다")
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/,
+        "영문 숫자포함 8자리를 입력해주세요."
+      ),
+    confrimPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], "비밀번호가 다릅니다"),
+    phoneNumber: yup
+      .string()
+      .matches(
+        /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/,
+        "전화번호를 다시 확인 후 입력 해주세요"
+      ),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(formSchema),
+  });
+
+  console.log("에러", errors);
+  console.log("watch", watch());
 
   const onSignUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const result = await singUp(email, password, checkPassword, phoneNumber);
-    console.log(result);
-    if (!result) return;
-    if (result.status === 201) {
-      alert(result.data.message);
-      navigate("/login");
-    } else {
-      alert(result.data.message);
-    }
+    // const result = await singUp(email, password, checkPassword, phoneNumber);
+    // console.log(result);
+    // if (!result) return;
+    // if (result.status === 201) {
+    //   alert(result.data.message);
+    //   navigate("/login");
+    // } else {
+    //   alert(result.data.message);
+    // }
   };
-
+  const onSubmit = (data) => console.log(data);
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>SIGN UP</h1>
-      <form id="signUpForm" className={styles.form}>
+      <form
+        id="signUpForm"
+        className={styles.form}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <label>
           <span>EMAIL</span>
           <input
             type="text"
             id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             className={styles.input}
             placeholder="EMAIL"
+            {...register("email")}
           />
+          {errors.email && (
+            <p className={styles.warningText}>{errors.email.message}</p>
+          )}
         </label>
         <label>
           <span>PASSWORD</span>
           <input
             type="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             className={styles.input}
             placeholder="PASSWORD"
+            {...register("password", {
+              required: "비밀번호를 입력하세요",
+              minLength: {
+                value: 8,
+                message: "최소 8자 이상의 비밀번호를 입력하세요",
+              },
+            })}
           />
+          {errors.password && (
+            <p className={styles.warningText}>{errors.password.message}</p>
+          )}
         </label>
+
         <label>
           <span>CONFIRM PASSWORD</span>
           <input
             type="password"
             id="confrimPassword"
-            value={checkPassword}
-            onChange={(e) => setCheckPassword(e.target.value)}
             className={styles.input}
             placeholder="CONFIRM PASSWORD"
+            {...register("confrimPassword")}
           />
+          {errors.confrimPassword && (
+            <p className={styles.warningText}>
+              {errors.confrimPassword.message}
+            </p>
+          )}
         </label>
+
         <label>
           <span>PHONE NUMBER</span>
           <input
             type="tel"
             id="phone"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
             className={styles.input}
             placeholder="PHONE NUMBER"
+            {...register("phoneNumber")}
           />
+          {errors.phoneNumber && (
+            <p className={styles.warningText}>{errors.phoneNumber.message}</p>
+          )}
         </label>
       </form>
       <div className={styles.btns}>
@@ -79,6 +143,7 @@ const SignUpPage = () => {
           form="signUpForm"
           className={styles.btn}
           onClick={onSignUp}
+          disabled={!Object.keys(errors).length || !Object.keys(watch()).length}
         >
           SIGN UP
         </button>
