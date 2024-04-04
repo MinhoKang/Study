@@ -15,8 +15,8 @@ const LoginPage = () => {
   const onLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const result = await login(email, password);
-    console.log(result);
-    if (result?.statusText === "OK") {
+    if (!result) return;
+    if (result.statusText === "OK") {
       const accessToken = result.data.data.accessToken;
       sessionStorageAction.storage("set", "accessToken", accessToken);
       dispatch(changeLoginState(true));

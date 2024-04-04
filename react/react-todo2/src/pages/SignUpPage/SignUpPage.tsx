@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./signUpPage.module.scss";
 import cn from "classnames";
 import { singUp } from "../../apis/signUp";
@@ -6,6 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+type SignUpData = {
+  confrimPassword: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+};
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -43,29 +49,25 @@ const SignUpPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(formSchema),
   });
 
-  console.log("에러", errors);
-  console.log("watch", watch());
-
-  const onSignUp = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    // const result = await singUp(email, password, checkPassword, phoneNumber);
-    // console.log(result);
-    // if (!result) return;
-    // if (result.status === 201) {
-    //   alert(result.data.message);
-    //   navigate("/login");
-    // } else {
-    //   alert(result.data.message);
-    // }
+  const onSubmit = async (data: SignUpData) => {
+    const { confrimPassword, email, password, phoneNumber } = data;
+    const result = await singUp(email, password, confrimPassword, phoneNumber);
+    console.log(result);
+    if (!result) return;
+    if (result.status === 201) {
+      alert(result.data.message);
+      navigate("/login");
+    } else {
+      alert(result.data.message);
+    }
   };
-  const onSubmit = (data) => console.log(data);
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>SIGN UP</h1>
@@ -81,6 +83,7 @@ const SignUpPage = () => {
             id="email"
             className={styles.input}
             placeholder="EMAIL"
+            autoComplete="true"
             {...register("email")}
           />
           {errors.email && (
@@ -93,6 +96,7 @@ const SignUpPage = () => {
             type="password"
             id="password"
             className={styles.input}
+            autoComplete="true"
             placeholder="PASSWORD"
             {...register("password", {
               required: "비밀번호를 입력하세요",
@@ -106,7 +110,6 @@ const SignUpPage = () => {
             <p className={styles.warningText}>{errors.password.message}</p>
           )}
         </label>
-
         <label>
           <span>CONFIRM PASSWORD</span>
           <input
@@ -114,6 +117,7 @@ const SignUpPage = () => {
             id="confrimPassword"
             className={styles.input}
             placeholder="CONFIRM PASSWORD"
+            autoComplete="true"
             {...register("confrimPassword")}
           />
           {errors.confrimPassword && (
@@ -122,7 +126,6 @@ const SignUpPage = () => {
             </p>
           )}
         </label>
-
         <label>
           <span>PHONE NUMBER</span>
           <input
@@ -130,6 +133,7 @@ const SignUpPage = () => {
             id="phone"
             className={styles.input}
             placeholder="PHONE NUMBER"
+            autoComplete="true"
             {...register("phoneNumber")}
           />
           {errors.phoneNumber && (
@@ -138,13 +142,7 @@ const SignUpPage = () => {
         </label>
       </form>
       <div className={styles.btns}>
-        <button
-          type="submit"
-          form="signUpForm"
-          className={styles.btn}
-          onClick={onSignUp}
-          disabled={!Object.keys(errors).length || !Object.keys(watch()).length}
-        >
+        <button type="submit" form="signUpForm" className={styles.btn}>
           SIGN UP
         </button>
         <button
