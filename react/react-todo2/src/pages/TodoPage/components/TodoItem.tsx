@@ -10,10 +10,12 @@ import { useState } from "react";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { editTodo } from "../../../apis/todo/editTodo";
 import { deleteTodo } from "../../../apis/todo/deleteTodo";
+import { TodoObj } from "./TodoList";
 
-const TodoItem = ({ item }) => {
+const TodoItem = ({ item }: { item: TodoObj }) => {
   const [isCompleted, setIsCompleted] = useState(false);
-  const [edited, setEdited] = useState("");
+  const [edited, setEdited] = useState(false);
+  const [editedTodo, setEditedTodo] = useState("");
   const accessToken = sessionStorageAction.storage("get", "accessToken");
 
   const handleEdit = async (e: React.MouseEvent<HTMLDivElement>) => {

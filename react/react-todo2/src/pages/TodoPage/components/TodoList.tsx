@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { getTodo } from "../../../apis/todo/getTodo";
-import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
+// import { useEffect, useState } from "react";
+// import { getTodo } from "../../../apis/todo/getTodo";
+// import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import styles from "./todoList.module.scss";
 import TodoItem from "./TodoItem";
 
@@ -9,7 +9,7 @@ export type TodoObj = {
   todo: string;
 };
 
-const TodoList = ({todos}) => {
+const TodoList = ({ todos }: { todos: TodoObj[] }) => {
   // const [todos, setTodos] = useState([]);
 
   // useEffect(() => {

@@ -1,12 +1,12 @@
 import TodoForm from "./components/TodoForm";
 import styles from "./todoPage.module.scss";
-import TodoList from "./components/TodoList";
+import TodoList, { TodoObj } from "./components/TodoList";
 import { useEffect, useState } from "react";
 import { sessionStorageAction } from "../../hooks/sessionStorageAction";
 import { getTodo } from "../../apis/todo/getTodo";
 
 const TodoPage = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<TodoObj[]>([]);
 
   useEffect(() => {
     getTodoList();
@@ -32,7 +32,7 @@ const TodoPage = () => {
     }
   };
 
-  const addTodoToList = (newTodo) => {
+  const addTodoToList = (newTodo: TodoObj) => {
     setTodos([...todos, newTodo]);
   };
 

@@ -2,8 +2,13 @@ import { useState } from "react";
 import styles from "./todoForm.module.scss";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { addTodo } from "../../../apis/todo/addTodo";
+import { TodoObj } from "./TodoList";
 
-const TodoForm = ({ addTodoList }) => {
+type TodoFormProps = {
+  addTodoList: (newTodo: TodoObj) => void;
+};
+
+const TodoForm = ({ addTodoList }: TodoFormProps) => {
   const [todoInput, setTodoInput] = useState("");
 
   const handleAdd = async (e: { preventDefault: () => void }) => {
