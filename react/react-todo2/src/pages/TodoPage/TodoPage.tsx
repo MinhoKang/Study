@@ -1,6 +1,6 @@
 import TodoForm from "./components/TodoForm";
 import styles from "./todoPage.module.scss";
-import TodoList, { TodoObj } from "./components/TodoList";
+import TodoList from "./components/TodoList";
 import { useEffect, useState } from "react";
 import { sessionStorageAction } from "../../hooks/sessionStorageAction";
 import { getTodo } from "../../apis/todo/getTodo";

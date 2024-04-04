@@ -10,12 +10,14 @@ import { useState } from "react";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { editTodo } from "../../../apis/todo/editTodo";
 import { deleteTodo } from "../../../apis/todo/deleteTodo";
-import { TodoObj } from "./TodoList";
+import { TodoObj } from "../../../utils/types";
+import DeleteModal from "./DeleteModal";
 
 const TodoItem = ({ item }: { item: TodoObj }) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [edited, setEdited] = useState(false);
   const [editedTodo, setEditedTodo] = useState(item.todo);
+  const [showModal, setShowModal] = useState(false);
   const accessToken = sessionStorageAction.storage("get", "accessToken");
 
   const handleEdit = async (e: React.MouseEvent<HTMLDivElement>) => {
@@ -59,11 +61,12 @@ const TodoItem = ({ item }: { item: TodoObj }) => {
         </p>
       ) : (
         <input
+          className={styles.editInput}
           value={editedTodo}
           onChange={(e) => setEditedTodo(e.target.value)}
         />
       )}
-
+      {showModal && <DeleteModal item={item} setShowModal={setShowModal} />}
       {!isCompleted && !edited && (
         <div className={styles.buttons}>
           <div
@@ -84,8 +87,8 @@ const TodoItem = ({ item }: { item: TodoObj }) => {
           </div>
           <div
             className={cn(styles.button, styles.remove)}
-            onClick={(e) => {
-              handleDelete(e);
+            onClick={() => {
+              setShowModal(true);
             }}
           >
             <FontAwesomeIcon icon={faTrashCan} />
@@ -93,12 +96,18 @@ const TodoItem = ({ item }: { item: TodoObj }) => {
         </div>
       )}
       {edited && (
-        <div
-          onClick={(e) => {
-            handleEdit(e);
-          }}
-        >
-          수정하기
+        <div className={styles.editButtons}>
+          <div
+            className={styles.editBtn}
+            onClick={(e) => {
+              handleEdit(e);
+            }}
+          >
+            EDIT
+          </div>
+          <div className={styles.editBtn} onClick={() => setEdited(false)}>
+            CANCEL
+          </div>
         </div>
       )}
     </div>

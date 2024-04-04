@@ -3,11 +3,7 @@
 // import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import styles from "./todoList.module.scss";
 import TodoItem from "./TodoItem";
-
-export type TodoObj = {
-  id: number;
-  todo: string;
-};
+import { TodoObj } from "../../../utils/types";
 
 const TodoList = ({ todos }: { todos: TodoObj[] }) => {
   // const [todos, setTodos] = useState([]);
