@@ -1,12 +1,18 @@
 import styles from "./todoList.module.scss";
 import TodoItem from "./TodoItem";
-import { TodoObj } from "../../../utils/types";
+import { AddTodoListFunction, TodoObj } from "../../../utils/types";
 
-const TodoList = ({ todos }: { todos: TodoObj[] }) => {
+const TodoList = ({
+  todos,
+  refreshTodo,
+}: {
+  todos: TodoObj[];
+  refreshTodo: AddTodoListFunction;
+}) => {
   return (
     <div className={styles.container}>
       {todos.map((item: TodoObj) => (
-        <TodoItem key={item.id} item={item} />
+        <TodoItem key={item.id} item={item} refreshTodo={refreshTodo} />
       ))}
     </div>
   );

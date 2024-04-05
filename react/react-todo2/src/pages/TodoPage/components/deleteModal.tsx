@@ -1,15 +1,17 @@
 import { deleteTodo } from "../../../apis/todo/deleteTodo";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
-import { TodoObj } from "../../../utils/types";
+import { AddTodoListFunction, TodoObj } from "../../../utils/types";
 import styles from "./deleteModal.module.scss";
 import cn from "classnames";
 
 const DeleteModal = ({
   item,
   setShowModal,
+  refreshTodo,
 }: {
   item: TodoObj;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  refreshTodo: AddTodoListFunction;
 }) => {
   const accessToken = sessionStorageAction.storage("get", "accessToken");
 
@@ -19,7 +21,8 @@ const DeleteModal = ({
       if (!accessToken) return;
       const result = await deleteTodo(item.id, accessToken);
       await setShowModal(false);
-      console.log("삭제", result);
+      console.log("삭제", result?.data);
+      // refreshTodo(result?.data);
     } catch (error) {
       console.log("삭제", error);
     }

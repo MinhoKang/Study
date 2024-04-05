@@ -9,10 +9,16 @@ import {
 import { useState } from "react";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { editTodo } from "../../../apis/todo/editTodo";
-import { TodoObj } from "../../../utils/types";
+import { AddTodoListFunction, TodoObj } from "../../../utils/types";
 import DeleteModal from "./DeleteModal";
 
-const TodoItem = ({ item }: { item: TodoObj }) => {
+const TodoItem = ({
+  item,
+  refreshTodo,
+}: {
+  item: TodoObj;
+  refreshTodo: AddTodoListFunction;
+}) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [edited, setEdited] = useState(false);
   const [editedTodo, setEditedTodo] = useState(item.todo);
@@ -54,7 +60,7 @@ const TodoItem = ({ item }: { item: TodoObj }) => {
           onChange={(e) => setEditedTodo(e.target.value)}
         />
       )}
-      {showModal && <DeleteModal item={item} setShowModal={setShowModal} />}
+      {showModal && <DeleteModal item={item} setShowModal={setShowModal} refreshTodo={refreshTodo} />}
       {!isCompleted && !edited && (
         <div className={styles.buttons}>
           <div

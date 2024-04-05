@@ -33,7 +33,7 @@ const TodoPage = () => {
     }
   };
 
-  const addTodoToList = (newTodo: NewTodo) => {
+  const refreshTodo = (newTodo: NewTodo) => {
     console.log(newTodo);
     setTodos(newTodo.data.todos);
   };
@@ -41,8 +41,8 @@ const TodoPage = () => {
   return (
     <div className={styles.container}>
       <h1>TODO APP</h1>
-      <TodoList todos={todos} />
-      <TodoForm addTodoList={addTodoToList} />
+      <TodoList todos={todos} refreshTodo={refreshTodo}/>
+      <TodoForm refreshTodo={refreshTodo} />
     </div>
   );
 };

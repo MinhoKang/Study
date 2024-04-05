@@ -9,3 +9,6 @@ export type NewTodo = {
     todos: TodoObj[];
   };
 };
+
+export type AddTodoListFunction = (newTodo: NewTodo) => void;
+

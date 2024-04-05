@@ -2,15 +2,13 @@ import { useState } from "react";
 import styles from "./todoForm.module.scss";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { addTodo } from "../../../apis/todo/addTodo";
-import { NewTodo } from "../../../utils/types";
-
-type AddTodoListFunction = (newTodo: NewTodo) => void;
+import { AddTodoListFunction } from "../../../utils/types";
 
 interface TodoFormProps {
-  addTodoList: AddTodoListFunction;
+  refreshTodo: AddTodoListFunction;
 }
 
-const TodoForm = ({ addTodoList }: TodoFormProps) => {
+const TodoForm = ({ refreshTodo }: TodoFormProps) => {
   const [todoInput, setTodoInput] = useState("");
 
   const handleAdd = async (e: { preventDefault: () => void }) => {
@@ -19,7 +17,8 @@ const TodoForm = ({ addTodoList }: TodoFormProps) => {
       const accessToken = sessionStorageAction.storage("get", "accessToken");
       if (!accessToken) return;
       const result = await addTodo(todoInput, accessToken);
-      addTodoList(result!.data);
+      console.log("추가가가가", result!.data);
+      refreshTodo(result!.data);
       setTodoInput("");
     } catch (error) {
       console.log(error);
