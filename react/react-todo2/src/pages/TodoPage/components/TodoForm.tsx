@@ -15,8 +15,7 @@ const TodoForm = ({ setIsChanged, isChanged }: TodoFormProps) => {
     e.preventDefault();
     try {
       const accessToken = sessionStorageAction.storage("get", "accessToken");
-      if (!accessToken) return;
-      const result = await addTodo(todoInput, accessToken);
+      const result = await addTodo(todoInput, accessToken!);
       console.log("add", result);
       setIsChanged(!isChanged);
       setTodoInput("");

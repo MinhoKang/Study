@@ -23,8 +23,7 @@ const DeleteModal = ({
   const handleDelete = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     try {
-      if (!accessToken) return;
-      const result = await deleteTodo(item.id, accessToken);
+      const result = await deleteTodo(item.id, accessToken!);
       await setShowModal(false);
       setIsChanged(!isChanged);
       console.log("삭제", result);

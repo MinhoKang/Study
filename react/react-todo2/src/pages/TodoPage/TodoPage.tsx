@@ -18,19 +18,8 @@ const TodoPage = ({ isLogin, setIsLogin }: TodoPageProps) => {
 
   useEffect(() => {
     const getTodoList = async () => {
-      console.log(accessToken);
-      if (!accessToken) return;
-
-      try {
-        const result = await getTodo(accessToken);
-        if (result && result.data) {
-          setTodos(result.data);
-        } else {
-          console.error("에러");
-        }
-      } catch (error) {
-        console.error(error);
-      }
+      const result = await getTodo(accessToken!);
+      setTodos(result!.data);
     };
 
     getTodoList();

@@ -10,7 +10,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(
     sessionStorage.getItem("accessToken") !== null
   );
-
+  // TODO: 선언형으로 리팩토링
   return (
     <div className={styles.container}>
       <Routes>

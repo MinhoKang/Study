@@ -5,6 +5,7 @@ export const editTodo = async (
   id: number,
   accessToken: string
 ) => {
+  if (!accessToken) return;
   try {
     const response = await axiosInstance.put(
       `/todo?id=${id}`,

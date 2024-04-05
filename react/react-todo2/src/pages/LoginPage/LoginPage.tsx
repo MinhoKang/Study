@@ -13,6 +13,7 @@ const LoginPage = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // TODO: try등은 api에서 처리, at가 없다면 api에서 리턴
   const onLogin = async () => {
     const result = await login(email, password);
     if (!result) return;
@@ -27,7 +28,6 @@ const LoginPage = ({
       alert("실패");
     }
   };
-
   const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "Enter") {
       onLogin();

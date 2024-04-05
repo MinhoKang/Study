@@ -1,6 +1,7 @@
 import axiosInstance from "../api";
 
 export const addTodo = async (todo: string, accessToken: string) => {
+  if (!accessToken) return;
   try {
     const response = await axiosInstance.post(
       `/todo`,

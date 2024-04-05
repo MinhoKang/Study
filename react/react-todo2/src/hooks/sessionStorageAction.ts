@@ -12,3 +12,5 @@ class SessionStorageAction {
 }
 
 export const sessionStorageAction = new SessionStorageAction();
+
+// TODO: storage까지 가지 않도록 수정
