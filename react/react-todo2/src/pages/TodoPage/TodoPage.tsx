@@ -4,10 +4,10 @@ import TodoList from "./components/TodoList";
 import { useEffect, useState } from "react";
 import { sessionStorageAction } from "../../hooks/sessionStorageAction";
 import { getTodo } from "../../apis/todo/getTodo";
+import { NewTodo, TodoObj } from "../../utils/types";
 
 const TodoPage = () => {
-  const [todos, setTodos] = useState([]);
-  const [reRender, setReRender] = useState(false);
+  const [todos, setTodos] = useState<TodoObj[]>([]);
 
   useEffect(() => {
     getTodoList();
@@ -33,8 +33,9 @@ const TodoPage = () => {
     }
   };
 
-  const addTodoToList = (newTodo) => {
-    setTodos([...todos, newTodo]);
+  const addTodoToList = (newTodo: NewTodo) => {
+    console.log(newTodo);
+    setTodos(newTodo.data.todos);
   };
 
   return (

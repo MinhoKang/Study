@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./todoForm.module.scss";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { addTodo } from "../../../apis/todo/addTodo";
-import { TodoObj } from "./TodoList";
+import { NewTodo } from "../../../utils/types";
 
-type TodoFormProps = {
-  addTodoList: (newTodo: TodoObj) => void;
-};
+type AddTodoListFunction = (newTodo: NewTodo) => void;
+
+interface TodoFormProps {
+  addTodoList: AddTodoListFunction;
+}
 
 const TodoForm = ({ addTodoList }: TodoFormProps) => {
   const [todoInput, setTodoInput] = useState("");
@@ -17,7 +19,6 @@ const TodoForm = ({ addTodoList }: TodoFormProps) => {
       const accessToken = sessionStorageAction.storage("get", "accessToken");
       if (!accessToken) return;
       const result = await addTodo(todoInput, accessToken);
-      console.log(result);
       addTodoList(result!.data);
       setTodoInput("");
     } catch (error) {
