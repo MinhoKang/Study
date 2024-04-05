@@ -17,7 +17,7 @@ const TodoForm = ({ refreshTodo }: TodoFormProps) => {
       const accessToken = sessionStorageAction.storage("get", "accessToken");
       if (!accessToken) return;
       const result = await addTodo(todoInput, accessToken);
-      console.log("추가가가가", result!.data);
+      console.log("add", result);
       refreshTodo(result!.data);
       setTodoInput("");
     } catch (error) {

@@ -38,10 +38,18 @@ const TodoPage = () => {
     setTodos(newTodo.data.todos);
   };
 
+  const handleLogout = () => {
+    sessionStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <div className={styles.container}>
+      <div className={styles.logoutBtn} onClick={handleLogout}>
+        LOG OUT
+      </div>
       <h1>TODO APP</h1>
-      <TodoList todos={todos} refreshTodo={refreshTodo}/>
+      <TodoList todos={todos} refreshTodo={refreshTodo} />
       <TodoForm refreshTodo={refreshTodo} />
     </div>
   );

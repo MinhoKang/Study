@@ -3,12 +3,9 @@ import styles from "./loginPage.module.scss";
 import { login } from "../../apis/login";
 import { useNavigate } from "react-router-dom";
 import { sessionStorageAction } from "../../hooks/sessionStorageAction";
-import { useDispatch } from "react-redux";
-import { changeLoginState } from "../../store/loginSlice";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,7 +16,6 @@ const LoginPage = () => {
     if (result.statusText === "OK") {
       const accessToken = result.data.data.accessToken;
       sessionStorageAction.storage("set", "accessToken", accessToken);
-      dispatch(changeLoginState(true));
       navigate("/todo");
     } else {
       alert("실패");

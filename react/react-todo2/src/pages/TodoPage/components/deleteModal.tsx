@@ -21,7 +21,7 @@ const DeleteModal = ({
       if (!accessToken) return;
       const result = await deleteTodo(item.id, accessToken);
       await setShowModal(false);
-      console.log("삭제", result?.data);
+      console.log("삭제", result);
       // refreshTodo(result?.data);
     } catch (error) {
       console.log("삭제", error);

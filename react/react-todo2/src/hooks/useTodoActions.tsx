@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { sessionStorageAction } from "./sessionStorageAction";
-import { TodoObj } from "../pages/TodoPage/components/TodoList";
+import { TodoObj } from "../utils/types";
 import { addTodo } from "../apis/todo/addTodo";
 import { editTodo } from "../apis/todo/editTodo";
 import { deleteTodo } from "../apis/todo/deleteTodo";

@@ -4,34 +4,31 @@ import TodoPage from "./pages/TodoPage/TodoPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import styles from "./app.module.scss";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
-import { useSelector } from "react-redux";
+import { sessionStorageAction } from "./hooks/sessionStorageAction";
 
 function App() {
-  const loginState = useSelector((state) => state.login);
-  console.log(loginState);
+  const isLogin = sessionStorageAction.storage("get", "accessToken");
 
   return (
     <div className={styles.container}>
       <Routes>
         <Route
           path="/"
-          element={
-            loginState ? <Navigate to="/todo" /> : <Navigate to="/login" />
-          }
+          element={isLogin ? <Navigate to="/todo" /> : <Navigate to="/login" />}
         />
         <Route
           path="/login"
-          element={loginState ? <Navigate to="/todo" /> : <LoginPage />}
+          element={isLogin ? <Navigate to="/todo" /> : <LoginPage />}
         />
         <Route
           path="/signup"
-          element={loginState ? <Navigate to="/todo" /> : <SignUpPage />}
+          element={isLogin ? <Navigate to="/todo" /> : <SignUpPage />}
         />
         <Route
           path="/todo"
-          element={loginState ? <TodoPage /> : <Navigate to="/login" />}
+          element={isLogin ? <TodoPage /> : <Navigate to="/login" />}
         />
-        <Route path="\*" element={<ErrorPage />} />
+        <Route path="\/*" element={<ErrorPage />} />
       </Routes>
     </div>
   );
