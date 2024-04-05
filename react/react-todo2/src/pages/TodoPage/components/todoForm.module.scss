@@ -1,0 +1,33 @@
+.formContainer {
+  width: 50%;
+  margin-top: 20px;
+  .label {
+    position: relative;
+
+    input {
+      box-sizing: border-box;
+      border: none;
+      width: 100%;
+      padding: 30px 20px;
+      background-color: #15101c;
+      color: white;
+      border-radius: 10px;
+      border: none;
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      top: -2px;
+      right: 13px;
+      background-color: #9e78cf;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+}

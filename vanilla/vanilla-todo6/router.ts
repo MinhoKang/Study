@@ -2,8 +2,11 @@ import { Header } from "./src/components/Header";
 import { ErrorPage } from "./src/page/ErrorPage";
 import { HomePage } from "./src/page/HomePage";
 import { LoginPage } from "./src/page/LoginPage";
-import { TodoPage } from "./src/page/TodoPage";
+import { TodoPage } from "./src/page/todoPage/TodoPage";
 import { Store } from "./src/store/store";
+import { LocalStorageAction } from "./utils/localStorageAction";
+
+const localStorageAction = new LocalStorageAction();
 
 type Routes = { path: string; component: any }[];
 
@@ -11,27 +14,28 @@ export class Router {
   store: Store;
   routes: Routes;
   $app: HTMLElement;
+  isLogin: string | null | undefined;
 
   constructor($app: HTMLElement, store: Store) {
     this.$app = $app;
     this.store = store;
-
+    this.isLogin = localStorageAction.storage("get", "isAccept");
     this.routes = [
       {
         path: "/home",
-        component: new HomePage(this.$app, this.store),
+        component: new HomePage(),
       },
       {
         path: "/login",
-        component: new LoginPage(this.$app, this.store),
+        component: new LoginPage(this),
       },
       {
         path: "/todo",
-        component: new TodoPage(this.$app, this.store),
+        component: new TodoPage(this.store),
       },
       {
         path: "404",
-        component: new ErrorPage(this.$app),
+        component: new ErrorPage(),
       },
     ];
 
@@ -43,29 +47,31 @@ export class Router {
   }
 
   render(pathName: string) {
-    if (this.$app) {
-      let pageFound = false;
-      this.$app.innerHTML = "";
+    let pageFound = false;
 
-      // 헤더 렌더링
-      const header = new Header(this.$app, this.store);
-      this.$app.appendChild(header.returnContent());
-      header.menuClick(this);
+    this.isLogin = localStorageAction.storage("get", "isAccept");
+    this.$app.innerHTML = "";
 
-      // 페이지 렌더링
+    // 헤더 렌더링
+    const header = new Header(this.store, this.isLogin, this);
+    this.$app.appendChild(header.returnContent());
 
-      this.routes.forEach((page) => {
-        if (pathName.toLowerCase() === page.path) {
-          this.$app.appendChild(page.component.returnContent());
+    // 페이지 렌더링
+    if (this.isLogin !== "true" && pathName.toLowerCase() === "/todo") {
+      alert("로그인이 필요합니다.");
+      window.location.pathname = "/login";
+    }
+    this.routes.forEach((page) => {
+      if (pathName.toLowerCase() === page.path) {
+        this.$app.appendChild(page.component.returnContent(this));
+        pageFound = true;
+      }
+    });
 
-          pageFound = true;
-        }
-      });
-      if (!pageFound) {
-        const errorPage = this.routes.find((page) => page.path === "404");
-        if (errorPage) {
-          this.$app.appendChild(errorPage.component.returnContent());
-        }
+    if (!pageFound) {
+      const errorPage = this.routes.find((page) => page.path === "404");
+      if (errorPage) {
+        this.$app.appendChild(errorPage.component.returnContent());
       }
     }
   }

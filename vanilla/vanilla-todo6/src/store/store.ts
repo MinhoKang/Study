@@ -22,8 +22,7 @@ export class Store {
 
   notifyObservers() {
     this.observers.forEach((observer) => {
-      console.log(observer);
-      observer.render();
+      observer.returnContent();
     });
   }
 
@@ -34,6 +33,11 @@ export class Store {
 
   removeTodoItem(seq: number) {
     this.todoArr = this.todoArr.filter((item) => item.seq !== seq);
+    this.notifyObservers();
+  }
+
+  clearTodoItem() {
+    this.todoArr = [];
     this.notifyObservers();
   }
 

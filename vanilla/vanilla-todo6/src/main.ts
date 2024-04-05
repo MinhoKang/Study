@@ -1,9 +1,6 @@
 import { Store } from "../src/store/store";
 import { Router } from "./../router";
 
-export const $header = document.createElement("header");
-export const $body = document.createElement("main");
-
 class Main {
   store: Store;
   router: Router;

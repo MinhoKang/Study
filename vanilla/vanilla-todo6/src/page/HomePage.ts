@@ -1,14 +1,8 @@
-import { Store } from "../store/store";
-
 export class HomePage {
-  store: Store;
-  $app: HTMLElement;
   $main: HTMLElement;
 
-  constructor($app: HTMLElement, store: Store) {
+  constructor() {
     this.$main = document.createElement("main");
-    this.$app = $app;
-    this.store = store;
   }
 
   returnContent() {
