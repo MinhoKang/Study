@@ -21,6 +21,9 @@
     justify-content: space-between;
     cursor: pointer;
     font-size: 20px;
+    .complete {
+      color: #78cfb0;
+    }
     .edit {
       color: #b3b7ee;
     }
@@ -37,6 +40,7 @@
   }
   .editButtons {
     display: flex;
+
     .editBtn {
       cursor: pointer;
       color: #b3b7ee;

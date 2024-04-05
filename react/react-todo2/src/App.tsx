@@ -4,12 +4,11 @@ import TodoPage from "./pages/TodoPage/TodoPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import styles from "./app.module.scss";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
-import { sessionStorageAction } from "./hooks/sessionStorageAction";
 import { useState } from "react";
 
 function App() {
   const [isLogin, setIsLogin] = useState(
-    sessionStorageAction.storage("get", "accessToken") !== null
+    sessionStorage.getItem("accessToken") !== null
   );
 
   return (

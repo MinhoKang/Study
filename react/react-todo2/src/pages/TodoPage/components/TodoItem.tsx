@@ -70,34 +70,36 @@ const TodoItem = ({ item, setIsChanged, isChanged }: TodoItemProps) => {
           isChanged={isChanged}
         />
       )}
-      {!isCompleted && !edited && (
-        <div className={styles.buttons}>
-          <div
-            className={cn(styles.button, styles.complete)}
-            onClick={(e) => {
-              handleCheck(e);
-            }}
-          >
-            <FontAwesomeIcon icon={faCheck} />
-          </div>
-          <div
-            className={cn(styles.button, styles.edit)}
-            onClick={() => {
-              setEdited(true);
-            }}
-          >
-            <FontAwesomeIcon icon={faPencil} />
-          </div>
-          <div
-            className={cn(styles.button, styles.remove)}
-            onClick={() => {
-              setShowModal(true);
-            }}
-          >
-            <FontAwesomeIcon icon={faTrashCan} />
-          </div>
+      <div className={styles.buttons}>
+        <div
+          className={cn(isCompleted && styles.complete)}
+          onClick={(e) => {
+            handleCheck(e);
+          }}
+        >
+          <FontAwesomeIcon icon={faCheck} />
         </div>
-      )}
+        {!isCompleted && !edited && (
+          <>
+            <div
+              className={cn(styles.edit)}
+              onClick={() => {
+                setEdited(true);
+              }}
+            >
+              <FontAwesomeIcon icon={faPencil} />
+            </div>
+            <div
+              className={cn(styles.remove)}
+              onClick={() => {
+                setShowModal(true);
+              }}
+            >
+              <FontAwesomeIcon icon={faTrashCan} />
+            </div>
+          </>
+        )}
+      </div>
       {edited && (
         <div className={styles.editButtons}>
           <div
