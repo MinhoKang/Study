@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import styles from "./todoForm.module.scss";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { addTodo } from "../../../apis/todo/addTodo";
-import { AddTodoListFunction } from "../../../utils/types";
 
 interface TodoFormProps {
-  refreshTodo: AddTodoListFunction;
+  setIsChanged: React.Dispatch<SetStateAction<boolean>>;
+  isChanged: boolean;
 }
 
-const TodoForm = ({ refreshTodo }: TodoFormProps) => {
+const TodoForm = ({ setIsChanged, isChanged }: TodoFormProps) => {
   const [todoInput, setTodoInput] = useState("");
 
   const handleAdd = async (e: { preventDefault: () => void }) => {
@@ -18,7 +18,7 @@ const TodoForm = ({ refreshTodo }: TodoFormProps) => {
       if (!accessToken) return;
       const result = await addTodo(todoInput, accessToken);
       console.log("add", result);
-      refreshTodo(result!.data);
+      setIsChanged(!isChanged);
       setTodoInput("");
     } catch (error) {
       console.log(error);

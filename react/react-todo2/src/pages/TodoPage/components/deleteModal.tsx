@@ -1,18 +1,23 @@
+import { SetStateAction } from "react";
 import { deleteTodo } from "../../../apis/todo/deleteTodo";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
-import { AddTodoListFunction, TodoObj } from "../../../utils/types";
+import { TodoObj } from "../../../utils/types";
 import styles from "./deleteModal.module.scss";
 import cn from "classnames";
+
+interface DeleteModalProps {
+  item: TodoObj;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsChanged: React.Dispatch<SetStateAction<boolean>>;
+  isChanged: boolean;
+}
 
 const DeleteModal = ({
   item,
   setShowModal,
-  refreshTodo,
-}: {
-  item: TodoObj;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  refreshTodo: AddTodoListFunction;
-}) => {
+  setIsChanged,
+  isChanged,
+}: DeleteModalProps) => {
   const accessToken = sessionStorageAction.storage("get", "accessToken");
 
   const handleDelete = async (e: React.MouseEvent<HTMLDivElement>) => {
@@ -21,8 +26,8 @@ const DeleteModal = ({
       if (!accessToken) return;
       const result = await deleteTodo(item.id, accessToken);
       await setShowModal(false);
+      setIsChanged(!isChanged);
       console.log("삭제", result);
-      // refreshTodo(result?.data);
     } catch (error) {
       console.log("삭제", error);
     }

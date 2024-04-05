@@ -1,18 +1,24 @@
 import styles from "./todoList.module.scss";
 import TodoItem from "./TodoItem";
-import { AddTodoListFunction, TodoObj } from "../../../utils/types";
+import { TodoObj } from "../../../utils/types";
+import React, { SetStateAction } from "react";
 
-const TodoList = ({
-  todos,
-  refreshTodo,
-}: {
+interface TodoListProps {
   todos: TodoObj[];
-  refreshTodo: AddTodoListFunction;
-}) => {
+  setIsChanged: React.Dispatch<SetStateAction<boolean>>;
+  isChanged: boolean;
+}
+
+const TodoList = ({ todos, setIsChanged, isChanged }: TodoListProps) => {
   return (
     <div className={styles.container}>
       {todos.map((item: TodoObj) => (
-        <TodoItem key={item.id} item={item} refreshTodo={refreshTodo} />
+        <TodoItem
+          key={item.id}
+          item={item}
+          setIsChanged={setIsChanged}
+          isChanged={isChanged}
+        />
       ))}
     </div>
   );

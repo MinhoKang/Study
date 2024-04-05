@@ -5,21 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 type SignUpData = {
-  confrimPassword: string;
-  email: string;
-  password: string;
-  phoneNumber: string;
+  confirmPassword?: string;
+  email?: string;
+  password?: string;
+  phoneNumber?: string;
 };
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [checkPassword, setCheckPassword] = useState("");
-  // const [phoneNumber, setPhoneNumber] = useState("");
-  // const phoneRegExp =
 
   const formSchema = yup.object({
     email: yup
@@ -35,7 +32,7 @@ const SignUpPage = () => {
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/,
         "영문 숫자포함 8자리를 입력해주세요."
       ),
-    confrimPassword: yup
+    confirmPassword: yup
       .string()
       .oneOf([yup.ref("password")], "비밀번호가 다릅니다"),
     phoneNumber: yup
@@ -56,9 +53,9 @@ const SignUpPage = () => {
   });
 
   const onSubmit = async (data: SignUpData) => {
-    const { confrimPassword, email, password, phoneNumber } = data;
-    const result = await singUp(email, password, confrimPassword, phoneNumber);
-    console.log(result);
+    const { confirmPassword, email, password, phoneNumber } = data;
+    if (!confirmPassword || !email || !password || !phoneNumber) return;
+    const result = await singUp(email, password, confirmPassword, phoneNumber);
     if (!result) return;
     if (result.status === 201) {
       alert(result.data.message);
@@ -68,8 +65,16 @@ const SignUpPage = () => {
     }
   };
 
+  const goBack = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    navigate(-1);
+  };
+
   return (
     <div className={styles.container}>
+      <div className={styles.backBtn} onClick={(e) => goBack(e)}>
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </div>
       <h1 className={styles.title}>SIGN UP</h1>
       <form
         id="signUpForm"
@@ -84,6 +89,7 @@ const SignUpPage = () => {
             className={styles.input}
             placeholder="EMAIL"
             autoComplete="true"
+            required
             {...register("email")}
           />
           {errors.email && (
@@ -97,6 +103,7 @@ const SignUpPage = () => {
             id="password"
             className={styles.input}
             autoComplete="true"
+            required
             placeholder="PASSWORD"
             {...register("password", {
               required: "비밀번호를 입력하세요",
@@ -114,15 +121,16 @@ const SignUpPage = () => {
           <span>CONFIRM PASSWORD</span>
           <input
             type="password"
-            id="confrimPassword"
+            id="confirmPassword"
             className={styles.input}
+            required
             placeholder="CONFIRM PASSWORD"
             autoComplete="true"
-            {...register("confrimPassword")}
+            {...register("confirmPassword")}
           />
-          {errors.confrimPassword && (
+          {errors.confirmPassword && (
             <p className={styles.warningText}>
-              {errors.confrimPassword.message}
+              {errors.confirmPassword.message}
             </p>
           )}
         </label>
@@ -132,6 +140,7 @@ const SignUpPage = () => {
             type="tel"
             id="phone"
             className={styles.input}
+            required
             placeholder="PHONE NUMBER"
             autoComplete="true"
             {...register("phoneNumber")}

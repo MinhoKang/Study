@@ -2,7 +2,7 @@ import axiosInstance from "./api";
 
 export const login = async (id: string, password: string) => {
   try {
-    const response = axiosInstance.post("/login", {
+    const response = await axiosInstance.post("/login", {
       id,
       password,
     });

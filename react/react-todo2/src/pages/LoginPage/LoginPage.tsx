@@ -1,21 +1,27 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./loginPage.module.scss";
 import { login } from "../../apis/login";
 import { useNavigate } from "react-router-dom";
 import { sessionStorageAction } from "../../hooks/sessionStorageAction";
 
-const LoginPage = () => {
+const LoginPage = ({
+  setIsLogin,
+}: {
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onLogin = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const onLogin = async () => {
     const result = await login(email, password);
     if (!result) return;
     if (result.statusText === "OK") {
       const accessToken = result.data.data.accessToken;
       sessionStorageAction.storage("set", "accessToken", accessToken);
+      setIsLogin(
+        sessionStorageAction.storage("set", "accessToken", accessToken) !== null
+      );
       navigate("/todo");
     } else {
       alert("실패");
@@ -24,7 +30,7 @@ const LoginPage = () => {
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "Enter") {
-      onLogin(e);
+      onLogin();
     }
   };
 
@@ -58,7 +64,7 @@ const LoginPage = () => {
             placeholder="PASSWORD"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={handleKeyPress}
+            onKeyDown={(e) => handleKeyPress(e)}
           />
         </label>
       </form>
@@ -66,7 +72,7 @@ const LoginPage = () => {
         <button
           type="button"
           className={styles.loginBtn}
-          onClick={(e) => onLogin(e)}
+          onClick={() => onLogin()}
         >
           LOGIN
         </button>

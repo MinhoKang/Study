@@ -5,9 +5,12 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import styles from "./app.module.scss";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import { sessionStorageAction } from "./hooks/sessionStorageAction";
+import { useState } from "react";
 
 function App() {
-  const isLogin = sessionStorageAction.storage("get", "accessToken");
+  const [isLogin, setIsLogin] = useState(
+    sessionStorageAction.storage("get", "accessToken") !== null
+  );
 
   return (
     <div className={styles.container}>
@@ -18,7 +21,13 @@ function App() {
         />
         <Route
           path="/login"
-          element={isLogin ? <Navigate to="/todo" /> : <LoginPage />}
+          element={
+            isLogin ? (
+              <Navigate to="/todo" />
+            ) : (
+              <LoginPage setIsLogin={setIsLogin} />
+            )
+          }
         />
         <Route
           path="/signup"
@@ -26,9 +35,15 @@ function App() {
         />
         <Route
           path="/todo"
-          element={isLogin ? <TodoPage /> : <Navigate to="/login" />}
+          element={
+            isLogin ? (
+              <TodoPage isLogin={isLogin} setIsLogin={setIsLogin} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
-        <Route path="\/*" element={<ErrorPage />} />
+        <Route path="/*" element={<ErrorPage />} />
       </Routes>
     </div>
   );

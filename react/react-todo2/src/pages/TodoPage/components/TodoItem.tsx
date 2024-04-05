@@ -6,23 +6,24 @@ import {
   faPencil,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { sessionStorageAction } from "../../../hooks/sessionStorageAction";
 import { editTodo } from "../../../apis/todo/editTodo";
-import { AddTodoListFunction, TodoObj } from "../../../utils/types";
+import { TodoObj } from "../../../utils/types";
 import DeleteModal from "./DeleteModal";
 
-const TodoItem = ({
-  item,
-  refreshTodo,
-}: {
+interface TodoItemProps {
   item: TodoObj;
-  refreshTodo: AddTodoListFunction;
-}) => {
+  setIsChanged: React.Dispatch<SetStateAction<boolean>>;
+  isChanged: boolean;
+}
+
+const TodoItem = ({ item, setIsChanged, isChanged }: TodoItemProps) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [edited, setEdited] = useState(false);
   const [editedTodo, setEditedTodo] = useState(item.todo);
   const [showModal, setShowModal] = useState(false);
+
   const accessToken = sessionStorageAction.storage("get", "accessToken");
 
   const handleEdit = async (e: React.MouseEvent<HTMLDivElement>) => {
@@ -32,6 +33,7 @@ const TodoItem = ({
       const result = await editTodo(editedTodo, item.id, accessToken);
       console.log("수정", result);
       setEdited(false);
+      setIsChanged(!isChanged);
     } catch (error) {
       console.log("수정", error);
     }
@@ -60,7 +62,14 @@ const TodoItem = ({
           onChange={(e) => setEditedTodo(e.target.value)}
         />
       )}
-      {showModal && <DeleteModal item={item} setShowModal={setShowModal} refreshTodo={refreshTodo} />}
+      {showModal && (
+        <DeleteModal
+          item={item}
+          setShowModal={setShowModal}
+          setIsChanged={setIsChanged}
+          isChanged={isChanged}
+        />
+      )}
       {!isCompleted && !edited && (
         <div className={styles.buttons}>
           <div
