@@ -1,4 +1,4 @@
 export interface H1Props {
-  className: string;
+  className?: string;
   text: string;
 }

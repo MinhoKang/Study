@@ -21,6 +21,7 @@ const LoginPage = () => {
   };
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     const id = e.currentTarget.id;
     console.log(id);
     if (id === "login") {

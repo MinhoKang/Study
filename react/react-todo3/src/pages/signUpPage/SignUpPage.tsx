@@ -11,8 +11,10 @@ import { signUpButtons } from "../../constants/signUpPage/signUpButton";
 import Button from "../../components/button/Button";
 import cn from "classnames";
 import { useSignUp } from "../../hooks/useSignUp";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,6 +23,11 @@ const SignUpPage = () => {
     mode: "onChange",
     resolver: yupResolver(formSchema),
   });
+
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = e.currentTarget.id;
+    if (id === "cancel") navigate("/");
+  };
 
   return (
     <Container className={css.container}>
@@ -65,6 +72,7 @@ const SignUpPage = () => {
             id={btn.id}
             type={btn.type}
             form={btn.form}
+            onClick={onClick}
           />
         ))}
       </div>
