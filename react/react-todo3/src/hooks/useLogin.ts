@@ -3,12 +3,14 @@ import { login } from "../apis/login";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+  const [values, setValues] = useState({
+    id: "",
+    password: "",
+  });
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const result = await login(id, password);
+    const result = await login(values.id, values.password);
     if (!result) return;
 
     if (result.statusText === "OK") {
@@ -21,5 +23,5 @@ export const useLogin = () => {
     }
   };
 
-  return { handleLogin, setId, setPassword, navigate };
+  return { values, setValues, handleLogin, navigate };
 };

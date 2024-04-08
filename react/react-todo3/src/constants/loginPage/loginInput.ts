@@ -10,6 +10,8 @@ export const loginInputs = [
     autoComplete: "on",
     className: loginInputCss.input,
     placeholder: "EMAIL",
+    title: "EMAIL",
+    error: "이메일을 입력하세요.",
   },
   {
     index: 1,
@@ -19,5 +21,7 @@ export const loginInputs = [
     autoComplete: "on",
     className: loginInputCss.input,
     placeholder: "PASSWORD",
+    title: "PASSWORD",
+    error: "비밀번호를 확인하세요",
   },
 ];

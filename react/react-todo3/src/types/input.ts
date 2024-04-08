@@ -7,4 +7,5 @@ export type InputType = {
   autoComplete: string;
   className: string;
   placeholder: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };

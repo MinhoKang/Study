@@ -1,25 +1,9 @@
-import { InputType } from "../../types/input";
+import React from "react";
 
-const Input = ({
-  type,
-  id,
-  autoFocus,
-  required,
-  autoComplete,
-  className,
-  placeholder,
-}: InputType) => {
-  return (
-    <input
-      type={type}
-      id={id}
-      autoFocus={autoFocus}
-      required={required}
-      autoComplete={autoComplete}
-      className={className}
-      placeholder={placeholder}
-    />
-  );
-};
+type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+  return <input {...props} ref={ref} />;
+});
 
 export default Input;
