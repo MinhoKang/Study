@@ -4,20 +4,18 @@ import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
   const [values, setValues] = useState({
-    
-    id: "",
+    email: "",
     password: "",
   });
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const result = await login(values.id, values.password);
+    const result = await login(values.email, values.password);
     if (!result) return;
 
     if (result.statusText === "OK") {
       const accessToken = result.data.data.accessToken;
       sessionStorage.setItem("accessToken", accessToken);
-
       navigate("/todo");
     } else {
       alert("실패");

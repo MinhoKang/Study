@@ -1,18 +1,13 @@
 import { TodoProps } from "../../../types/todo";
 import css from "../../../styles/features/todoPage/todoItem.module.css";
-import { useState } from "react";
 import Todo from "./Todo";
 import EditTodo from "./EditTodo";
 import TodoButtons from "./TodoButtons";
 import DeleteModal from "./DeleteModal";
+import { useTodoState } from "../../../hooks/useTodoState";
 
 const TodoItem = ({ todo }: TodoProps) => {
-  const [todoState, setTodoState] = useState({
-    editedTodo: todo.todo,
-    isEdit: false,
-    isCheck: false,
-    isDelete: false,
-  });
+  const { todoState, setTodoState } = useTodoState(todo);
 
   return (
     <div className={css.itemBox}>

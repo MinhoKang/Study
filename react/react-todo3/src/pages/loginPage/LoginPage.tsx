@@ -13,11 +13,8 @@ const LoginPage = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const id = e.target.id;
-    if (id === "email") {
-      setValues({ ...values, id: e.target.value });
-    } else if (id === "password") {
-      setValues({ ...values, password: e.target.value });
-    }
+    setValues({ ...values, [id]: e.target.value });
+    console.log(values);
   };
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {

@@ -37,10 +37,6 @@ export const useTodo = () => {
     if (!accessToken) return;
     const response = await deleteTodo(id, accessToken);
 
-    // const index = todos.findIndex((todo) => todo.id === id);
-    //  const newTodos = [...todos];
-    // newTodos.splice(index, 1);
-    // onChangeTodos(newTodos);
     console.log("삭제", response);
     const newTodos = await todos.filter((todo) => todo.id !== id);
     console.log("newTodos", newTodos);
