@@ -1,8 +1,18 @@
-import { TodoProps } from "../../../types/todo";
+import { TodoObj } from "../../../types/todo";
 import css from "../../../styles/features/todoPage/todoItem.module.css";
+import cn from "classnames";
 
-const Todo = ({ todo }: TodoProps) => {
-  return <p className={css.todoText}>{todo.todo}</p>;
+interface Props {
+  todo: TodoObj;
+  isCheck: boolean;
+}
+
+const Todo = ({ todo, isCheck }: Props) => {
+  return (
+    <p className={cn(css.todoText, isCheck ? css.lineThrough : null)}>
+      {todo.todo}
+    </p>
+  );
 };
 
 export default Todo;

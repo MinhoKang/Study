@@ -9,16 +9,31 @@ import DeleteModal from "./DeleteModal";
 const TodoItem = ({ todo }: TodoProps) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editedTodo, setEditedTodo] = useState(todo.todo);
+  const [isCheck, setIsCheck] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
 
   return (
     <div className={css.itemBox}>
       {isEdit ? (
-        <EditTodo editedTodo={editedTodo} setEditedTodo={setEditedTodo} />
+        <EditTodo
+          editedTodo={editedTodo}
+          setEditedTodo={setEditedTodo}
+          setIsEdit={setIsEdit}
+          todoId={todo.id}
+        />
       ) : (
-        <Todo todo={todo} />
+        <>
+          <Todo todo={todo} isCheck={isCheck} />
+          <TodoButtons
+            setIsEdit={setIsEdit}
+            isCheck={isCheck}
+            setIsCheck={setIsCheck}
+            setIsDelete={setIsDelete}
+          />
+        </>
       )}
-      <TodoButtons todo={todo} setIsEdit={setIsEdit} />
-      {isEdit && <DeleteModal todo={todo} setIsEdit={setIsEdit} />}
+
+      {isDelete && <DeleteModal todo={todo} setIsDelete={setIsDelete} />}
     </div>
   );
 };

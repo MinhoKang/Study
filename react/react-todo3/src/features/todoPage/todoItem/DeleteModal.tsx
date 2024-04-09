@@ -6,16 +6,16 @@ import { SetStateAction } from "react";
 
 interface Props {
   todo: TodoObj;
-  setIsEdit: React.Dispatch<SetStateAction<boolean>>;
+  setIsDelete: React.Dispatch<SetStateAction<boolean>>;
 }
 
-const DeleteModal = ({ todo, setIsEdit }: Props) => {
+const DeleteModal = ({ todo, setIsDelete }: Props) => {
   const { onDeleteTodo } = useTodo();
   const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     // 삭제
     const response = await onDeleteTodo(todo.id);
-    setIsEdit(false);
+    setIsDelete(false);
     await console.log(response);
     // 취소
   };
@@ -28,7 +28,7 @@ const DeleteModal = ({ todo, setIsEdit }: Props) => {
           <div className={cn(css.btn, css.deleteBtn)}>삭제</div>
           <div
             className={cn(css.btn, css.cancelBtn)}
-            onClick={() => setIsEdit(false)}
+            onClick={() => setIsDelete(false)}
           >
             취소
           </div>
