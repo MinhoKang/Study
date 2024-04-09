@@ -7,18 +7,33 @@ import formCss from "../../styles/features/todoPage/todoForm.module.css";
 import { todoForm } from "../../constants/todoPage/todoForm";
 import Input from "../../components/input/Input";
 import { useTodo } from "../../hooks/useTodo";
+import { useState } from "react";
 
 const TodoPage = () => {
-  const { todos, onChangeTodos } = useTodo();
+  const { todos, onAddTodo } = useTodo();
+  const [todoInput, setTodoInput] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await onAddTodo(todoInput);
+    setTodoInput("");
+  };
 
   return (
     <Container className={css.container}>
       <H1 text="TODO APP" />
       <TodoList todos={todos} />
-      <Form className={formCss.formContainer}>
+      {/* //TODO: FORM 따로 빼기 */}
+      <Form className={formCss.formContainer} onSubmit={handleSubmit}>
         {todoForm.map((form) => (
           <label key={form.index} className={formCss.label}>
-            <Input type={form.type} placeholder={form.placeholder} />
+            <Input
+              type={form.type}
+              placeholder={form.placeholder}
+              name="addInput"
+              value={todoInput}
+              onChange={(e) => setTodoInput(e.target.value)}
+            />
             <button type="submit">+</button>
           </label>
         ))}

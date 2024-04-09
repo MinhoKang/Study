@@ -1,7 +1,14 @@
 import css from "../../styles/features/todoPage/todoItem.module.css";
 
+import {
+  faCheck,
+  faPencil,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
+
+// todoButtons 배열
 export const todoButtons = [
-  { index: 0, icon: "faCheck" },
-  { index: 1, className: css.edit, icon: "faPencil" },
-  { index: 2, className: css.remove, icon: "faTrashCan" },
+  { index: 0, icon: faCheck, name: "check" },
+  { index: 1, className: css.edit, icon: faPencil, name: "edit" },
+  { index: 2, icon: faTrashCan, name: "delete" },
 ];
