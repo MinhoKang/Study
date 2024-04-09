@@ -1,29 +1,23 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 import { todoButtons } from "../../../constants/todoPage/todoButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import css from "../../../styles/features/todoPage/todoItem.module.css";
+import { TodoState } from "../../../types/todo";
 
 interface Props {
-  setIsEdit: React.Dispatch<SetStateAction<boolean>>;
   isCheck: boolean;
-  setIsCheck: React.Dispatch<SetStateAction<boolean>>;
-  setIsDelete: React.Dispatch<SetStateAction<boolean>>;
+  setTodoState: React.Dispatch<React.SetStateAction<TodoState>>;
 }
-const TodoButtons = ({
-  setIsEdit,
-  isCheck,
-  setIsCheck,
-  setIsDelete,
-}: Props) => {
+const TodoButtons = ({ isCheck, setTodoState }: Props) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     const id = e.currentTarget.id;
     if (id === "check") {
-      setIsCheck(!isCheck);
+      setTodoState((prevState) => ({ ...prevState, isCheck: !isCheck }));
     } else if (id === "edit") {
-      setIsEdit(true);
+      setTodoState((prevState) => ({ ...prevState, isEdit: true }));
     } else if (id === "delete") {
-      setIsDelete(true);
+      setTodoState((prevState) => ({ ...prevState, isDelete: true }));
     }
   };
   return (

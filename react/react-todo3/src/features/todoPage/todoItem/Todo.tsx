@@ -9,9 +9,7 @@ interface Props {
 
 const Todo = ({ todo, isCheck }: Props) => {
   return (
-    <p className={cn(css.todoText, isCheck ? css.lineThrough : null)}>
-      {todo.todo}
-    </p>
+    <p className={cn(css.todoText, isCheck && css.lineThrough)}>{todo.todo}</p>
   );
 };
 

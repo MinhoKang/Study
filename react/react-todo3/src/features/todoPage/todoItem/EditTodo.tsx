@@ -1,24 +1,23 @@
 import { useTodo } from "../../../hooks/useTodo";
 import css from "../../../styles/features/todoPage/todoItem.module.css";
-import { SetStateAction } from "react";
+import { TodoState } from "../../../types/todo";
 
 type Props = {
   editedTodo: string;
-  setEditedTodo: React.Dispatch<SetStateAction<string>>;
-  setIsEdit: React.Dispatch<SetStateAction<boolean>>;
+  setTodoState: React.Dispatch<React.SetStateAction<TodoState>>;
   todoId: number;
 };
 
-const EditTodo = ({ editedTodo, setEditedTodo, setIsEdit, todoId }: Props) => {
+const EditTodo = ({ editedTodo, setTodoState, todoId }: Props) => {
   const { onEditTodo } = useTodo();
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
 
     if ((e.target as HTMLElement).textContent === "EDIT") {
       onEditTodo(editedTodo, todoId);
-      setIsEdit(false);
+      setTodoState((prevState) => ({ ...prevState, isEdit: false }));
     } else if ((e.target as HTMLElement).innerText === "CANCEL") {
-      setIsEdit(false);
+      setTodoState((prevState) => ({ ...prevState, isEdit: false }));
     }
   };
 
@@ -27,7 +26,12 @@ const EditTodo = ({ editedTodo, setEditedTodo, setIsEdit, todoId }: Props) => {
       <input
         className={css.editInput}
         value={editedTodo}
-        onChange={(e) => setEditedTodo(e.target.value)}
+        onChange={(e) =>
+          setTodoState((prevState) => ({
+            ...prevState,
+            editedTodo: e.target.value,
+          }))
+        }
       />
       <div className={css.btns} onClick={handleClick}>
         <p className={css.editBtn}>EDIT</p>

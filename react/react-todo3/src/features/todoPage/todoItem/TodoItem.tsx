@@ -7,33 +7,34 @@ import TodoButtons from "./TodoButtons";
 import DeleteModal from "./DeleteModal";
 
 const TodoItem = ({ todo }: TodoProps) => {
-  const [isEdit, setIsEdit] = useState(false);
-  const [editedTodo, setEditedTodo] = useState(todo.todo);
-  const [isCheck, setIsCheck] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
+  const [todoState, setTodoState] = useState({
+    editedTodo: todo.todo,
+    isEdit: false,
+    isCheck: false,
+    isDelete: false,
+  });
 
   return (
     <div className={css.itemBox}>
-      {isEdit ? (
+      {todoState.isEdit ? (
         <EditTodo
-          editedTodo={editedTodo}
-          setEditedTodo={setEditedTodo}
-          setIsEdit={setIsEdit}
+          editedTodo={todoState.editedTodo}
+          setTodoState={setTodoState}
           todoId={todo.id}
         />
       ) : (
         <>
-          <Todo todo={todo} isCheck={isCheck} />
+          <Todo todo={todo} isCheck={todoState.isCheck} />
           <TodoButtons
-            setIsEdit={setIsEdit}
-            isCheck={isCheck}
-            setIsCheck={setIsCheck}
-            setIsDelete={setIsDelete}
+            isCheck={todoState.isCheck}
+            setTodoState={setTodoState}
           />
         </>
       )}
 
-      {isDelete && <DeleteModal todo={todo} setIsDelete={setIsDelete} />}
+      {todoState.isDelete && (
+        <DeleteModal todo={todo} setTodoState={setTodoState} />
+      )}
     </div>
   );
 };
