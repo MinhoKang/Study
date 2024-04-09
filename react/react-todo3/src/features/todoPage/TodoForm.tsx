@@ -3,11 +3,10 @@ import Form from "../../components/form/Form";
 import { todoForm } from "../../constants/todoPage/todoForm";
 import Input from "../../components/input/Input";
 import formCss from "../../styles/features/todoPage/todoForm.module.css";
-import { useTodo } from "../../hooks/useTodo";
+import { UseTodo } from "../../types/useTodo";
 
-const TodoForm = () => {
+const TodoForm = ({ onAddTodo }: UseTodo) => {
   const [todoInput, setTodoInput] = useState("");
-  const { onAddTodo } = useTodo();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

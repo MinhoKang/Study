@@ -6,13 +6,14 @@ import { useTodo } from "../../hooks/useTodo";
 import TodoForm from "../../features/todoPage/TodoForm";
 
 const TodoPage = () => {
-  const { todos } = useTodo();
+  const { todos, onChangeTodos, onAddTodo, onDeleteTodo, onEditTodo } =
+    useTodo();
 
   return (
     <Container className={css.container}>
       <H1 text="TODO APP" />
       <TodoList todos={todos} />
-      <TodoForm />
+      <TodoForm onAddTodo={onAddTodo} />
     </Container>
   );
 };
