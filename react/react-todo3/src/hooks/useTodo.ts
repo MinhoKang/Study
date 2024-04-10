@@ -9,8 +9,9 @@ export const useTodo = () => {
   const [todos, setTodos] = useState<TodoObj[]>([]);
   const onChangeTodos = (newTodos: TodoObj[]) => setTodos(newTodos);
 
+  const accessToken = sessionStorage.getItem("accessToken");
+
   useEffect(() => {
-    const accessToken = sessionStorage.getItem("accessToken");
     const getTodoList = async () => {
       if (!accessToken) return;
       try {
@@ -23,32 +24,32 @@ export const useTodo = () => {
       }
     };
     getTodoList();
-  }, []);
+  }, [accessToken]);
 
   const onAddTodo = async (todo: string) => {
-    const accessToken = sessionStorage.getItem("accessToken");
     if (!accessToken) return;
     const response = await addTodo(todo, accessToken);
     onChangeTodos(response?.data.data.todos);
   };
 
   const onDeleteTodo = async (id: number) => {
-    const accessToken = sessionStorage.getItem("accessToken");
     if (!accessToken) return;
-    const response = await deleteTodo(id, accessToken);
-
-    console.log("삭제", response);
+    await deleteTodo(id, accessToken);
     const newTodos = await todos.filter((todo) => todo.id !== id);
-    console.log("newTodos", newTodos);
     await onChangeTodos(newTodos);
-    console.log("todos", todos);
   };
 
   const onEditTodo = async (edited: string, id: number) => {
-    const accessToken = sessionStorage.getItem("accessToken");
     if (!accessToken) return;
     const response = await editTodo(edited, id, accessToken);
-    console.log(response);
+    const updatedTodo = response!.data.data.todo;
+    const updatedIndex = todos.findIndex((todo) => todo.id === updatedTodo.id);
+    const updatedTodos = [
+      ...todos.slice(0, updatedIndex),
+      updatedTodo,
+      ...todos.slice(updatedIndex + 1),
+    ];
+    onChangeTodos(updatedTodos);
   };
 
   return { todos, onChangeTodos, onAddTodo, onDeleteTodo, onEditTodo };

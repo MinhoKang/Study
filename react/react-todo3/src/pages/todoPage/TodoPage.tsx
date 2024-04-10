@@ -4,16 +4,26 @@ import TodoList from "../../features/todoPage/TodoList";
 import css from "../../styles/todoPage/todoPage.module.css";
 import { useTodo } from "../../hooks/useTodo";
 import TodoForm from "../../features/todoPage/TodoForm";
+import { ThemeContext } from "../../context/ThemeContext";
+import { useTodoState } from "../../hooks/useTodoState";
 
 const TodoPage = () => {
-  const { todos, onChangeTodos, onAddTodo, onDeleteTodo, onEditTodo } =
-    useTodo();
+  const { todos, onAddTodo, onDeleteTodo, onEditTodo } = useTodo();
 
   return (
     <Container className={css.container}>
       <H1 text="TODO APP" />
-      <TodoList todos={todos} />
-      <TodoForm onAddTodo={onAddTodo} />
+      <ThemeContext.Provider
+        value={{
+          todos,
+          onAddTodo,
+          onDeleteTodo,
+          onEditTodo,
+        }}
+      >
+        <TodoList />
+        <TodoForm />
+      </ThemeContext.Provider>
     </Container>
   );
 };

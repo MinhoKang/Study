@@ -1,6 +1,7 @@
-import { useTodo } from "../../../hooks/useTodo";
+import { useContext } from "react";
 import css from "../../../styles/features/todoPage/todoItem.module.css";
 import { TodoState } from "../../../types/todo";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 type Props = {
   editedTodo: string;
@@ -9,7 +10,7 @@ type Props = {
 };
 
 const EditTodo = ({ editedTodo, setTodoState, todoId }: Props) => {
-  const { onEditTodo } = useTodo();
+  const { onEditTodo } = useContext(ThemeContext);
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
 
