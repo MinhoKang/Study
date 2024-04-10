@@ -5,7 +5,6 @@ import css from "../../styles/todoPage/todoPage.module.css";
 import { useTodo } from "../../hooks/useTodo";
 import TodoForm from "../../features/todoPage/TodoForm";
 import { ThemeContext } from "../../context/ThemeContext";
-import { useTodoState } from "../../hooks/useTodoState";
 
 const TodoPage = () => {
   const { todos, onAddTodo, onDeleteTodo, onEditTodo } = useTodo();

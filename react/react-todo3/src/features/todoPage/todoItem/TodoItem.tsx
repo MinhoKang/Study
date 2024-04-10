@@ -8,28 +8,24 @@ import { useTodoState } from "../../../hooks/useTodoState";
 
 const TodoItem = ({ todo }: TodoProps) => {
   const { todoState, setTodoState } = useTodoState(todo);
-
+  const { isEdit, editedTodo, isCheck, isDelete } = todoState;
+  const { setIsEdit } = setTodoState;
   return (
     <div className={css.itemBox}>
-      {todoState.isEdit ? (
+      {isEdit ? (
         <EditTodo
-          editedTodo={todoState.editedTodo}
-          setTodoState={setTodoState}
+          editedTodo={editedTodo}
+          setIsEdit={setIsEdit}
           todoId={todo.id}
         />
       ) : (
         <>
-          <Todo todo={todo} isCheck={todoState.isCheck} />
-          <TodoButtons
-            isCheck={todoState.isCheck}
-            setTodoState={setTodoState}
-          />
+          <Todo todo={todo} isCheck={isCheck} />
+          <TodoButtons isCheck={isCheck} setTodoState={setTodoState} />
         </>
       )}
 
-      {todoState.isDelete && (
-        <DeleteModal todo={todo} setTodoState={setTodoState} />
-      )}
+      {isDelete && <DeleteModal todo={todo} setTodoState={setTodoState} />}
     </div>
   );
 };
