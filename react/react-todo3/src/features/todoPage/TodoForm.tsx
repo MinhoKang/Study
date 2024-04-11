@@ -3,7 +3,6 @@ import Form from "../../components/form/Form";
 import { todoForm } from "../../constants/todoPage/todoForm";
 import Input from "../../components/input/Input";
 import formCss from "../../styles/features/todoPage/todoForm.module.css";
-import { UseTodo } from "../../types/useTodo";
 import { ThemeContext } from "../../context/ThemeContext";
 
 const TodoForm = () => {

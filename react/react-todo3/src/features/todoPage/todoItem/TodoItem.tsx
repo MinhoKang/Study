@@ -7,17 +7,12 @@ import DeleteModal from "./DeleteModal";
 import { useTodoState } from "../../../hooks/useTodoState";
 
 const TodoItem = ({ todo }: TodoProps) => {
-  const { todoState, setTodoState } = useTodoState(todo);
-  const { isEdit, editedTodo, isCheck, isDelete } = todoState;
-  const { setIsEdit } = setTodoState;
+  const { todoState, setTodoState, setIsEdit } = useTodoState(todo);
+  const { isEdit, isCheck, isDelete } = todoState;
   return (
     <div className={css.itemBox}>
       {isEdit ? (
-        <EditTodo
-          editedTodo={editedTodo}
-          setIsEdit={setIsEdit}
-          todoId={todo.id}
-        />
+        <EditTodo todo={todo} setIsEdit={setIsEdit} />
       ) : (
         <>
           <Todo todo={todo} isCheck={isCheck} />

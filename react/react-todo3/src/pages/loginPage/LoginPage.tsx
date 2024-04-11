@@ -14,13 +14,11 @@ const LoginPage = () => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const id = e.target.id;
     setValues({ ...values, [id]: e.target.value });
-    console.log(values);
   };
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const id = e.currentTarget.id;
-    console.log(id);
     if (id === "login") {
       handleLogin();
     } else if (id === "signUp") {

@@ -52,5 +52,5 @@ export const useTodo = () => {
     onChangeTodos(updatedTodos);
   };
 
-  return { todos, onChangeTodos, onAddTodo, onDeleteTodo, onEditTodo };
+  return { todos, onAddTodo, onDeleteTodo, onEditTodo };
 };
