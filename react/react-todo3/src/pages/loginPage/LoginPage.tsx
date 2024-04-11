@@ -1,20 +1,29 @@
+import { useState } from "react";
 import Button from "../../components/button/Button";
 import Container from "../../components/container/Container";
 import Form from "../../components/form/Form";
 import Input from "../../components/input/Input";
 import { H1 } from "../../components/title/H1";
-
 import { loginButtons } from "../../constants/loginPage/loginButton";
 import { loginInputs } from "../../constants/loginPage/loginInput";
 import { useLogin } from "../../hooks/useLogin";
 import css from "../../styles/loginPage/loginPage.module.css";
+import { emailRegEx, passwordRegEx } from "../../utils/regex";
 
 const LoginPage = () => {
   const { values, setValues, handleLogin, navigate } = useLogin();
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const id = e.target.id;
-    setValues({ ...values, [id]: e.target.value });
+    const value = e.target.value;
+    setValues({ ...values, [id]: value });
+    if (id === "email") {
+      setIsEmailValid(emailRegEx.test(value));
+    } else if (id === "password") {
+      setIsPasswordValid(passwordRegEx.test(value));
+    }
   };
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,6 +53,12 @@ const LoginPage = () => {
               required={input.required}
               onChange={onChange}
             />
+            {input.id === "email" && !isEmailValid && (
+              <p className={css.error}>{input.error}</p>
+            )}
+            {input.id === "password" && !isPasswordValid && (
+              <p className={css.error}>{input.error}</p>
+            )}
           </label>
         ))}
       </Form>
