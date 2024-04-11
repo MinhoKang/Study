@@ -4,6 +4,7 @@ import { todoForm } from "../../constants/todoPage/todoForm";
 import Input from "../../components/input/Input";
 import formCss from "../../styles/features/todoPage/todoForm.module.css";
 import { ThemeContext } from "../../context/ThemeContext";
+//FIXME: 타입
 
 const TodoForm = () => {
   const [todoInput, setTodoInput] = useState("");

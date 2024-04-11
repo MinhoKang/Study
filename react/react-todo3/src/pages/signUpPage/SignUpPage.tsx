@@ -1,7 +1,6 @@
 import Form from "../../components/form/Form";
 import Container from "../../components/container/Container";
 import css from "../../styles/signUpPage/signUpPage.module.css";
-import H1 from "../../components/title/H1";
 import { signUpInput } from "../../constants/signUpPage/signUpInput";
 import Input from "../../components/input/Input";
 import { formSchema } from "../../utils/regex";
@@ -12,6 +11,7 @@ import Button from "../../components/button/Button";
 import cn from "classnames";
 import { useSignUp } from "../../hooks/useSignUp";
 import { useNavigate } from "react-router-dom";
+import { H1 } from "../../components/title/H1";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ const SignUpPage = () => {
     const id = e.currentTarget.id;
     if (id === "cancel") navigate("/");
   };
+//FIXME: 타입
 
   return (
     <Container className={css.container}>

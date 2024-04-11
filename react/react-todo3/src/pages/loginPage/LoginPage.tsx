@@ -2,7 +2,8 @@ import Button from "../../components/button/Button";
 import Container from "../../components/container/Container";
 import Form from "../../components/form/Form";
 import Input from "../../components/input/Input";
-import H1 from "../../components/title/H1";
+import { H1 } from "../../components/title/H1";
+
 import { loginButtons } from "../../constants/loginPage/loginButton";
 import { loginInputs } from "../../constants/loginPage/loginInput";
 import { useLogin } from "../../hooks/useLogin";
@@ -46,6 +47,8 @@ const LoginPage = () => {
           </label>
         ))}
       </Form>
+//FIXME: 타입
+
       <div className={css.btns}>
         {loginButtons.map((btn) => (
           <Button

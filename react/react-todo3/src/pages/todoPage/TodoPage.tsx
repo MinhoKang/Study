@@ -1,5 +1,5 @@
 import Container from "../../components/container/Container";
-import H1 from "../../components/title/H1";
+import {H1} from "../../components/title/H1";
 import TodoList from "../../features/todoPage/TodoList";
 import css from "../../styles/todoPage/todoPage.module.css";
 import { useTodo } from "../../hooks/useTodo";
@@ -16,6 +16,7 @@ const TodoPage = () => {
     logout();
     navigate("/");
   };
+//FIXME: 타입
 
   return (
     <Container className={css.container}>
