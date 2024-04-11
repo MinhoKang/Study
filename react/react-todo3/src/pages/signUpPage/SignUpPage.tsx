@@ -12,8 +12,11 @@ import cn from "classnames";
 import { useSignUp } from "../../hooks/useSignUp";
 import { useNavigate } from "react-router-dom";
 import { H1 } from "../../components/title/H1";
+//TODO:import 줄이기
 
 const SignUpPage = () => {
+  //TODO: 정규표현식으로 변경
+  //TODO: 모든 로직은 훅으로 (다른 컴포넌트도)
   const navigate = useNavigate();
   const {
     register,
@@ -37,6 +40,7 @@ const SignUpPage = () => {
         className={css.form}
         onSubmit={handleSubmit(useSignUp)}
       >
+        {/*TODO: name활용*/}
         {signUpInput.map((input) => (
           <label key={input.index}>
             <span>{input.title}</span>
