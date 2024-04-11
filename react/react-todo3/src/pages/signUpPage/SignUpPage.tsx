@@ -28,7 +28,6 @@ const SignUpPage = () => {
     const id = e.currentTarget.id;
     if (id === "cancel") navigate("/");
   };
-  //FIXME: 타입
 
   return (
     <Container className={css.container}>

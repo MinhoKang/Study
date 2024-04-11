@@ -4,6 +4,6 @@ export interface ButtonProps {
   text?: string;
   id?: string;
   form?: string;
-  className?: string | string[];
+  className?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }

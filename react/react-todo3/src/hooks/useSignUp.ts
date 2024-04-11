@@ -2,10 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { singUp } from "../apis/signUp";
 
 type SignUpData = {
-  email: string;
-  passwordConfirm: string;
-  password: string;
-  phoneNumber: string;
+  [key: string]: string;
 };
 
 export const useSignUp = async (data: SignUpData) => {
