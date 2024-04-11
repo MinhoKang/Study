@@ -16,7 +16,6 @@ const TodoPage = () => {
     logout();
     navigate("/");
   };
-//FIXME: 타입
 
   return (
     <Container className={css.container}>

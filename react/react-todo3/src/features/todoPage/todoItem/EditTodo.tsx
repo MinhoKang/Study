@@ -9,7 +9,6 @@ type Props = {
   setIsEdit: (newValue: boolean) => void;
 };
 
-//FIXME: 타입
 const EditTodo = ({ todo, setIsEdit }: Props) => {
   const { onEditTodo } = useContext(ThemeContext);
   const {

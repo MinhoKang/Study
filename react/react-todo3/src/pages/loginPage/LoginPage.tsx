@@ -47,7 +47,6 @@ const LoginPage = () => {
           </label>
         ))}
       </Form>
-//FIXME: 타입
 
       <div className={css.btns}>
         {loginButtons.map((btn) => (

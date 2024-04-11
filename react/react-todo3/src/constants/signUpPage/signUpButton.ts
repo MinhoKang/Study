@@ -1,6 +1,7 @@
 import css from "../../styles/signUpPage/signUpPage.module.css";
+import { ButtonProps } from "../../types/button";
 
-export const signUpButtons = [
+export const signUpButtons: ButtonProps[] = [
   {
     index: 0,
     type: "submit",

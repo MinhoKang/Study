@@ -3,7 +3,6 @@ import css from "../../styles/features/todoPage/todoList.module.css";
 import TodoItem from "./todoItem/TodoItem";
 import { ThemeContext } from "../../context/ThemeContext";
 import { TodoObj } from "../../types/todo";
-//FIXME: 타입
 
 const TodoList = () => {
   const { todos }: { todos: TodoObj[] | null } = useContext(ThemeContext);

@@ -8,7 +8,7 @@ interface Props {
   todo: TodoObj;
   setTodoState: React.Dispatch<SetStateAction<TodoState>>;
 }
-//FIXME: 타입
+
 const DeleteModal = ({ todo, setTodoState }: Props) => {
   const { onDeleteTodo } = useContext(ThemeContext);
   const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {

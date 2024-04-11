@@ -1,6 +1,7 @@
 import loginInputCss from "../../styles/loginPage/loginPage.module.css";
+import { ButtonProps } from "../../types/button";
 
-export const loginButtons = [
+export const loginButtons: ButtonProps[] = [
   {
     index: 0,
     type: "button",

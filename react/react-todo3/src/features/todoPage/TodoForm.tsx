@@ -4,7 +4,6 @@ import { todoForm } from "../../constants/todoPage/todoForm";
 import Input from "../../components/input/Input";
 import formCss from "../../styles/features/todoPage/todoForm.module.css";
 import { ThemeContext } from "../../context/ThemeContext";
-//FIXME: 타입
 
 const TodoForm = () => {
   const [todoInput, setTodoInput] = useState("");
@@ -17,7 +16,10 @@ const TodoForm = () => {
   };
 
   return (
-    <Form className={formCss.formContainer} onSubmit={handleSubmit}>
+    <Form
+      className={formCss.formContainer}
+      onSubmit={(e) => handleSubmit(e as React.FormEvent<HTMLFormElement>)}
+    >
       {todoForm.map((form) => (
         <label key={form.index} className={formCss.label}>
           <Input

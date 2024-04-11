@@ -28,7 +28,7 @@ const SignUpPage = () => {
     const id = e.currentTarget.id;
     if (id === "cancel") navigate("/");
   };
-//FIXME: 타입
+  //FIXME: 타입
 
   return (
     <Container className={css.container}>
@@ -58,8 +58,10 @@ const SignUpPage = () => {
                 input.register && input.register
               )}
             />
-            {errors[input.id] && (
-              <p className={css.warningText}>{errors[input.id].message}</p>
+            {errors[input.id as keyof typeof errors]?.message && (
+              <p className={css.warningText}>
+                {errors[input.id as keyof typeof errors]?.message}
+              </p>
             )}
           </label>
         ))}
