@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { singUp } from "../apis/signUp";
 
 type SignUpData = {
@@ -6,7 +5,6 @@ type SignUpData = {
 };
 
 export const useSignUp = async (data: SignUpData) => {
-  const navigate = useNavigate();
   const { passwordConfirm, email, password, phoneNumber } = data;
   if (!passwordConfirm || !email || !password || !phoneNumber) return;
 
@@ -14,7 +12,6 @@ export const useSignUp = async (data: SignUpData) => {
   if (!result) return;
   if (result.status === 201) {
     alert(result.data.message);
-    navigate("/");
   } else {
     alert(result.data.message);
   }
