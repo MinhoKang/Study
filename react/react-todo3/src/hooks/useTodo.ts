@@ -4,10 +4,14 @@ import { getTodo } from "../apis/todo/getTodo";
 import { addTodo } from "../apis/todo/addTodo";
 import { deleteTodo } from "../apis/todo/deleteTodo";
 import { editTodo } from "../apis/todo/editTodo";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./useAuth";
 
 export const useTodo = () => {
   const [todos, setTodos] = useState<TodoObj[]>([]);
   const onChangeTodos = (newTodos: TodoObj[]) => setTodos(newTodos);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const accessToken = sessionStorage.getItem("accessToken");
 
@@ -52,5 +56,10 @@ export const useTodo = () => {
     onChangeTodos(updatedTodos);
   };
 
-  return { todos, onAddTodo, onDeleteTodo, onEditTodo };
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
+  return { todos, onAddTodo, onDeleteTodo, onEditTodo, handleLogout };
 };
