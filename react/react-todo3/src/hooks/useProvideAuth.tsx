@@ -1,7 +1,5 @@
-import { ReactNode,  useState } from "react";
+import { ReactNode, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-
-
 
 const useProvideAuth = () => {
   const [isLogin, setIsLogin] = useState(
@@ -28,5 +26,3 @@ export const ProvideAuth = ({ children }: { children: ReactNode }) => {
   const auth = useProvideAuth();
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 };
-
-

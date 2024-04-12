@@ -1,18 +1,29 @@
 import { Route, Routes } from "react-router-dom";
 import css from "./styles/app.module.css";
 import ProtectedRouter from "./routers/ProtectedRouter";
-import { ProvideAuth } from "./hooks/useProvideAuth";
 import { Container } from "./components";
+import { useAuth } from "./hooks";
+import LoginPage from "./pages/loginPage/LoginPage";
+import SignUpPage from "./pages/signUpPage/SignUpPage";
+import ErrorPage from "./pages/errorPage/ErrorPage";
 
 function App() {
-  //TODO: 라우터 수정(로그인 안 된 경우 여기에 그냥 노출, 로그인은 Protected로)
+  const { isLogin } = useAuth();
+
   return (
     <Container className={css.container}>
-      <ProvideAuth>
-        <Routes>
+      <Routes>
+        {isLogin ? (
           <Route path="/*" element={<ProtectedRouter />} />
-        </Routes>
-      </ProvideAuth>
+        ) : (
+          <>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/todo" element={<SignUpPage />} />
+            <Route path="*" element={<ErrorPage />} />
+          </>
+        )}
+      </Routes>
     </Container>
   );
 }
