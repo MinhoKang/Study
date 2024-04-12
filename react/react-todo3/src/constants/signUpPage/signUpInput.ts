@@ -11,6 +11,7 @@ export const signUpInput = [
     className: css.input,
     placeholder: "EMAIL",
     title: "EMAIL",
+    error: "이메일 형식으로 입력하세요",
   },
   {
     index: 1,
@@ -21,13 +22,7 @@ export const signUpInput = [
     className: css.input,
     placeholder: "PASSWORD",
     title: "PASSWORD",
-    register: {
-      required: "비밀번호를 입력하세요",
-      minLength: {
-        value: 8,
-        message: "최소 8자 이상의 비밀번호를 입력하세요",
-      },
-    },
+    error: "8자 이상 입력하세요",
   },
   {
     index: 2,
@@ -38,6 +33,7 @@ export const signUpInput = [
     className: css.input,
     placeholder: "PASSWORD CONFIRM",
     title: "PASSWORD CONFIRM",
+    error: "비밀번호가 일치하지 않습니다",
   },
   {
     index: 3,
@@ -48,5 +44,6 @@ export const signUpInput = [
     className: css.input,
     placeholder: "PHONE NUMBER",
     title: "PHONE NUMBER",
+    error: "01000000000의 형식으로 입력하세요",
   },
 ];
