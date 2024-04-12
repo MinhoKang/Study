@@ -25,7 +25,11 @@ const LoginPage = () => {
             />
             {notValid.map(
               (error) =>
-                input.id === error && <p className={css.error}>{input.error}</p>
+                input.id === error && (
+                  <p key={input.index} className={css.error}>
+                    {input.error}
+                  </p>
+                )
             )}
           </label>
         ))}
