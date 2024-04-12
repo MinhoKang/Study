@@ -6,7 +6,6 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 
-// todoButtons 배열
 export const todoButtons = [
   { index: 0, icon: faCheck, name: "check" },
   { index: 1, className: css.edit, icon: faPencil, name: "edit" },

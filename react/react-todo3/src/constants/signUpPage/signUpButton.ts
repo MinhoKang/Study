@@ -15,6 +15,6 @@ export const signUpButtons: ButtonProps[] = [
     type: "button",
     text: "CANCEL",
     id: "cancel",
-    className: [css.btn, css.cancel],
+    className: `${css.cancel} ${css.btn}`,
   },
 ];
