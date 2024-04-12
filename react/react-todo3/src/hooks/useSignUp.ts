@@ -14,12 +14,6 @@ export const useSignUp = () => {
   const [notValid, setNotValid] = useState<string[]>([]);
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target.id as keyof typeof signUpData;
-    setSignUpData({ ...signUpData, [target]: e.target.value });
-    validation(target, e.target.value);
-  };
-
   const validationRules = {
     email: (value: string) => emailRegEx.test(value),
     password: (value: string) => passwordRegEx.test(value),
@@ -36,6 +30,12 @@ export const useSignUp = () => {
     } else {
       setNotValid(notValid.filter((item) => item !== target));
     }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target.id as keyof typeof signUpData;
+    setSignUpData({ ...signUpData, [target]: e.target.value });
+    validation(target, e.target.value);
   };
 
   const handleSignUp = async () => {
