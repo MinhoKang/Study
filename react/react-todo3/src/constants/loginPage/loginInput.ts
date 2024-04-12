@@ -1,6 +1,7 @@
 import loginInputCss from "../../styles/loginPage/loginPage.module.css";
+import { InputType } from "../../types";
 
-export const loginInputs = [
+export const loginInputs: InputType[] = [
   {
     index: 0,
     type: "text",

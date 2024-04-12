@@ -1,6 +1,7 @@
 import css from "../../styles/signUpPage/signUpPage.module.css";
+import { InputType } from "../../types";
 
-export const signUpInput = [
+export const signUpInput: InputType[] = [
   {
     index: 0,
     type: "text",
