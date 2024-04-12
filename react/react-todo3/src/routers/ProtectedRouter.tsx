@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import LoginRouter from "./LoginRouter";
-import LogoutRouter from "./LogoutRouter";
-import { useAuth } from "../hooks/useAuth";
+
+import TodoPage from "../pages/todoPage/TodoPage";
+import ErrorPage from "../pages/errorPage/ErrorPage";
 
 const ProtectedRouter = () => {
-  const { isLogin } = useAuth();
   return (
     <Routes>
-      <Route path="/*" element={isLogin ? <LoginRouter /> : <LogoutRouter />} />
+      <Route path="/*" element={<TodoPage />} />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 };
