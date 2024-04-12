@@ -6,11 +6,9 @@ import { useAuth } from "./hooks";
 import LoginPage from "./pages/loginPage/LoginPage";
 import SignUpPage from "./pages/signUpPage/SignUpPage";
 import ErrorPage from "./pages/errorPage/ErrorPage";
-import { useQuery } from "@tanstack/react-query";
 
 function App() {
   const { isLogin } = useAuth();
-  // const {} = useQuery({});
   return (
     <Container className={css.container}>
       <Routes>
