@@ -1,10 +1,10 @@
-import { TodoProps } from "../../../types/todo";
 import css from "../../../styles/features/todoPage/todoItem.module.css";
 import Todo from "./Todo";
 import EditTodo from "./EditTodo";
 import TodoButtons from "./TodoButtons";
 import DeleteModal from "./DeleteModal";
-import { useTodoState } from "../../../hooks/useTodoState";
+import { useTodoState } from "../../../hooks";
+import { TodoProps } from "../../../types";
 
 const TodoItem = ({ todo }: TodoProps) => {
   const { todoState, setTodoState, setIsEdit } = useTodoState(todo);

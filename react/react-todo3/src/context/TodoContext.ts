@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { TodoObj } from "../types/todo";
+import { TodoObj } from "../types";
 
 interface TodoContextType {
   todos: TodoObj[];
@@ -8,7 +8,7 @@ interface TodoContextType {
   onEditTodo: (edited: string, id: number) => void;
 }
 
-export const ThemeContext = createContext<TodoContextType>({
+export const TodoContext = createContext<TodoContextType>({
   todos: [],
   onAddTodo: () => {},
   onDeleteTodo: () => {},

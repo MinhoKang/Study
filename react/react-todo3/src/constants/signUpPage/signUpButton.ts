@@ -1,5 +1,5 @@
 import css from "../../styles/signUpPage/signUpPage.module.css";
-import { ButtonProps } from "../../types/button";
+import { ButtonProps } from "../../types";
 
 export const signUpButtons: ButtonProps[] = [
   {

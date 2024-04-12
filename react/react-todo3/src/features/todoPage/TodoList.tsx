@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import css from "../../styles/features/todoPage/todoList.module.css";
 import TodoItem from "./todoItem/TodoItem";
-import { ThemeContext } from "../../context/ThemeContext";
-import { TodoObj } from "../../types/todo";
+import { TodoContext } from "../../context/TodoContext";
+import { TodoObj } from "../../types";
 
 const TodoList = () => {
-  const { todos }: { todos: TodoObj[] | null } = useContext(ThemeContext);
+  const { todos }: { todos: TodoObj[] | null } = useContext(TodoContext);
 
   if (!todos) {
     return <div>Loding...</div>;

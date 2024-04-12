@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
 import { useTodoState } from "./useTodoState";
 import { TodoObj } from "../types/todo";
+import { TodoContext } from "../context/TodoContext";
 
 type Props = {
   todo: TodoObj;
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const useEditTodo = ({ todo, setIsEdit }: Props) => {
-  const { onEditTodo } = useContext(ThemeContext);
+  const { onEditTodo } = useContext(TodoContext);
   const {
     todoState: { editedTodo },
     setTodoState,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TodoObj } from "../types/todo";
+import { TodoObj } from "../types";
 
 export const useTodoState = (todo: TodoObj) => {
   const [todoState, setTodoState] = useState({

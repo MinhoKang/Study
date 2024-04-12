@@ -1,6 +1,6 @@
 import css from "../../../styles/features/todoPage/todoItem.module.css";
-import { TodoObj } from "../../../types/todo";
-import { useEditTodo } from "../../../hooks/useEditTodo";
+import { useEditTodo } from "../../../hooks";
+import { TodoObj } from "../../../types";
 
 type Props = {
   todo: TodoObj;

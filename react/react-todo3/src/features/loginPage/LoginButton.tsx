@@ -1,5 +1,5 @@
-import Button from "../../components/button/Button";
-import { ButtonProps } from "../../types/button";
+import { Button } from "../../components";
+import { ButtonProps } from "../../types";
 
 const LoginButton = ({ type, text, className, id }: ButtonProps) => {
   console.log(type, text, className, id);

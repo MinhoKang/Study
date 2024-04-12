@@ -1,10 +1,9 @@
-import Container from "../../components/container/Container";
-import { H1 } from "../../components/title/H1";
 import TodoList from "../../features/todoPage/TodoList";
 import css from "../../styles/todoPage/todoPage.module.css";
-import { useTodo } from "../../hooks/useTodo";
+import { useTodo } from "../../hooks";
 import TodoForm from "../../features/todoPage/TodoForm";
-import { ThemeContext } from "../../context/ThemeContext";
+import { Container, H1 } from "../../components";
+import { TodoContext } from "../../context/TodoContext";
 
 const TodoPage = () => {
   const { todos, onAddTodo, onDeleteTodo, onEditTodo, handleLogout } =
@@ -16,7 +15,7 @@ const TodoPage = () => {
         LOGOUT
       </div>
       <H1 text="TODO APP" />
-      <ThemeContext.Provider
+      <TodoContext.Provider
         value={{
           todos,
           onAddTodo,
@@ -26,7 +25,7 @@ const TodoPage = () => {
       >
         <TodoList />
         <TodoForm />
-      </ThemeContext.Provider>
+      </TodoContext.Provider>
     </Container>
   );
 };

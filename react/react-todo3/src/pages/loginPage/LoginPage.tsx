@@ -1,12 +1,7 @@
-import Button from "../../components/button/Button";
-import Container from "../../components/container/Container";
-import Form from "../../components/form/Form";
-import Input from "../../components/input/Input";
-import { H1 } from "../../components/title/H1";
-import { loginButtons } from "../../constants/loginPage/loginButton";
-import { loginInputs } from "../../constants/loginPage/loginInput";
-import { useLogin } from "../../hooks/useLogin";
+import { useLogin } from "../../hooks";
 import css from "../../styles/loginPage/loginPage.module.css";
+import { Button, Container, Form, H1, Input } from "../../components";
+import { loginButtons, loginInputs } from "../../constants";
 
 const LoginPage = () => {
   const { onChange, onClick, notValid } = useLogin();

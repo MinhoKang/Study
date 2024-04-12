@@ -1,6 +1,13 @@
 import { ButtonProps } from "../../types/button";
 
-const Button = ({ type, form, className, text, id, onClick }: ButtonProps) => {
+export const Button = ({
+  type,
+  form,
+  className,
+  text,
+  id,
+  onClick,
+}: ButtonProps) => {
   return (
     <button
       type={type}
@@ -13,5 +20,3 @@ const Button = ({ type, form, className, text, id, onClick }: ButtonProps) => {
     </button>
   );
 };
-
-export default Button;

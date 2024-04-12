@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
-import Form from "../../components/form/Form";
-import { todoForm } from "../../constants/todoPage/todoForm";
-import Input from "../../components/input/Input";
 import formCss from "../../styles/features/todoPage/todoForm.module.css";
-import { ThemeContext } from "../../context/ThemeContext";
+import { Form, Input } from "../../components";
+import { TodoContext } from "../../context/TodoContext";
+import { todoForm } from "../../constants";
 
 const TodoForm = () => {
   const [todoInput, setTodoInput] = useState("");
-  const { onAddTodo } = useContext(ThemeContext);
+  const { onAddTodo } = useContext(TodoContext);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
-import { TodoObj } from "../../../types/todo";
 import css from "../../../styles/features/todoPage/todoItem.module.css";
 import cn from "classnames";
+import { TodoObj } from "../../../types";
 
 interface Props {
   todo: TodoObj;

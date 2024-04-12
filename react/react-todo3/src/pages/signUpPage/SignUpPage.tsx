@@ -1,14 +1,8 @@
-import Form from "../../components/form/Form";
-import Container from "../../components/container/Container";
 import css from "../../styles/signUpPage/signUpPage.module.css";
-import { signUpInput } from "../../constants/signUpPage/signUpInput";
-import Input from "../../components/input/Input";
-import { signUpButtons } from "../../constants/signUpPage/signUpButton";
-import Button from "../../components/button/Button";
+import { Button, Container, Form, H1, Input } from "../../components";
 import cn from "classnames";
-import { useSignUp } from "../../hooks/useSignUp";
-import { H1 } from "../../components/title/H1";
-//TODO:import 줄이기
+import { useSignUp } from "../../hooks";
+import { signUpButtons, signUpInput } from "../../constants";
 
 const SignUpPage = () => {
   const { notValid, handleChange, handleClick } = useSignUp();

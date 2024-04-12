@@ -1,11 +1,9 @@
-import { FormProps } from "../../types/form";
+import { FormProps } from "../../types";
 
-const Form = ({ id, className, children, onSubmit }: FormProps) => {
+export const Form = ({ id, className, children, onSubmit }: FormProps) => {
   return (
     <form id={id} className={className} onSubmit={onSubmit}>
       {children}
     </form>
   );
 };
-
-export default Form;

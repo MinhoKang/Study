@@ -1,8 +1,8 @@
 import cn from "classnames";
 import css from "../../../styles/features/todoPage/deleteModal.module.css";
-import { TodoObj, TodoState } from "../../../types/todo";
 import { SetStateAction, useContext } from "react";
-import { ThemeContext } from "../../../context/ThemeContext";
+import { TodoContext } from "../../../context/TodoContext";
+import { TodoObj, TodoState } from "../../../types";
 
 interface Props {
   todo: TodoObj;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const DeleteModal = ({ todo, setTodoState }: Props) => {
-  const { onDeleteTodo } = useContext(ThemeContext);
+  const { onDeleteTodo } = useContext(TodoContext);
   const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     const response = await onDeleteTodo(todo.id);

@@ -1,8 +1,8 @@
 import React from "react";
-import { todoButtons } from "../../../constants/todoPage/todoButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import css from "../../../styles/features/todoPage/todoItem.module.css";
-import { TodoState } from "../../../types/todo";
+import { TodoState } from "../../../types";
+import { todoButtons } from "../../../constants";
 
 interface Props {
   isCheck: boolean;
