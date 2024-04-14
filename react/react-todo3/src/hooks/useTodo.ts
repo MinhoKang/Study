@@ -4,7 +4,11 @@ import { addTodo } from "../apis/todo/addTodo";
 import { deleteTodo } from "../apis/todo/deleteTodo";
 import { editTodo } from "../apis/todo/editTodo";
 import { useGetTodoQuery } from "./queries";
-import { useQueryClient } from "@tanstack/react-query";
+import {
+  UseMutationOptions,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 export const useTodo = () => {
   const navigate = useNavigate();
@@ -21,6 +25,13 @@ export const useTodo = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const useAddTodoMutation = (
+    onAddTodo: (todo: string) => Promise<void>,
+    options?: UseMutationOptions
+  ) => {
+    return useMutation(onAddTodo, options);
   };
 
   const onDeleteTodo = async (id: number) => {
