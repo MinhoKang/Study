@@ -8,9 +8,9 @@ export const useGetTodoQuery = (
 ): UseQueryResult<TodoObj[], unknown> => {
   return useQuery({
     queryKey: ["todos"],
-    queryFn: () => getTodo(accessToken!),
+    queryFn: () => getTodo(accessToken),
     select: (data) => {
-      return data!.data;
+      return data?.data;
     },
   });
 };
@@ -20,7 +20,7 @@ export const useAddTodoQuery = (todo: string, accessToken: string) => {
     queryKey: ["addTodo"],
     queryFn: () => addTodo(todo, accessToken),
     select: (data) => {
-      return data!.data;
+      return data?.data;
     },
   });
 };

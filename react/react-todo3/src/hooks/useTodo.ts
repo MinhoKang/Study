@@ -4,34 +4,59 @@ import { addTodo } from "../apis/todo/addTodo";
 import { deleteTodo } from "../apis/todo/deleteTodo";
 import { editTodo } from "../apis/todo/editTodo";
 import { useGetTodoQuery } from "./queries";
-import {
-  UseMutationOptions,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { TodoObj } from "../types";
 
 export const useTodo = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const accessToken = sessionStorage.getItem("accessToken")!;
   const queryClient = useQueryClient();
+  const { data: todos } = useGetTodoQuery(accessToken);
 
-  const { data: todos, refetch } = useGetTodoQuery(accessToken);
+  const addMutaion = useMutation({
+    mutationFn: ({
+      todo,
+      accessToken,
+    }: {
+      todo: string;
+      accessToken: string;
+    }) => addTodo(todo, accessToken),
+    onMutate: async (newTodo) => {
+      await queryClient.cancelQueries({ queryKey: ["todos"] });
+      const prev = queryClient.getQueryData(["todos"]);
+
+      const lastId = prev?.data[prev?.data.length - 1].id;
+
+      queryClient.setQueryData(["todos"], (oldTodo) => [
+        ...oldTodo.data,
+        { id: lastId + 1, todo: newTodo.todo },
+      ]);
+
+      return { prev };
+    },
+    onSuccess: () => {
+      console.log("성공");
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+    onError: (error, newTodo, context) => {
+      console.log("error");
+      console.log(context);
+      queryClient.setQueryData(["todos"], context?.prev);
+      // queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+    onSettled: () => {
+      console.log("refetch");
+      // queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+  });
 
   const onAddTodo = async (todo: string) => {
     try {
-      await addTodo(todo, accessToken);
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      addMutaion.mutate({ todo, accessToken });
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const useAddTodoMutation = (
-    onAddTodo: (todo: string) => Promise<void>,
-    options?: UseMutationOptions
-  ) => {
-    return useMutation(onAddTodo, options);
   };
 
   const onDeleteTodo = async (id: number) => {
