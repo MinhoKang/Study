@@ -3,14 +3,15 @@ import { getTodo } from "../apis/todo/getTodo";
 import { singUp } from "../apis/signUp";
 import { login } from "../apis/login";
 
-export const useGetTodoQuery = (accessToken: string) => {
-  return useQuery({
+export const useGetTodoQuery = () => {
+  const accessToken = sessionStorage.getItem("accessToken")!;
+
+  const { data,isLoading } = useQuery({
     queryKey: ["todos"],
     queryFn: () => getTodo(accessToken),
-    select: (data) => {
-      return data?.data;
-    },
   });
+
+  return { data,isLoading };
 };
 
 export const useSignUpQuery = (

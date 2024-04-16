@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTodo } from "../apis/todo/deleteTodo";
 import { TodoObj } from "../types";
@@ -12,7 +13,7 @@ type oldTodo = {
 export const useMutations = () => {
   const queryClient = useQueryClient();
 
-  const addMutaion = useMutation({
+  const { mutate } = useMutation({
     mutationFn: ({
       todo,
       accessToken,
@@ -20,30 +21,23 @@ export const useMutations = () => {
       todo: string;
       accessToken: string;
     }) => addTodo(todo, accessToken),
-    onMutate: async (newTodo) => {
+    onMutate: async (newTodo: any) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
+      const prevTodos = queryClient.getQueryData(["todos"]) as any;
+      const newTodos = [...prevTodos, newTodo];
 
-      const prevData = (queryClient.getQueryData(["todos"]) as oldTodo)?.data;
-      console.log(prevData);
-      const lastId = prevData.length > 0 ? prevData[prevData.length - 1].id : 0;
+      queryClient.setQueryData(["todos"], newTodos);
 
-      console.log(lastId);
-      queryClient.setQueryData(["todos"], (oldTodo: oldTodo) => [
-        ...oldTodo.data,
-        { id: lastId + 1, todo: newTodo.todo },
-      ]);
-      console.log(queryClient.getQueryData(["todos"]));
-      return { prevData };
+      return { prevTodos };
     },
-    onError: (context) => {
+    onError: (context: any) => {
       console.log("error");
       console.log(context);
-      queryClient.setQueryData(["todos"], context);
+      queryClient.setQueryData(["todos"], context.prevData);
       // queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
     onSettled: () => {
       console.log("refetch");
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
@@ -83,7 +77,6 @@ export const useMutations = () => {
       accessToken: string;
     }) => editTodo(edited, id, accessToken),
     onMutate: async ({ edited, id }) => {
-      console.log(id); // edited, id, accessToken
       await queryClient.cancelQueries({ queryKey: ["todos"] });
       const prevData = (queryClient.getQueryData(["todos"]) as oldTodo)?.data;
       console.log(prevData);
@@ -104,5 +97,5 @@ export const useMutations = () => {
     },
   });
 
-  return { addMutaion, deleteMuation, editMutaion };
+  return { mutate, deleteMuation, editMutaion };
 };

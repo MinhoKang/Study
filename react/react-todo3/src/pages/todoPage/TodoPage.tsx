@@ -6,8 +6,13 @@ import { Container, H1 } from "../../components";
 import { TodoContext } from "../../context/TodoContext";
 
 const TodoPage = () => {
-  const { todos, onAddTodo, onDeleteTodo, onEditTodo, handleLogout } =
-    useTodo();
+  const {
+
+    onAddTodo,
+    onDeleteTodo,
+    onEditTodo,
+    handleLogout,
+  } = useTodo();
 
   return (
     <Container className={css.container}>
@@ -17,7 +22,6 @@ const TodoPage = () => {
       <H1 text="TODO APP" />
       <TodoContext.Provider
         value={{
-          todos,
           onAddTodo,
           onDeleteTodo,
           onEditTodo,

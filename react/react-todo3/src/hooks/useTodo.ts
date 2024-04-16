@@ -1,18 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
-import { useGetTodoQuery } from "./queries";
 import { useMutations } from "./mutaions";
 
 export const useTodo = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const accessToken = sessionStorage.getItem("accessToken")!;
-  const { data: todos } = useGetTodoQuery(accessToken);
-  const { addMutaion, deleteMuation, editMutaion } = useMutations();
+  const { mutate: addTodo, deleteMuation, editMutaion } = useMutations();
 
   const onAddTodo = async (todo: string) => {
     try {
-      addMutaion.mutate({ todo, accessToken });
+      addTodo({ todo, accessToken });
     } catch (error) {
       console.error(error);
     }
@@ -39,5 +37,5 @@ export const useTodo = () => {
     navigate("/");
   };
 
-  return { todos, onAddTodo, onDeleteTodo, onEditTodo, handleLogout };
+  return { onAddTodo, onDeleteTodo, onEditTodo, handleLogout };
 };

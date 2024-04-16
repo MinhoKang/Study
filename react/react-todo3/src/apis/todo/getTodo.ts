@@ -8,7 +8,7 @@ export const getTodo = async (accessToken: string) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response;
+    return response.data;
   } catch (error) {
     console.log(error);
   }
