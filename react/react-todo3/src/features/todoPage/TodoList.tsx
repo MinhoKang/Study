@@ -4,17 +4,17 @@ import { TodoObj } from "../../types";
 import { useGetTodoQuery } from "../../hooks/queries";
 
 const TodoList = () => {
-  const { data: todos } = useGetTodoQuery();
+  const { todos } = useGetTodoQuery();
+  console.log(todos);
 
-  if (!todos) {
-    return <div>Loding...</div>;
-  }
+  // if (!todos) {
+  //   return <div>Loding...</div>;
+  // }
 
   return (
     <div className={css.container}>
-      {todos?.map((todo: TodoObj) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
+      {todos &&
+        todos.map((todo: TodoObj) => <TodoItem key={todo.id} todo={todo} />)}
     </div>
   );
 };

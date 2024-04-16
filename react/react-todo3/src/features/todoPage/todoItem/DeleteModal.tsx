@@ -2,7 +2,7 @@ import cn from "classnames";
 import css from "../../../styles/features/todoPage/deleteModal.module.css";
 import { SetStateAction } from "react";
 import { TodoObj, TodoState } from "../../../types";
-import { useMutations } from "../../../hooks/mutaions";
+import { useTodo } from "../../../hooks";
 
 interface Props {
   todo: TodoObj;
@@ -10,19 +10,17 @@ interface Props {
 }
 
 const DeleteModal = ({ todo, setTodoState }: Props) => {
-  const { deleteTodoItem } = useMutations();
-  const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    deleteTodoItem(todo.id);
-    setTodoState((prevState) => ({ ...prevState, isDelete: false }));
-  };
+  const { handleDelete } = useTodo();
 
   return (
     <div className={css.container}>
       <div className={css.modal}>
         <p className={css.text}>삭제하시겠습니까?</p>
         <div className={css.btns}>
-          <div className={cn(css.btn, css.deleteBtn)} onClick={handleClick}>
+          <div
+            className={cn(css.btn, css.deleteBtn)}
+            onClick={(e) => handleDelete({ e, setTodoState, todo })}
+          >
             삭제
           </div>
           <div

@@ -5,13 +5,13 @@ import { login } from "../apis/login";
 
 export const useGetTodoQuery = () => {
   const accessToken = sessionStorage.getItem("accessToken")!;
-  return useQuery({
+  const { data: todos } = useQuery({
     queryKey: ["todos"],
     queryFn: () => getTodo(accessToken),
-    select: (data) => {
-      return data?.data;
-    },
+
   });
+
+  return { todos };
 };
 
 export const useSignUpQuery = (

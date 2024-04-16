@@ -1,23 +1,17 @@
 import { useState } from "react";
 import formCss from "../../styles/features/todoPage/todoForm.module.css";
-import { Form, Input } from "../../components";
+import { Input } from "../../components";
 import { todoForm } from "../../constants";
-import { useMutations } from "../../hooks/mutaions";
+import { useTodo } from "../../hooks";
 
 const TodoForm = () => {
   const [todoInput, setTodoInput] = useState("");
-  const { addTodoItem } = useMutations();
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    addTodoItem(todoInput);
-    setTodoInput("");
-  };
+  const { handleSubmit } = useTodo();
 
   return (
-    <Form
+    <form
       className={formCss.formContainer}
-      onSubmit={(e) => handleSubmit(e as React.FormEvent<HTMLFormElement>)}
+      onSubmit={(e) => handleSubmit({ e, todoInput, setTodoInput })}
     >
       {todoForm.map((form) => (
         <label key={form.index} className={formCss.label}>
@@ -31,7 +25,7 @@ const TodoForm = () => {
           <button type="submit">+</button>
         </label>
       ))}
-    </Form>
+    </form>
   );
 };
 

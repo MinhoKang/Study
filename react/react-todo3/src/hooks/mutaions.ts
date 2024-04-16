@@ -16,22 +16,27 @@ export const useMutations = () => {
   const { mutate: addTodoItem } = useMutation({
     mutationFn: (todo: string) => addTodo(todo, accessToken),
     onMutate: async (todo) => {
+      console.log(todo);
       await queryClient.cancelQueries({ queryKey: ["todos"] });
-
-      const prevTodo = (queryClient.getQueryData(["todos"]) as oldTodo)?.data;
-      const newTodoId = prevTodo[prevTodo.length - 1].id + 1 ?? 0;
+      const prevTodo: TodoObj[] | [] =
+        queryClient.getQueryData(["todos"]) || [];
+      console.log(prevTodo);
+      const newTodoId =
+        prevTodo.length > 0 ? prevTodo[prevTodo.length - 1].id + 1 : 0;
+      console.log(newTodoId);
       const newTodo = [...prevTodo, { id: newTodoId, todo }];
-      queryClient.setQueryData(["todos"], newTodo);
+      console.log(newTodo);
+      const new11 = queryClient.setQueryData(["todos"], newTodo);
+      console.log(new11);
+      console.log(queryClient.setQueryData(["todos"], newTodo));
       return { prevTodo };
     },
-    onError: (context) => {
+    onError: (context: oldTodo) => {
       console.log("error");
       queryClient.setQueryData(["todos"], context.prevTodo);
-      // queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
     onSettled: () => {
       console.log("refetch");
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
@@ -41,10 +46,11 @@ export const useMutations = () => {
       console.log(targetTodo);
       await queryClient.cancelQueries({ queryKey: ["todos"] });
       console.log(queryClient.getQueryData(["todos"]));
-      const prevData = (queryClient.getQueryData(["todos"]) as oldTodo)?.data;
+      const prevData: TodoObj[] | [] =
+        queryClient.getQueryData(["todos"]) || [];
       console.log(prevData);
       const changedData = prevData.filter(
-        (todo: TodoObj) => todo.id !== targetTodo.id
+        (todo: TodoObj) => todo.id !== targetTodo
       );
       console.log(changedData);
       queryClient.setQueryData(["todos"], changedData);
@@ -55,7 +61,6 @@ export const useMutations = () => {
     },
     onSettled: () => {
       console.log("refetch");
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
@@ -65,7 +70,8 @@ export const useMutations = () => {
     onMutate: async ({ edited, id }) => {
       console.log(id); // edited, id, accessToken
       await queryClient.cancelQueries({ queryKey: ["todos"] });
-      const prevData = (queryClient.getQueryData(["todos"]) as oldTodo)?.data;
+      const prevData: TodoObj[] | [] =
+        queryClient.getQueryData(["todos"]) || [];
       console.log(prevData);
       const changedData = prevData.map((todo: TodoObj) => {
         if (todo.id === id) {
@@ -78,9 +84,6 @@ export const useMutations = () => {
     },
     onError: (context) => {
       queryClient.setQueryData(["todos"], context);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
