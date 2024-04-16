@@ -9,6 +9,7 @@ import { TodoProps } from "../../../types";
 const TodoItem = ({ todo }: TodoProps) => {
   const { todoState, setTodoState, setIsEdit } = useTodoState(todo);
   const { isEdit, isCheck, isDelete } = todoState;
+
   return (
     <div className={css.itemBox}>
       {isEdit ? (

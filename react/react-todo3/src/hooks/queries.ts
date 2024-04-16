@@ -3,7 +3,8 @@ import { getTodo } from "../apis/todo/getTodo";
 import { singUp } from "../apis/signUp";
 import { login } from "../apis/login";
 
-export const useGetTodoQuery = (accessToken: string) => {
+export const useGetTodoQuery = () => {
+  const accessToken = sessionStorage.getItem("accessToken")!;
   return useQuery({
     queryKey: ["todos"],
     queryFn: () => getTodo(accessToken),

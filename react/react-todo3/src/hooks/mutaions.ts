@@ -11,34 +11,22 @@ type oldTodo = {
 
 export const useMutations = () => {
   const queryClient = useQueryClient();
+  const accessToken = sessionStorage.getItem("accessToken")!;
 
-  const addMutaion = useMutation({
-    mutationFn: ({
-      todo,
-      accessToken,
-    }: {
-      todo: string;
-      accessToken: string;
-    }) => addTodo(todo, accessToken),
-    onMutate: async (newTodo) => {
+  const { mutate: addTodoItem } = useMutation({
+    mutationFn: (todo: string) => addTodo(todo, accessToken),
+    onMutate: async (todo) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
 
-      const prevData = (queryClient.getQueryData(["todos"]) as oldTodo)?.data;
-      console.log(prevData);
-      const lastId = prevData.length > 0 ? prevData[prevData.length - 1].id : 0;
-
-      console.log(lastId);
-      queryClient.setQueryData(["todos"], (oldTodo: oldTodo) => [
-        ...oldTodo.data,
-        { id: lastId + 1, todo: newTodo.todo },
-      ]);
-      console.log(queryClient.getQueryData(["todos"]));
-      return { prevData };
+      const prevTodo = (queryClient.getQueryData(["todos"]) as oldTodo)?.data;
+      const newTodoId = prevTodo[prevTodo.length - 1].id + 1 ?? 0;
+      const newTodo = [...prevTodo, { id: newTodoId, todo }];
+      queryClient.setQueryData(["todos"], newTodo);
+      return { prevTodo };
     },
     onError: (context) => {
       console.log("error");
-      console.log(context);
-      queryClient.setQueryData(["todos"], context);
+      queryClient.setQueryData(["todos"], context.prevTodo);
       // queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
     onSettled: () => {
@@ -47,9 +35,8 @@ export const useMutations = () => {
     },
   });
 
-  const deleteMuation = useMutation({
-    mutationFn: ({ id, accessToken }: { id: number; accessToken: string }) =>
-      deleteTodo(id, accessToken),
+  const { mutate: deleteTodoItem } = useMutation({
+    mutationFn: (id: number) => deleteTodo(id, accessToken),
     onMutate: async (targetTodo) => {
       console.log(targetTodo);
       await queryClient.cancelQueries({ queryKey: ["todos"] });
@@ -72,16 +59,9 @@ export const useMutations = () => {
     },
   });
 
-  const editMutaion = useMutation({
-    mutationFn: ({
-      edited,
-      id,
-      accessToken,
-    }: {
-      edited: string;
-      id: number;
-      accessToken: string;
-    }) => editTodo(edited, id, accessToken),
+  const { mutate: editTodoItem } = useMutation({
+    mutationFn: ({ edited, id }: { edited: string; id: number }) =>
+      editTodo(edited, id, accessToken),
     onMutate: async ({ edited, id }) => {
       console.log(id); // edited, id, accessToken
       await queryClient.cancelQueries({ queryKey: ["todos"] });
@@ -104,5 +84,5 @@ export const useMutations = () => {
     },
   });
 
-  return { addMutaion, deleteMuation, editMutaion };
+  return { addTodoItem, deleteTodoItem, editTodoItem };
 };

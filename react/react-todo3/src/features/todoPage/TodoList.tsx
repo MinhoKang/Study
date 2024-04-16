@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import css from "../../styles/features/todoPage/todoList.module.css";
 import TodoItem from "./todoItem/TodoItem";
-import { TodoContext } from "../../context/TodoContext";
 import { TodoObj } from "../../types";
+import { useGetTodoQuery } from "../../hooks/queries";
 
 const TodoList = () => {
-  const { todos }: { todos: TodoObj[] | null } = useContext(TodoContext);
+  const { data: todos } = useGetTodoQuery();
 
   if (!todos) {
     return <div>Loding...</div>;

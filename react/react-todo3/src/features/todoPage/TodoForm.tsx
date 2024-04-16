@@ -1,16 +1,16 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import formCss from "../../styles/features/todoPage/todoForm.module.css";
 import { Form, Input } from "../../components";
-import { TodoContext } from "../../context/TodoContext";
 import { todoForm } from "../../constants";
+import { useMutations } from "../../hooks/mutaions";
 
 const TodoForm = () => {
   const [todoInput, setTodoInput] = useState("");
-  const { onAddTodo } = useContext(TodoContext);
+  const { addTodoItem } = useMutations();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await onAddTodo(todoInput);
+    addTodoItem(todoInput);
     setTodoInput("");
   };
 
