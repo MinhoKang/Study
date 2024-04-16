@@ -13,7 +13,7 @@ const SignUpPage = () => {
       <Form id="signUpForm" className={css.form}>
         {signUpInput.map((input) => (
           <label key={input.index}>
-            <span>{input.title}</span>
+            <span key={input.index}>{input.title}</span>
             <Input
               className={input.className}
               type={input.type}
@@ -27,7 +27,9 @@ const SignUpPage = () => {
             {notValid.map(
               (error) =>
                 input.id === error && (
-                  <p className={css.warningText}>{input.error}</p>
+                  <p className={css.warningText} key={input.index}>
+                    {input.error}
+                  </p>
                 )
             )}
           </label>

@@ -40,6 +40,7 @@ export const useSignUp = () => {
 
   const handleSignUp = async () => {
     const { email, password, passwordConfirm, phoneNumber } = signUpData;
+
     const result = await singUp(email, password, passwordConfirm, phoneNumber);
     if (!result) return;
     if (result.status === 201) {

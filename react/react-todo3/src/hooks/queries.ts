@@ -1,11 +1,9 @@
-import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getTodo } from "../apis/todo/getTodo";
-import { TodoObj } from "../types";
-import { addTodo } from "../apis/todo/addTodo";
+import { singUp } from "../apis/signUp";
+import { login } from "../apis/login";
 
-export const useGetTodoQuery = (
-  accessToken: string
-): UseQueryResult<TodoObj[], unknown> => {
+export const useGetTodoQuery = (accessToken: string) => {
   return useQuery({
     queryKey: ["todos"],
     queryFn: () => getTodo(accessToken),
@@ -15,12 +13,21 @@ export const useGetTodoQuery = (
   });
 };
 
-export const useAddTodoQuery = (todo: string, accessToken: string) => {
+export const useSignUpQuery = (
+  id: string,
+  password: string,
+  passwordCheck: string,
+  phoneNumber: string
+) => {
   return useQuery({
-    queryKey: ["addTodo"],
-    queryFn: () => addTodo(todo, accessToken),
-    select: (data) => {
-      return data?.data;
-    },
+    queryKey: ["signUp"],
+    queryFn: () => singUp(id, password, passwordCheck, phoneNumber),
+  });
+};
+
+export const useLoginQuery = (id: string, password: string) => {
+  return useQuery({
+    queryKey: ["login"],
+    queryFn: () => login(id, password),
   });
 };
