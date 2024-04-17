@@ -26,14 +26,11 @@ export const useTodoMutations = () => {
       const newTodoId = prevTodo.length
         ? prevTodo[prevTodo.length - 1].id + 1
         : 0;
-      console.log(newTodoId);
       const newTodo = [...prevTodo, { id: newTodoId, todo }];
-      console.log(newTodo);
       queryClient.setQueryData(["todos"], newTodo);
       return { prevTodo };
     },
     onError: (context: Context) => {
-      console.log("prevTodo", context);
       queryClient.setQueryData(["todos"], context.prevTodo);
     },
     onSuccess(data) {
@@ -89,15 +86,11 @@ export const useTodoMutations = () => {
   const { mutate: searchTodoItem } = useMutation({
     mutationFn: (keyword: string) => searchTodo(keyword, accessToken),
     onMutate: async (keyword) => {
-      // TODO: 검색 이후 다시 검색하면 전체 투두에서 검색해서 다시 결과 나오게
-      // TODO: 결과가 없으면 결과 없다고 표시
-      // TODO: 로딩스피너
       await queryClient.cancelQueries({ queryKey: ["todos"] });
       const prevTodo: TodoObj[] | [] =
         queryClient.getQueryData(["todos"]) || [];
       if (keyword.trim() === "") {
         queryClient.setQueryData(["todos"], prevTodo);
-        console.log("검색어 없음");
         return { prevTodo };
       }
     },
@@ -105,10 +98,14 @@ export const useTodoMutations = () => {
       queryClient.setQueryData(["todos"], context.prevTodo);
     },
     onSuccess(data) {
-      console.log(data?.data);
       queryClient.setQueryData(["todos"], data?.data);
     },
   });
 
-  return { addTodoItem, deleteTodoItem, editTodoItem, searchTodoItem };
+  return {
+    addTodoItem,
+    deleteTodoItem,
+    editTodoItem,
+    searchTodoItem,
+  };
 };

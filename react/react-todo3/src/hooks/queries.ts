@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTodo } from "../apis/todo/getTodo";
+import { searchTodo } from "../apis/todo/searchTodo";
 
+const accessToken = sessionStorage.getItem("accessToken")!;
 export const useGetTodoQuery = () => {
-  const accessToken = sessionStorage.getItem("accessToken")!;
   const { data: todos } = useQuery({
     queryKey: ["todos"],
     queryFn: () => getTodo(accessToken),
@@ -10,11 +11,10 @@ export const useGetTodoQuery = () => {
   return { todos };
 };
 
-// export const useSearchQuery = (keyword: string) => {
-//   const { data: searchedTodos } = useQuery({
-//     queryKey: ["search"],
-//     queryFn: () => searchTodo(keyword),
-//   });
-//   console.log(searchedTodos);
-//   return { searchedTodos };
-// };
+export const useSearchQuery = (keyword: string) => {
+  const { data: searchedTodos, isLoading } = useQuery({
+    queryKey: ["search"],
+    queryFn: () => searchTodo(keyword, accessToken),
+  });
+  return { searchedTodos, isLoading };
+};

@@ -64,7 +64,11 @@ export const useTodo = () => {
   const handleSearch = ({ e, keyword }: HandleSearch) => {
     e.preventDefault();
     searchTodoItem(keyword);
+  };
+
+  const handleClear = async () => {
     setValue("");
+    searchTodoItem("");
   };
 
   return {
@@ -75,5 +79,6 @@ export const useTodo = () => {
     handleSearch,
     value,
     setValue,
+    handleClear,
   };
 };

@@ -7,7 +7,6 @@ import TodoSearch from "../../features/todoPage/TodoSearch";
 
 const TodoPage = () => {
   const { handleLogout } = useTodo();
-
   return (
     <Container className={css.container}>
       <div className={css.logoutBtn} onClick={handleLogout}>
