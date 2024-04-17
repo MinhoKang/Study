@@ -3,6 +3,7 @@ import { useAuth } from "./useAuth";
 import { useMutations } from "./mutaions";
 import React, { SetStateAction } from "react";
 import { TodoObj, TodoState } from "../types";
+import { useTodoState } from "./useTodoState";
 
 interface Props {
   e: React.MouseEvent<HTMLDivElement>;
@@ -19,7 +20,7 @@ interface Props2 {
 export const useTodo = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const { deleteTodoItem, addTodoItem } = useMutations();
+  const { deleteTodoItem, addTodoItem, editTodoItem } = useMutations();
 
   const handleLogout = () => {
     logout();
@@ -37,5 +38,6 @@ export const useTodo = () => {
     addTodoItem(todoInput);
     setTodoInput("");
   };
+
   return { handleLogout, handleDelete, handleSubmit };
 };

@@ -13,7 +13,6 @@ export const singUp = async (
       passwordCheck,
       phoneNumber,
     });
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

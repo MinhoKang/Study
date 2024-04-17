@@ -9,6 +9,7 @@ interface Props {
   setTodoState: React.Dispatch<React.SetStateAction<TodoState>>;
 }
 const TodoButtons = ({ isCheck, setTodoState }: Props) => {
+  // TODO: useTodo로
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     const id = e.currentTarget.id;
