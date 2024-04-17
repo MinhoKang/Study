@@ -12,6 +12,7 @@ export const addTodo = async (todo: string, accessToken: string) => {
         },
       }
     );
+    console.log(response);
     return response;
   } catch (error) {
     console.log(error);
