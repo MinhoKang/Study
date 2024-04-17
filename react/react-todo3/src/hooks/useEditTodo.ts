@@ -8,7 +8,6 @@ type Props = {
 };
 
 export const useEditTodo = ({ todo, setIsEdit }: Props) => {
-  // TODO: useTodo로
   const { editTodoItem } = useMutations();
   const {
     todoState: { editedTodo },

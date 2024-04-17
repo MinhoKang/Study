@@ -12,7 +12,6 @@ const TodoItem = ({ todo }: TodoProps) => {
 
   return (
     <div className={css.itemBox}>
-   
       {isEdit ? (
         <EditTodo todo={todo} setIsEdit={setIsEdit} />
       ) : (

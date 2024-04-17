@@ -3,7 +3,6 @@ import { useAuth } from "./useAuth";
 import { useMutations } from "./mutaions";
 import React, { SetStateAction } from "react";
 import { TodoObj, TodoState } from "../types";
-import { useTodoState } from "./useTodoState";
 
 interface Props {
   e: React.MouseEvent<HTMLDivElement>;
@@ -17,10 +16,16 @@ interface Props2 {
   setTodoInput: React.Dispatch<SetStateAction<string>>;
 }
 
+interface Props3 {
+  e: React.MouseEvent<HTMLDivElement>;
+  isCheck: boolean;
+  setTodoState: React.Dispatch<SetStateAction<TodoState>>;
+}
+
 export const useTodo = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const { deleteTodoItem, addTodoItem, editTodoItem } = useMutations();
+  const { deleteTodoItem, addTodoItem } = useMutations();
 
   const handleLogout = () => {
     logout();
@@ -39,5 +44,17 @@ export const useTodo = () => {
     setTodoInput("");
   };
 
-  return { handleLogout, handleDelete, handleSubmit };
+  const handleClick = ({ e, isCheck, setTodoState }: Props3) => {
+    e.preventDefault();
+    const id = e.currentTarget.id;
+    if (id === "check") {
+      setTodoState((prevState) => ({ ...prevState, isCheck: !isCheck }));
+    } else if (id === "edit") {
+      setTodoState((prevState) => ({ ...prevState, isEdit: true }));
+    } else if (id === "delete") {
+      setTodoState((prevState) => ({ ...prevState, isDelete: true }));
+    }
+  };
+
+  return { handleLogout, handleDelete, handleSubmit, handleClick };
 };
