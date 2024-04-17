@@ -3,6 +3,7 @@ import css from "../../styles/todoPage/todoPage.module.css";
 import { useTodo } from "../../hooks";
 import TodoForm from "../../features/todoPage/TodoForm";
 import { Container, H1 } from "../../components";
+import TodoSearch from "../../features/todoPage/TodoSearch";
 
 const TodoPage = () => {
   const { handleLogout } = useTodo();
@@ -13,6 +14,7 @@ const TodoPage = () => {
         LOGOUT
       </div>
       <H1 text="TODO APP" />
+      <TodoSearch />
       <TodoList />
       <TodoForm />
     </Container>

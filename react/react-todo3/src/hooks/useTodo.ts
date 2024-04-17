@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useState } from "react";
 import { TodoObj, TodoState } from "../types";
 import { useTodoMutations } from "../apis/todo/useTodoMutaions";
 
@@ -11,8 +11,8 @@ interface HandleDelete {
 }
 interface HandleSubmit {
   e: React.FormEvent<HTMLFormElement>;
-  todoInput: string;
-  setTodoInput: React.Dispatch<SetStateAction<string>>;
+  value: string;
+  setValue: React.Dispatch<SetStateAction<string>>;
 }
 
 interface HandleClick {
@@ -21,10 +21,16 @@ interface HandleClick {
   setTodoState: React.Dispatch<SetStateAction<TodoState>>;
 }
 
+interface HandleSearch {
+  e: React.FormEvent<HTMLFormElement>;
+  keyword: string;
+}
+
 export const useTodo = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const { deleteTodoItem, addTodoItem } = useTodoMutations();
+  const { deleteTodoItem, addTodoItem, searchTodoItem } = useTodoMutations();
+  const [value, setValue] = useState("");
 
   const handleLogout = () => {
     logout();
@@ -37,10 +43,10 @@ export const useTodo = () => {
     setTodoState((prevState) => ({ ...prevState, isDelete: false }));
   };
 
-  const handleSubmit = ({ e, todoInput, setTodoInput }: HandleSubmit) => {
+  const handleSubmit = ({ e, value, setValue }: HandleSubmit) => {
     e.preventDefault();
-    addTodoItem(todoInput);
-    setTodoInput("");
+    addTodoItem(value);
+    setValue("");
   };
 
   const handleClick = ({ e, isCheck, setTodoState }: HandleClick) => {
@@ -55,5 +61,19 @@ export const useTodo = () => {
     }
   };
 
-  return { handleLogout, handleDelete, handleSubmit, handleClick };
+  const handleSearch = ({ e, keyword }: HandleSearch) => {
+    e.preventDefault();
+    searchTodoItem(keyword);
+    setValue("");
+  };
+
+  return {
+    handleLogout,
+    handleDelete,
+    handleSubmit,
+    handleClick,
+    handleSearch,
+    value,
+    setValue,
+  };
 };

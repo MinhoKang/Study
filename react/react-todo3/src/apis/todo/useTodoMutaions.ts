@@ -3,6 +3,7 @@ import { deleteTodo } from "./deleteTodo";
 import { TodoObj } from "../../types";
 import { addTodo } from "./addTodo";
 import { editTodo } from "./editTodo";
+import { searchTodo } from "./searchTodo";
 
 type Context = {
   data: TodoObj[];
@@ -85,6 +86,29 @@ export const useTodoMutations = () => {
       queryClient.setQueryData(["todos"], context.prevTodo);
     },
   });
+  const { mutate: searchTodoItem } = useMutation({
+    mutationFn: (keyword: string) => searchTodo(keyword, accessToken),
+    onMutate: async (keyword) => {
+      // TODO: 검색 이후 다시 검색하면 전체 투두에서 검색해서 다시 결과 나오게
+      // TODO: 결과가 없으면 결과 없다고 표시
+      // TODO: 로딩스피너
+      await queryClient.cancelQueries({ queryKey: ["todos"] });
+      const prevTodo: TodoObj[] | [] =
+        queryClient.getQueryData(["todos"]) || [];
+      if (keyword.trim() === "") {
+        queryClient.setQueryData(["todos"], prevTodo);
+        console.log("검색어 없음");
+        return { prevTodo };
+      }
+    },
+    onError: (context: Context) => {
+      queryClient.setQueryData(["todos"], context.prevTodo);
+    },
+    onSuccess(data) {
+      console.log(data?.data);
+      queryClient.setQueryData(["todos"], data?.data);
+    },
+  });
 
-  return { addTodoItem, deleteTodoItem, editTodoItem };
+  return { addTodoItem, deleteTodoItem, editTodoItem, searchTodoItem };
 };

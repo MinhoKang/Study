@@ -5,7 +5,6 @@ import { useGetTodoQuery } from "../../hooks/queries";
 
 const TodoList = () => {
   const { todos } = useGetTodoQuery();
-  console.log(todos);
 
   return (
     <div className={css.container}>

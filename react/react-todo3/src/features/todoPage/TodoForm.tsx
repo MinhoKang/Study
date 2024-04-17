@@ -1,17 +1,15 @@
-import { useState } from "react";
 import formCss from "../../styles/features/todoPage/todoForm.module.css";
 import { Input } from "../../components";
 import { todoForm } from "../../constants";
 import { useTodo } from "../../hooks";
 
 const TodoForm = () => {
-  const [todoInput, setTodoInput] = useState("");
-  const { handleSubmit } = useTodo();
+  const { handleSubmit, value, setValue } = useTodo();
 
   return (
     <form
       className={formCss.formContainer}
-      onSubmit={(e) => handleSubmit({ e, todoInput, setTodoInput })}
+      onSubmit={(e) => handleSubmit({ e, value, setValue })}
     >
       {todoForm.map((form) => (
         <label key={form.index} className={formCss.label}>
@@ -19,8 +17,8 @@ const TodoForm = () => {
             type={form.type}
             placeholder={form.placeholder}
             name="addInput"
-            value={todoInput}
-            onChange={(e) => setTodoInput(e.target.value)}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
           />
           <button type="submit">+</button>
         </label>
