@@ -2,9 +2,11 @@ import formCss from "../../styles/features/todoPage/todoForm.module.css";
 import { Input } from "../../components";
 import { todoForm } from "../../constants";
 import { useTodo } from "../../hooks";
+import { useState } from "react";
 
 const TodoForm = () => {
-  const { handleSubmit, value, setValue } = useTodo();
+  const [value, setValue] = useState("");
+  const { handleSubmit } = useTodo();
 
   return (
     <form
@@ -19,6 +21,7 @@ const TodoForm = () => {
             name="addInput"
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            id="input"
           />
           <button type="submit">+</button>
         </label>

@@ -14,7 +14,13 @@ export const useGetTodoQuery = () => {
 export const useSearchQuery = (keyword: string) => {
   const { data: searchedTodos, isLoading } = useQuery({
     queryKey: ["search"],
-    queryFn: () => searchTodo(keyword, accessToken),
+    queryFn: () => {
+      if (!keyword.trim()) {
+        return null;
+      }
+      searchTodo(keyword, accessToken);
+    },
   });
+
   return { searchedTodos, isLoading };
 };

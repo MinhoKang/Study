@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { TodoObj, TodoState } from "../types";
 import { useTodoMutations } from "../apis/todo/useTodoMutaions";
 
@@ -29,9 +29,19 @@ interface HandleSearch {
 export const useTodo = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const { deleteTodoItem, addTodoItem, searchTodoItem } = useTodoMutations();
+  const {
+    deleteTodoItem,
+    addTodoItem,
+    searchTodoItem,
+    error,
+    isError,
+    addVariable,
+    editVariable,
+    variables,
+  } = useTodoMutations();
   const [value, setValue] = useState("");
-
+  console.log("value1", value);
+  console.log("variables", variables);
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -47,6 +57,7 @@ export const useTodo = () => {
     e.preventDefault();
     addTodoItem(value);
     setValue("");
+    console.log(addVariable);
   };
 
   const handleClick = ({ e, isCheck, setTodoState }: HandleClick) => {
@@ -56,6 +67,7 @@ export const useTodo = () => {
       setTodoState((prevState) => ({ ...prevState, isCheck: !isCheck }));
     } else if (id === "edit") {
       setTodoState((prevState) => ({ ...prevState, isEdit: true }));
+      console.log(editVariable);
     } else if (id === "delete") {
       setTodoState((prevState) => ({ ...prevState, isDelete: true }));
     }
@@ -64,9 +76,16 @@ export const useTodo = () => {
   const handleSearch = ({ e, keyword }: HandleSearch) => {
     e.preventDefault();
     searchTodoItem(keyword);
+    console.log("키워드", keyword);
+    console.log("value2", value);
+    console.log("error:", error);
+    console.log("isError:", isError);
+    console.log("variables", variables);
+
+    console.log("sear", searchTodoItem(keyword));
   };
 
-  const handleClear = async () => {
+  const handleClear = () => {
     setValue("");
     searchTodoItem("");
   };

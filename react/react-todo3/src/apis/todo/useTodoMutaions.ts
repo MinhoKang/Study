@@ -14,7 +14,7 @@ export const useTodoMutations = () => {
   const queryClient = useQueryClient();
   const accessToken = sessionStorage.getItem("accessToken")!;
 
-  const { mutate: addTodoItem } = useMutation({
+  const { mutate: addTodoItem, variables: addVariable } = useMutation({
     mutationFn: (todo: string) => addTodo(todo, accessToken),
     onMutate: async (todo) => {
       const prevTodo: TodoObj[] | [] =
@@ -63,7 +63,7 @@ export const useTodoMutations = () => {
     },
   });
 
-  const { mutate: editTodoItem } = useMutation({
+  const { mutate: editTodoItem, variables: editVariable } = useMutation({
     mutationFn: ({ edited, id }: { edited: string; id: number }) =>
       editTodo(edited, id, accessToken),
     onMutate: async ({ edited, id }) => {
@@ -74,7 +74,7 @@ export const useTodoMutations = () => {
         if (todo.id === id) {
           return { ...todo, todo: edited };
         }
-        return todo;
+        return { prevTodo };
       });
       queryClient.setQueryData(["todos"], changedData);
       return { prevTodo };
@@ -83,7 +83,13 @@ export const useTodoMutations = () => {
       queryClient.setQueryData(["todos"], context.prevTodo);
     },
   });
-  const { mutate: searchTodoItem } = useMutation({
+  const {
+    mutate: searchTodoItem,
+    data,
+    error,
+    isError,
+    variables,
+  } = useMutation({
     mutationFn: (keyword: string) => searchTodo(keyword, accessToken),
     onMutate: async (keyword) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
@@ -93,11 +99,13 @@ export const useTodoMutations = () => {
         queryClient.setQueryData(["todos"], prevTodo);
         return { prevTodo };
       }
+      return { prevTodo };
     },
     onError: (context: Context) => {
+      console.log(context);
       queryClient.setQueryData(["todos"], context.prevTodo);
     },
-    onSuccess(data) {
+    onSuccess: (data) => {
       queryClient.setQueryData(["todos"], data?.data);
     },
   });
@@ -107,5 +115,11 @@ export const useTodoMutations = () => {
     deleteTodoItem,
     editTodoItem,
     searchTodoItem,
+    data,
+    error,
+    isError,
+    addVariable,
+    editVariable,
+    variables,
   };
 };
