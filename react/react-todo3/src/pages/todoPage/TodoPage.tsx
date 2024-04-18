@@ -4,9 +4,14 @@ import { useTodo } from "../../hooks";
 import TodoForm from "../../features/todoPage/TodoForm";
 import { Container, H1 } from "../../components";
 import TodoSearch from "../../features/todoPage/TodoSearch";
+import { useGetTodoQuery } from "../../hooks/queries";
 
 const TodoPage = () => {
-  const { handleLogout } = useTodo();
+  const { handleLogout, handleSubmit, value, setValue } = useTodo();
+
+  const { todos } = useGetTodoQuery(value);
+  console.log(todos);
+
   return (
     <Container className={css.container}>
       <div className={css.logoutBtn} onClick={handleLogout}>
@@ -14,7 +19,7 @@ const TodoPage = () => {
       </div>
       <H1 text="TODO APP" />
       <TodoSearch />
-      <TodoList />
+      <TodoList todos={todos} />
       <TodoForm />
     </Container>
   );

@@ -1,6 +1,9 @@
 import axiosInstance from "../api";
 
-export const addTodo = async (todo: string, accessToken: string) => {
+export const addTodo = async (
+  todo: string,
+  accessToken: string | undefined
+) => {
   if (!accessToken) throw new Error("Access token is missing");
   try {
     const response = await axiosInstance.post(

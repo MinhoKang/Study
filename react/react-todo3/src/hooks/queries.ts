@@ -3,24 +3,20 @@ import { getTodo } from "../apis/todo/getTodo";
 import { searchTodo } from "../apis/todo/searchTodo";
 
 const accessToken = sessionStorage.getItem("accessToken")!;
-export const useGetTodoQuery = () => {
+export const useGetTodoQuery = (searchQuery?: string) => {
   const { data: todos } = useQuery({
-    queryKey: ["todos"],
-    queryFn: () => getTodo(accessToken),
+    queryKey: ["todos", searchQuery],
+    queryFn: () => getTodo(accessToken, searchQuery),
+    // enabled: !!searchQuery,
   });
   return { todos };
 };
 
-export const useSearchQuery = (keyword: string) => {
-  const { data: searchedTodos, isLoading } = useQuery({
-    queryKey: ["search"],
-    queryFn: () => {
-      if (!keyword.trim()) {
-        return null;
-      }
-      searchTodo(keyword, accessToken);
-    },
-  });
+// export const useSearchQuery = (keyword: string) => {
+//   const { data: searchedTodos, isLoading } = useQuery({
+//     queryKey: ["search"],
+//     queryFn: () => searchTodo(accessToken, keyword),
+//   });
 
-  return { searchedTodos, isLoading };
-};
+//   return { searchedTodos, isLoading };
+// };

@@ -1,13 +1,10 @@
-import { useState } from "react";
 import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 import { useTodo } from "../../hooks";
-import { useSearchQuery } from "../../hooks/queries";
 import css from "../../styles/features/todoPage/todoSearch.module.css";
 
 const TodoSearch = () => {
-  const [value, setValue] = useState("");
-  const { handleSearch, handleClear } = useTodo();
-  const { isLoading } = useSearchQuery(value);
+  const { handleSearch, handleClear, value, setValue } = useTodo();
+  // const { isLoading } = useSearchQuery(value);
 
   return (
     <div className={css.container}>
@@ -34,7 +31,7 @@ const TodoSearch = () => {
         </button>
       </form>
 
-      {isLoading && <LoadingSpinner />}
+      {/* {isLoading && <LoadingSpinner />} */}
     </div>
   );
 };

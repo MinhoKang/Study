@@ -3,7 +3,6 @@ import { deleteTodo } from "./deleteTodo";
 import { TodoObj } from "../../types";
 import { addTodo } from "./addTodo";
 import { editTodo } from "./editTodo";
-import { searchTodo } from "./searchTodo";
 
 type Context = {
   data: TodoObj[];
@@ -83,43 +82,14 @@ export const useTodoMutations = () => {
       queryClient.setQueryData(["todos"], context.prevTodo);
     },
   });
-  const {
-    mutate: searchTodoItem,
-    data,
-    error,
-    isError,
-    variables,
-  } = useMutation({
-    mutationFn: (keyword: string) => searchTodo(keyword, accessToken),
-    onMutate: async (keyword) => {
-      await queryClient.cancelQueries({ queryKey: ["todos"] });
-      const prevTodo: TodoObj[] | [] =
-        queryClient.getQueryData(["todos"]) || [];
-      if (keyword.trim() === "") {
-        queryClient.setQueryData(["todos"], prevTodo);
-        return { prevTodo };
-      }
-      return { prevTodo };
-    },
-    onError: (context: Context) => {
-      console.log(context);
-      queryClient.setQueryData(["todos"], context.prevTodo);
-    },
-    onSuccess: (data) => {
-      queryClient.setQueryData(["todos"], data?.data);
-    },
-  });
+  // TODO: useQuery사용
 
   return {
     addTodoItem,
     deleteTodoItem,
     editTodoItem,
-    searchTodoItem,
-    data,
-    error,
-    isError,
+
     addVariable,
     editVariable,
-    variables,
   };
 };

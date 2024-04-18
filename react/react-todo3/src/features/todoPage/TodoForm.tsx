@@ -2,11 +2,10 @@ import formCss from "../../styles/features/todoPage/todoForm.module.css";
 import { Input } from "../../components";
 import { todoForm } from "../../constants";
 import { useTodo } from "../../hooks";
-import { useState } from "react";
 
 const TodoForm = () => {
-  const [value, setValue] = useState("");
-  const { handleSubmit } = useTodo();
+  const { handleSubmit, value, setValue } = useTodo();
+  console.log("form", value);
 
   return (
     <form
