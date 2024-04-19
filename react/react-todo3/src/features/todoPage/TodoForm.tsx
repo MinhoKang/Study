@@ -1,23 +1,15 @@
-import { useContext, useState } from "react";
 import formCss from "../../styles/features/todoPage/todoForm.module.css";
-import { Form, Input } from "../../components";
-import { TodoContext } from "../../context/TodoContext";
+import { Input } from "../../components";
 import { todoForm } from "../../constants";
+import { useTodo } from "../../hooks";
 
 const TodoForm = () => {
-  const [todoInput, setTodoInput] = useState("");
-  const { onAddTodo } = useContext(TodoContext);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await onAddTodo(todoInput);
-    setTodoInput("");
-  };
+  const { handleSubmit, value, setValue } = useTodo();
 
   return (
-    <Form
+    <form
       className={formCss.formContainer}
-      onSubmit={(e) => handleSubmit(e as React.FormEvent<HTMLFormElement>)}
+      onSubmit={(e) => handleSubmit({ e, value, setValue })}
     >
       {todoForm.map((form) => (
         <label key={form.index} className={formCss.label}>
@@ -25,13 +17,13 @@ const TodoForm = () => {
             type={form.type}
             placeholder={form.placeholder}
             name="addInput"
-            value={todoInput}
-            onChange={(e) => setTodoInput(e.target.value)}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
           />
           <button type="submit">+</button>
         </label>
       ))}
-    </Form>
+    </form>
   );
 };
 

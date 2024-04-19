@@ -3,11 +3,9 @@ import css from "../../styles/todoPage/todoPage.module.css";
 import { useTodo } from "../../hooks";
 import TodoForm from "../../features/todoPage/TodoForm";
 import { Container, H1 } from "../../components";
-import { TodoContext } from "../../context/TodoContext";
 
 const TodoPage = () => {
-  const { todos, onAddTodo, onDeleteTodo, onEditTodo, handleLogout } =
-    useTodo();
+  const { handleLogout } = useTodo();
 
   return (
     <Container className={css.container}>
@@ -15,17 +13,8 @@ const TodoPage = () => {
         LOGOUT
       </div>
       <H1 text="TODO APP" />
-      <TodoContext.Provider
-        value={{
-          todos,
-          onAddTodo,
-          onDeleteTodo,
-          onEditTodo,
-        }}
-      >
-        <TodoList />
-        <TodoForm />
-      </TodoContext.Provider>
+      <TodoList />
+      <TodoForm />
     </Container>
   );
 };

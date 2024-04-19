@@ -1,46 +1,31 @@
-import { useEffect, useState } from "react";
-import { TodoObj } from "../types/todo";
-import { getTodo } from "../apis/todo/getTodo";
-import { addTodo } from "../apis/todo/addTodo";
-import { deleteTodo } from "../apis/todo/deleteTodo";
+import { useState } from "react";
+import { HandleSubmit, TodoObj } from "../types/todo";
+
 import { editTodo } from "../apis/todo/editTodo";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
+import { useTodoMutaions } from "../apis/todo/todoMutations";
 
 export const useTodo = () => {
   const [todos, setTodos] = useState<TodoObj[]>([]);
+  const [value, setValue] = useState("");
   const onChangeTodos = (newTodos: TodoObj[]) => setTodos(newTodos);
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { addMutaion, deleteMutation } = useTodoMutaions();
 
   const accessToken = sessionStorage.getItem("accessToken");
 
-  useEffect(() => {
-    const getTodoList = async () => {
-      if (!accessToken) return;
-      try {
-        const result = await getTodo(accessToken);
-        if (result && result.data) {
-          setTodos(result.data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getTodoList();
-  }, [accessToken]);
-
-  const onAddTodo = async (todo: string) => {
-    if (!accessToken) return;
-    const response = await addTodo(todo, accessToken);
-    onChangeTodos(response?.data.data.todos);
+  const handleSubmit = ({ e, value, setValue }: HandleSubmit) => {
+    e.preventDefault();
+    console.log(value);
+    addMutaion(value);
+    setValue("");
   };
 
   const onDeleteTodo = async (id: number) => {
-    if (!accessToken) return;
-    await deleteTodo(id, accessToken);
-    const newTodos = await todos.filter((todo) => todo.id !== id);
-    await onChangeTodos(newTodos);
+    deleteMutation(id);
+    // await onChangeTodos(newTodos);
   };
 
   const onEditTodo = async (edited: string, id: number) => {
@@ -61,5 +46,12 @@ export const useTodo = () => {
     navigate("/");
   };
 
-  return { todos, onAddTodo, onDeleteTodo, onEditTodo, handleLogout };
+  return {
+    handleSubmit,
+    onDeleteTodo,
+    onEditTodo,
+    handleLogout,
+    value,
+    setValue,
+  };
 };
