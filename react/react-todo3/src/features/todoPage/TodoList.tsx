@@ -5,11 +5,13 @@ import { useGetTodoQuery } from "../../apis/queries";
 
 const TodoList = () => {
   const { todos } = useGetTodoQuery();
+  console.log(todos);
 
   return (
     <div className={css.container}>
-      {todos &&
-        todos.map((todo: TodoObj) => <TodoItem key={todo.id} todo={todo} />)}
+      {todos?.map((todo: TodoObj) => (
+        <TodoItem key={todo.id} todo={todo} />
+      ))}
     </div>
   );
 };

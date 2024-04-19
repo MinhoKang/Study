@@ -37,6 +37,7 @@ export const useTodoMutations = () => {
         queryClient.getQueryData(["todos"]) as TodoObj[]
       ).slice(-1)[0].id;
       const lastServerTodos = data.data.data.todos;
+      console.log(lastServerTodos);
       const lastServerTodoId = lastServerTodos.slice(-1)[0].id;
 
       if (lastQueryTodoId !== lastServerTodoId) {
@@ -72,9 +73,11 @@ export const useTodoMutations = () => {
       const changedData = prevTodo.map((todo: TodoObj) => {
         if (todo.id === id) {
           return { ...todo, todo: edited };
+        } else {
+          return { ...todo };
         }
-        return { prevTodo };
       });
+      console.log(changedData);
       queryClient.setQueryData(["todos"], changedData);
       return { prevTodo };
     },

@@ -3,6 +3,7 @@ import { useAuth } from "./useAuth";
 import React, { SetStateAction, useState } from "react";
 import { TodoObj, TodoState } from "../types";
 import { useTodoMutations } from "../apis/todo/useTodoMutaions";
+import { useGetTodoQuery } from "../apis/queries";
 
 interface Props {
   e: React.MouseEvent<HTMLDivElement>;
@@ -22,12 +23,18 @@ interface Props3 {
   setTodoState: React.Dispatch<SetStateAction<TodoState>>;
 }
 
+interface HandleSearch {
+  e: React.FormEvent<HTMLFormElement>;
+  keyword: string;
+}
+
 export const useTodo = () => {
   const [value, setValue] = useState("");
   const navigate = useNavigate();
   const { logout } = useAuth();
   const { deleteTodoItem, addTodoItem } = useTodoMutations();
-
+  // const { refetch, todos } = useGetTodoQuery();
+  // console.log(todos);
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -55,6 +62,10 @@ export const useTodo = () => {
     } else if (id === "delete") {
       setTodoState((prevState) => ({ ...prevState, isDelete: true }));
     }
+  };
+
+  const handleSearch = ({ e, keyword }: HandleSearch) => {
+    e.preventDefault();
   };
 
   return {
