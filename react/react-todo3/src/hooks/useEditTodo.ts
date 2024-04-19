@@ -1,24 +1,22 @@
 import { useTodoState } from "./useTodoState";
-import { TodoObj } from "../types/todo";
 import { useTodoMutations } from "../apis/todo/useTodoMutaions";
+import { useTodo } from "./useTodo";
+import { UseEditTodo } from "../types";
 
-type Props = {
-  todo: TodoObj;
-  setIsEdit: (newValue: boolean) => void;
-};
-
-export const useEditTodo = ({ todo, setIsEdit }: Props) => {
+export const useEditTodo = ({ todo, setIsEdit }: UseEditTodo) => {
   const { editTodoItem } = useTodoMutations();
+  const { refetch } = useTodo();
   const {
     todoState: { editedTodo },
     setTodoState,
   } = useTodoState(todo);
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     if ((e.target as HTMLElement).textContent === "EDIT") {
-      editTodoItem({ edited: editedTodo, id: todo.id });
-      setIsEdit(false);
+      await editTodoItem({ edited: editedTodo, id: todo.id });
+      await refetch();
+      await setIsEdit(false);
     } else if ((e.target as HTMLElement).innerText === "CANCEL") {
       setIsEdit(false);
     }

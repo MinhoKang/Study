@@ -38,3 +38,8 @@ export interface HandleSearch {
   e: React.FormEvent<HTMLFormElement>;
   keyword?: string;
 }
+
+export interface UseEditTodo {
+  todo: TodoObj;
+  setIsEdit: (newValue: boolean) => void;
+}

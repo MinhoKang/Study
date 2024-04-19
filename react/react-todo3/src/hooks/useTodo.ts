@@ -6,9 +6,14 @@ import {
   HandleDelete,
   HandleSearch,
   HandleSubmit,
+  TodoObj,
 } from "../types";
 import { useTodoMutations } from "../apis/todo/useTodoMutaions";
 import { useGetTodoQuery } from "../apis/queries";
+
+interface UseTodoProps {
+  todo?: TodoObj;
+}
 
 export const useTodo = () => {
   const [value, setValue] = useState("");
@@ -45,10 +50,9 @@ export const useTodo = () => {
     } else if (id === "delete") {
       setTodoState((prevState) => ({ ...prevState, isDelete: true }));
     }
-    // refetch();
   };
 
-  const handleSearch = ({ e, keyword }: HandleSearch) => {
+  const handleSearch = ({ e }: HandleSearch) => {
     e.preventDefault();
     refetch();
   };
@@ -69,5 +73,6 @@ export const useTodo = () => {
     handleSearch,
     todos,
     handleClear,
+    refetch,
   };
 };

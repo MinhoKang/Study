@@ -11,9 +11,9 @@ const TodoSearch = () => {
         onSubmit={(e) => handleSearch({ e, keyword: value })}
       >
         {value && (
-          <div className={css.clearBtn} onClick={(e) => handleClear(e)}>
+          <button className={css.clearBtn} onClick={(e) => handleClear(e)}>
             X
-          </div>
+          </button>
         )}
         <input
           type="text"
