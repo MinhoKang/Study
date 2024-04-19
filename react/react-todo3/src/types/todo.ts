@@ -36,6 +36,7 @@ export interface HandleClick {
 
 export interface HandleSearch {
   e: React.FormEvent<HTMLFormElement>;
+  // value: string;
   keyword?: string;
 }
 

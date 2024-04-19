@@ -6,22 +6,18 @@ import {
   HandleDelete,
   HandleSearch,
   HandleSubmit,
-  TodoObj,
 } from "../types";
 import { useTodoMutations } from "../apis/todo/useTodoMutaions";
 import { useGetTodoQuery } from "../apis/queries";
 
-interface UseTodoProps {
-  todo?: TodoObj;
-}
-
 export const useTodo = () => {
   const [value, setValue] = useState("");
+  console.log("111", value);
+
   const navigate = useNavigate();
   const { logout } = useAuth();
   const { deleteTodoItem, addTodoItem } = useTodoMutations();
   const { todos, refetch } = useGetTodoQuery(value);
-
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -54,6 +50,8 @@ export const useTodo = () => {
 
   const handleSearch = ({ e }: HandleSearch) => {
     e.preventDefault();
+    console.log("22222", value);
+
     refetch();
   };
 
