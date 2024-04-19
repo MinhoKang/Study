@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
-import { useMutations } from "./mutaions";
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useState } from "react";
 import { TodoObj, TodoState } from "../types";
+import { useTodoMutations } from "../apis/todo/useTodoMutaions";
 
 interface Props {
   e: React.MouseEvent<HTMLDivElement>;
@@ -23,9 +23,10 @@ interface Props3 {
 }
 
 export const useTodo = () => {
+  const [value, setValue] = useState("");
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const { deleteTodoItem, addTodoItem } = useMutations();
+  const { deleteTodoItem, addTodoItem } = useTodoMutations();
 
   const handleLogout = () => {
     logout();
@@ -56,5 +57,12 @@ export const useTodo = () => {
     }
   };
 
-  return { handleLogout, handleDelete, handleSubmit, handleClick };
+  return {
+    handleLogout,
+    handleDelete,
+    handleSubmit,
+    handleClick,
+    value,
+    setValue,
+  };
 };

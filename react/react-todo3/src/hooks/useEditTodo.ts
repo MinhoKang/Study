@@ -1,6 +1,6 @@
 import { useTodoState } from "./useTodoState";
 import { TodoObj } from "../types/todo";
-import { useMutations } from "./mutaions";
+import { useTodoMutations } from "../apis/todo/useTodoMutaions";
 
 type Props = {
   todo: TodoObj;
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const useEditTodo = ({ todo, setIsEdit }: Props) => {
-  const { editTodoItem } = useMutations();
+  const { editTodoItem } = useTodoMutations();
   const {
     todoState: { editedTodo },
     setTodoState,
