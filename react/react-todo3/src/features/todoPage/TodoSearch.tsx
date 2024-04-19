@@ -1,18 +1,15 @@
-import { useState } from "react";
-import { useTodo } from "../../hooks";
-import { useDebounce } from "../../hooks/useDebounce";
+import React, { SetStateAction } from "react";
 import css from "../../styles/features/todoPage/todoSearch.module.css";
 
-const TodoSearch = () => {
-  // const [value, setValue] = useState("");
-
-  const { value, setValue, handleSearch, handleClear } = useTodo();
-
-  const debounceValue = useDebounce({ value });
-
+interface Props {
+  value: string;
+  setValue: React.Dispatch<SetStateAction<string>>;
+  handleClear: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+const TodoSearch = ({ value, setValue, handleClear }: Props) => {
   return (
     <div className={css.container}>
-      <form className={css.form} onInput={(e) => handleSearch({ e })}>
+      <form className={css.form}>
         {value && (
           <button className={css.clearBtn} onClick={(e) => handleClear(e)}>
             X

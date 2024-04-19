@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
 import { useState } from "react";
@@ -8,16 +9,21 @@ import {
   HandleSubmit,
 } from "../types";
 import { useTodoMutations } from "../apis/todo/useTodoMutaions";
-import { useGetTodoQuery } from "../apis/queries";
+import { useDebounce } from "./useDebounce";
 
 export const useTodo = () => {
   const [value, setValue] = useState("");
-  console.log("111", value);
-
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { logout } = useAuth();
   const { deleteTodoItem, addTodoItem } = useTodoMutations();
-  const { todos, refetch } = useGetTodoQuery(value);
+  const debounceValue = useDebounce({ value });
+
+  const invalidateTodos = () =>
+    queryClient.invalidateQueries({
+      queryKey: ["todos"],
+    });
+
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -27,13 +33,14 @@ export const useTodo = () => {
     e.preventDefault();
     deleteTodoItem(todo.id);
     setTodoState((prevState) => ({ ...prevState, isDelete: false }));
-    refetch();
+    invalidateTodos();
   };
 
-  const handleAdd = ({ e, value, setValue }: HandleSubmit) => {
+  const handleAdd = ({ e }: HandleSubmit) => {
     e.preventDefault();
     addTodoItem(value);
     setValue("");
+    invalidateTodos();
   };
 
   const handleClick = ({ e, isCheck, setTodoState }: HandleClick) => {
@@ -50,15 +57,12 @@ export const useTodo = () => {
 
   const handleSearch = ({ e }: HandleSearch) => {
     e.preventDefault();
-    console.log("22222", value);
-
-    refetch();
   };
 
-  const handleClear = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await setValue("");
-    await refetch();
+    setValue("");
+    invalidateTodos();
   };
 
   return {
@@ -66,11 +70,10 @@ export const useTodo = () => {
     handleDelete,
     handleAdd,
     handleClick,
+    debounceValue,
     value,
     setValue,
     handleSearch,
-    todos,
     handleClear,
-    refetch,
   };
 };

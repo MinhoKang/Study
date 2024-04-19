@@ -15,6 +15,8 @@ const useProvideAuth = () => {
     setIsLogin(false);
   };
 
+  
+
   return {
     login,
     logout,

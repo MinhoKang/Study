@@ -10,7 +10,7 @@ export const getTodo = async (accessToken: string, keyword?: string) => {
       },
     });
     console.log(response);
-    return response.data;
+    return response;
   } catch (error) {
     console.log(error);
   }

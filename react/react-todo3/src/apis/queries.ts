@@ -3,20 +3,11 @@ import { getTodo } from "./todo/getTodo";
 
 export const useGetTodoQuery = (keyword?: string) => {
   const accessToken = sessionStorage.getItem("accessToken")!;
-  const { data: todos, refetch } = useQuery({
-    queryKey: ["todos"],
+  const { data: todos, isError: getTodoError } = useQuery({
+    queryKey: ["todos", keyword],
     queryFn: () => getTodo(accessToken, keyword),
-    // enabled: !!keyword,
+    select: (data) => data?.data,
   });
 
-  return { todos, refetch };
+  return { todos, getTodoError };
 };
-// export const useGetTodoQuery = () => {
-//   const accessToken = sessionStorage.getItem("accessToken")!;
-//   const { data: todos } = useQuery({
-//     queryKey: ["todos"],
-//     queryFn: () => getTodo(accessToken),
-//   });
-
-//   return { todos };
-// };

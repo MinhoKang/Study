@@ -15,12 +15,12 @@ export const useTodoMutations = () => {
   const { mutate: addTodoItem } = useMutation({
     mutationFn: (todo: string) => addTodo(todo, accessToken),
     onMutate: async (todo) => {
+      console.log("onMutate", todo);
       const prevTodo: TodoObj[] | [] =
         queryClient.getQueryData(["todos"]) || [];
       await queryClient.cancelQueries({
         queryKey: ["todos"],
       });
-
       const newTodoId = prevTodo.length
         ? prevTodo[prevTodo.length - 1].id + 1
         : 0;
@@ -37,7 +37,7 @@ export const useTodoMutations = () => {
       ).slice(-1)[0].id;
       const lastServerTodos = data.data.data.todos;
       const lastServerTodoId = lastServerTodos.slice(-1)[0].id;
-
+      console.log(lastServerTodos);
       if (lastQueryTodoId !== lastServerTodoId) {
         queryClient.setQueryData(["todos"], lastServerTodos);
       }

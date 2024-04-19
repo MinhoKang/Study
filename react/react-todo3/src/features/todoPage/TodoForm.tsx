@@ -4,13 +4,10 @@ import { todoForm } from "../../constants";
 import { useTodo } from "../../hooks";
 
 const TodoForm = () => {
-  const { handleAdd, value, setValue } = useTodo();
+  const { value, setValue, handleAdd } = useTodo();
 
   return (
-    <form
-      className={formCss.formContainer}
-      onSubmit={(e) => handleAdd({ e, value, setValue })}
-    >
+    <form className={formCss.formContainer} onSubmit={(e) => handleAdd({ e })}>
       {todoForm.map((form) => (
         <label key={form.index} className={formCss.label}>
           <Input

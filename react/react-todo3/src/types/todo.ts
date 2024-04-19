@@ -24,8 +24,8 @@ export interface HandleDelete {
 
 export interface HandleSubmit {
   e: React.FormEvent<HTMLFormElement>;
-  value: string;
-  setValue: React.Dispatch<SetStateAction<string>>;
+  value?: string;
+  setValue?: React.Dispatch<SetStateAction<string>>;
 }
 
 export interface HandleClick {
