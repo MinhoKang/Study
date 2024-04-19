@@ -1,11 +1,10 @@
 import css from "../../styles/features/todoPage/todoList.module.css";
 import TodoItem from "./todoItem/TodoItem";
 import { TodoObj } from "../../types";
-import { useGetTodoQuery } from "../../apis/queries";
+import { useTodo } from "../../hooks";
 
 const TodoList = () => {
-  const { todos } = useGetTodoQuery();
-  console.log(todos);
+  const { todos } = useTodo();
 
   return (
     <div className={css.container}>

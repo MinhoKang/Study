@@ -12,7 +12,6 @@ type Context = {
 export const useTodoMutations = () => {
   const queryClient = useQueryClient();
   const accessToken = sessionStorage.getItem("accessToken")!;
-
   const { mutate: addTodoItem } = useMutation({
     mutationFn: (todo: string) => addTodo(todo, accessToken),
     onMutate: async (todo) => {
@@ -37,7 +36,6 @@ export const useTodoMutations = () => {
         queryClient.getQueryData(["todos"]) as TodoObj[]
       ).slice(-1)[0].id;
       const lastServerTodos = data.data.data.todos;
-      console.log(lastServerTodos);
       const lastServerTodoId = lastServerTodos.slice(-1)[0].id;
 
       if (lastQueryTodoId !== lastServerTodoId) {
