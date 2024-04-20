@@ -10,7 +10,8 @@ const TodoPage = () => {
   const { handleLogout, value, setValue, handleClear, debounceValue } =
     useTodo();
   const { todos, getTodoError } = useGetTodoQuery(debounceValue);
-
+  console.log(todos);
+  console.log("todo", debounceValue);
   return (
     <Container className={css.container}>
       <div className={css.logoutBtn} onClick={handleLogout}>

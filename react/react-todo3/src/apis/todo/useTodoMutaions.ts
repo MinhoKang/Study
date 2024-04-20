@@ -12,6 +12,7 @@ type Context = {
 export const useTodoMutations = () => {
   const queryClient = useQueryClient();
   const accessToken = sessionStorage.getItem("accessToken")!;
+
   const { mutate: addTodoItem } = useMutation({
     mutationFn: (todo: string) => addTodo(todo, accessToken),
     onMutate: async (todo) => {
@@ -41,6 +42,7 @@ export const useTodoMutations = () => {
       if (lastQueryTodoId !== lastServerTodoId) {
         queryClient.setQueryData(["todos"], lastServerTodos);
       }
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
@@ -58,6 +60,9 @@ export const useTodoMutations = () => {
     },
     onError: (context: Context) => {
       queryClient.setQueryData(["todos"], context.prevTodo);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
@@ -81,6 +86,9 @@ export const useTodoMutations = () => {
     },
     onError: (context: Context) => {
       queryClient.setQueryData(["todos"], context.prevTodo);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
