@@ -21,7 +21,7 @@ export const useTodoMutations = () => {
       await queryClient.cancelQueries({
         queryKey: ["todos"],
       });
-
+      console.log("prev", prevTodo);
       const newTodoId = prevTodo.length
         ? prevTodo[prevTodo.length - 1].id + 1
         : 0;
