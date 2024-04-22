@@ -1,0 +1,42 @@
+.container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .form {
+    position: relative;
+    margin-bottom: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .clearBtn {
+      position: absolute;
+      color: white;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      right: 145px;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+    .input {
+      border-radius: 10px;
+      width: 60%;
+      padding: 9px 10px;
+      box-sizing: border-box;
+      background-color: #15101c;
+      color: white;
+      font-size: 18px;
+      &:focus {
+        outline: none;
+      }
+    }
+    .button {
+      cursor: pointer;
+      background-color: #9e78cf;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+  }
+}
