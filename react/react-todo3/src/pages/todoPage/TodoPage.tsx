@@ -12,6 +12,8 @@ const TodoPage = () => {
   const { todos, getTodoError } = useGetTodoQuery(debounceValue);
   console.log(todos);
   console.log("todo", debounceValue);
+  // TODO: getTodo랑 getSearchedTodo나눠서
+  // TODO: mutation 값 확인
   return (
     <Container className={css.container}>
       <div className={css.logoutBtn} onClick={handleLogout}>
