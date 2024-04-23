@@ -9,40 +9,44 @@ type Context = {
   [key: string]: object;
 };
 
-export const useTodoMutations = () => {
+export const useTodoMutations = (searchValue: string) => {
   const queryClient = useQueryClient();
   const accessToken = sessionStorage.getItem("accessToken")!;
 
   const { mutate: addTodoItem } = useMutation({
     mutationFn: (todo: string) => addTodo(todo, accessToken),
     onMutate: async (todo) => {
-      console.log("onMutate", todo);
-      const prevTodo: TodoObj[] | [] =
-        queryClient.getQueryData(["todos"]) || [];
       await queryClient.cancelQueries({
-        queryKey: ["todos"],
+        queryKey: ["todos", searchValue],
       });
+      
+      const prevTodo: TodoObj[] = await queryClient.getQueryData([
+        "todos",
+        searchValue,
+      ]);
+
       const newTodoId = prevTodo.length
         ? prevTodo[prevTodo.length - 1].id + 1
         : 0;
       const newTodo = [...prevTodo, { id: newTodoId, todo }];
-      queryClient.setQueryData(["todos"], newTodo);
-      return { prevTodo };
+      console.log("newTodo", newTodo);
+      queryClient.setQueryData(["todos", searchValue], newTodo);
+      return { prevTodo: prevTodo };
     },
     onError: (context: Context) => {
       queryClient.setQueryData(["todos"], context.prevTodo);
     },
     onSuccess: (data) => {
-      const lastQueryTodoId = (
-        queryClient.getQueryData(["todos"]) as TodoObj[]
-      ).slice(-1)[0].id;
-      const lastServerTodos = data.data.data.todos;
-      const lastServerTodoId = lastServerTodos.slice(-1)[0].id;
-      console.log(lastServerTodos);
-      if (lastQueryTodoId !== lastServerTodoId) {
-        queryClient.setQueryData(["todos"], lastServerTodos);
-      }
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      // const lastQueryTodoId = (
+      //   queryClient.getQueryData(["todos"]) as TodoObj[]
+      // ).slice(-1)[0].id;
+      // const lastServerTodos = data.data.data.todos;
+      // const lastServerTodoId = lastServerTodos.slice(-1)[0].id;
+      // console.log(lastServerTodos);
+      // if (lastQueryTodoId !== lastServerTodoId) {
+      //   queryClient.setQueryData(["todos"], lastServerTodos);
+      // }
+      // queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
@@ -80,7 +84,7 @@ export const useTodoMutations = () => {
           return { ...todo };
         }
       });
-      console.log(changedData);
+
       queryClient.setQueryData(["todos"], changedData);
       return { prevTodo };
     },

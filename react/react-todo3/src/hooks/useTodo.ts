@@ -13,35 +13,40 @@ import { useDebounce } from "./useDebounce";
 
 export const useTodo = () => {
   const [value, setValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const { deleteTodoItem, addTodoItem } = useTodoMutations();
-  const debounceValue = useDebounce({ value });
+
+  const debounceSearchValue = useDebounce({ value: searchValue });
+  const { deleteTodoItem, addTodoItem } = useTodoMutations(searchValue);
 
   const invalidateTodos = () =>
     queryClient.invalidateQueries({
       queryKey: ["todos"],
     });
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
+  // const handleLogout = () => {
+  //   logout();
+  //   navigate("/");
+  // };
 
-  const handleDelete = ({ e, setTodoState, todo }: HandleDelete) => {
-    e.preventDefault();
-    deleteTodoItem(todo.id);
-    setTodoState((prevState) => ({ ...prevState, isDelete: false }));
-    invalidateTodos();
-  };
+  // const handleDelete = ({ e, setTodoState, todo }: HandleDelete) => {
+  //   e.preventDefault();
+  //   deleteTodoItem(todo.id,{
+  //     onSu
+  //   });
+  //   // setTodoState((prevState) => ({ ...prevState, isDelete: false }));
+  //   // invalidateTodos();
+  // };
 
-  const handleAdd = ({ e }: HandleSubmit) => {
-    e.preventDefault();
-    addTodoItem(value);
-    setValue("");
-    invalidateTodos();
-  };
+  // const handleAdd = ({ e }: HandleSubmit) => {
+  //   e.preventDefault();
+  //   addTodoItem(value);
+  //   setValue("");
+  //   invalidateTodos();
+  // };
 
   const handleClick = ({ e, isCheck, setTodoState }: HandleClick) => {
     e.preventDefault();
@@ -70,7 +75,7 @@ export const useTodo = () => {
     handleDelete,
     handleAdd,
     handleClick,
-    debounceValue,
+    debounceSearchValue,
     value,
     setValue,
     handleSearch,

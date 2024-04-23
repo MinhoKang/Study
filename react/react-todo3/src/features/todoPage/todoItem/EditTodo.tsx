@@ -25,7 +25,7 @@ const EditTodo = ({ todo, setIsEdit }: Props) => {
           }))
         }
       />
-      <div className={css.btns} onClick={handleClick}>
+      <div className={css.btns} onClick={()=>putTodo({})}>
         <p className={css.editBtn}>EDIT</p>
         <p className={css.editBtn}>CANCEL</p>
       </div>

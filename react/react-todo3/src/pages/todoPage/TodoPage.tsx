@@ -7,11 +7,10 @@ import TodoSearch from "../../features/todoPage/TodoSearch";
 import { useGetTodoQuery } from "../../apis/queries";
 
 const TodoPage = () => {
-  const { handleLogout, value, setValue, handleClear, debounceValue } =
+  const { handleLogout, value, setValue, handleClear, debounceSearchValue } =
     useTodo();
-  const { todos, getTodoError } = useGetTodoQuery(debounceValue);
-  console.log(todos);
-  console.log("todo", debounceValue);
+  const { todos, getTodoError } = useGetTodoQuery(debounceSearchValue);
+  console.log("todoPage todos", todos);
   // TODO: getTodo랑 getSearchedTodo나눠서
   // TODO: mutation 값 확인
   return (
@@ -29,3 +28,6 @@ const TodoPage = () => {
 };
 
 export default TodoPage;
+
+
+
