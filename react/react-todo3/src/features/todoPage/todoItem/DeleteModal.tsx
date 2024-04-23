@@ -1,17 +1,13 @@
 import cn from "classnames";
 import css from "../../../styles/features/todoPage/deleteModal.module.css";
-import { SetStateAction } from "react";
-import { TodoObj, TodoState } from "../../../types";
-import { useTodo } from "../../../hooks";
+import React, { SetStateAction } from "react";
 
 interface Props {
-  todo: TodoObj;
-  setTodoState: React.Dispatch<SetStateAction<TodoState>>;
+  setIsDelete: React.Dispatch<SetStateAction<boolean>>;
+  onDeleteTodoItem: (id: number) => Promise<void>;
 }
 
-const DeleteModal = ({ todo, setTodoState }: Props) => {
-  const { handleDelete } = useTodo();
-
+const DeleteModal = ({ setIsDelete, onDeleteTodoItem }: Props) => {
   return (
     <div className={css.container}>
       <div className={css.modal}>
@@ -19,15 +15,13 @@ const DeleteModal = ({ todo, setTodoState }: Props) => {
         <div className={css.btns}>
           <div
             className={cn(css.btn, css.deleteBtn)}
-            onClick={(e) => handleDelete({ e, setTodoState, todo })}
+            onClick={onDeleteTodoItem}
           >
             삭제
           </div>
           <div
             className={cn(css.btn, css.cancelBtn)}
-            onClick={() =>
-              setTodoState((prevState) => ({ ...prevState, isDelete: false }))
-            }
+            onClick={() => setIsDelete(false)}
           >
             취소
           </div>

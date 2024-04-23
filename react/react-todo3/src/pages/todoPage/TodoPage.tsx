@@ -5,29 +5,36 @@ import TodoForm from "../../features/todoPage/TodoForm";
 import { Container, H1 } from "../../components";
 import TodoSearch from "../../features/todoPage/TodoSearch";
 import { useGetTodoQuery } from "../../apis/queries";
+import { useState } from "react";
+import { useDebounce } from "../../hooks/useDebounce";
+import { useTodoMutations } from "../../apis/todo/useTodoMutaions";
 
 const TodoPage = () => {
-  const { handleLogout, value, setValue, handleClear, debounceSearchValue } =
-    useTodo();
-  const { todos, getTodoError } = useGetTodoQuery(debounceSearchValue);
-  console.log("todoPage todos", todos);
-  // TODO: getTodo랑 getSearchedTodo나눠서
-  // TODO: mutation 값 확인
+  const [searchQuery, setSearchQuery] = useState("");
+  const debounceSeachQuery = useDebounce({ value: searchQuery });
+
+  const { todos, getTodoError } = useGetTodoQuery(debounceSeachQuery);
+
+  const { handleLogout, value, setValue, handleClear } = useTodo();
+  const { addTodoItem, deleteTodoItem, editTodoItem } =
+    useTodoMutations(searchQuery);
+
   return (
     <Container className={css.container}>
-      <div className={css.logoutBtn} onClick={handleLogout}>
+      <div className={css.logoutBtn} onClick={() => handleLogout()}>
         LOGOUT
       </div>
       <H1 text="TODO APP" />
       <TodoSearch value={value} setValue={setValue} handleClear={handleClear} />
       {getTodoError && <p>검색된 할 일이 없습니다.</p>}
-      <TodoList todos={todos} />
-      <TodoForm />
+      <TodoList
+        todos={todos}
+        onEditTodoItem={editTodoItem}
+        onDeleteTodoItem={deleteTodoItem}
+      />
+      <TodoForm onAddTodoItem={addTodoItem} />
     </Container>
   );
 };
 
 export default TodoPage;
-
-
-

@@ -19,11 +19,9 @@ export const useTodoMutations = (searchValue: string) => {
       await queryClient.cancelQueries({
         queryKey: ["todos", searchValue],
       });
-      
-      const prevTodo: TodoObj[] = await queryClient.getQueryData([
-        "todos",
-        searchValue,
-      ]);
+
+      const prevTodo: TodoObj[] | [] =
+        (await queryClient.getQueryData(["todos", searchValue])) || [];
 
       const newTodoId = prevTodo.length
         ? prevTodo[prevTodo.length - 1].id + 1
@@ -34,65 +32,58 @@ export const useTodoMutations = (searchValue: string) => {
       return { prevTodo: prevTodo };
     },
     onError: (context: Context) => {
-      queryClient.setQueryData(["todos"], context.prevTodo);
+      queryClient.setQueryData(["todos", searchValue], context.prevTodo);
     },
     onSuccess: (data) => {
-      // const lastQueryTodoId = (
-      //   queryClient.getQueryData(["todos"]) as TodoObj[]
-      // ).slice(-1)[0].id;
-      // const lastServerTodos = data.data.data.todos;
-      // const lastServerTodoId = lastServerTodos.slice(-1)[0].id;
-      // console.log(lastServerTodos);
-      // if (lastQueryTodoId !== lastServerTodoId) {
-      //   queryClient.setQueryData(["todos"], lastServerTodos);
-      // }
-      // queryClient.invalidateQueries({ queryKey: ["todos"] });
+      const lastQueryTodoId = (
+        queryClient.getQueryData(["todos", searchValue]) as TodoObj[]
+      ).slice(-1)[0].id;
+      const lastServerTodos = data.data.data.todos;
+      const lastServerTodoId = lastServerTodos.slice(-1)[0].id;
+      console.log(lastServerTodos);
+      if (lastQueryTodoId !== lastServerTodoId) {
+        queryClient.setQueryData(["todos", searchValue], lastServerTodos);
+      }
     },
   });
 
   const { mutate: deleteTodoItem } = useMutation({
     mutationFn: (id: number) => deleteTodo(id, accessToken),
     onMutate: async (targetTodo) => {
-      await queryClient.cancelQueries({ queryKey: ["todos"] });
+      await queryClient.cancelQueries({ queryKey: ["todos", searchValue] });
       const prevTodo: TodoObj[] | [] =
-        queryClient.getQueryData(["todos"]) || [];
+        queryClient.getQueryData(["todos", searchValue]) || [];
       const changedData = prevTodo.filter(
         (todo: TodoObj) => todo.id !== targetTodo
       );
-      queryClient.setQueryData(["todos"], changedData);
+      queryClient.setQueryData(["todos", searchValue], changedData);
       return { prevTodo };
     },
     onError: (context: Context) => {
-      queryClient.setQueryData(["todos"], context.prevTodo);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.setQueryData(["todos", searchValue], context.prevTodo);
     },
   });
 
   const { mutate: editTodoItem } = useMutation({
-    mutationFn: ({ edited, id }: { edited: string; id: number }) =>
-      editTodo(edited, id, accessToken),
-    onMutate: async ({ edited, id }) => {
-      await queryClient.cancelQueries({ queryKey: ["todos"] });
+    mutationFn: ({ editedTodo, id }: { editedTodo: string; id: number }) =>
+      editTodo(editedTodo, id, accessToken),
+    onMutate: async ({ editedTodo, id }) => {
+      await queryClient.cancelQueries({ queryKey: ["todos", searchValue] });
       const prevTodo: TodoObj[] | [] =
-        queryClient.getQueryData(["todos"]) || [];
+        queryClient.getQueryData(["todos", searchValue]) || [];
       const changedData = prevTodo.map((todo: TodoObj) => {
         if (todo.id === id) {
-          return { ...todo, todo: edited };
+          return { ...todo, todo: editedTodo };
         } else {
           return { ...todo };
         }
       });
 
-      queryClient.setQueryData(["todos"], changedData);
+      queryClient.setQueryData(["todos", searchValue], changedData);
       return { prevTodo };
     },
     onError: (context: Context) => {
-      queryClient.setQueryData(["todos"], context.prevTodo);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.setQueryData(["todos", searchValue], context.prevTodo);
     },
   });
 

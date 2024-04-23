@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
 import { useState } from "react";
@@ -8,45 +7,27 @@ import {
   HandleSearch,
   HandleSubmit,
 } from "../types";
-import { useTodoMutations } from "../apis/todo/useTodoMutaions";
-import { useDebounce } from "./useDebounce";
 
 export const useTodo = () => {
   const [value, setValue] = useState("");
-  const [searchValue, setSearchValue] = useState("");
 
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { logout } = useAuth();
 
-  const debounceSearchValue = useDebounce({ value: searchValue });
-  const { deleteTodoItem, addTodoItem } = useTodoMutations(searchValue);
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
-  const invalidateTodos = () =>
-    queryClient.invalidateQueries({
-      queryKey: ["todos"],
-    });
+  const handleDelete = ({ e, setTodoState, todo }: HandleDelete) => {
+    e.preventDefault();
+    setTodoState((prevState) => ({ ...prevState, isDelete: false }));
+  };
 
-  // const handleLogout = () => {
-  //   logout();
-  //   navigate("/");
-  // };
-
-  // const handleDelete = ({ e, setTodoState, todo }: HandleDelete) => {
-  //   e.preventDefault();
-  //   deleteTodoItem(todo.id,{
-  //     onSu
-  //   });
-  //   // setTodoState((prevState) => ({ ...prevState, isDelete: false }));
-  //   // invalidateTodos();
-  // };
-
-  // const handleAdd = ({ e }: HandleSubmit) => {
-  //   e.preventDefault();
-  //   addTodoItem(value);
-  //   setValue("");
-  //   invalidateTodos();
-  // };
+  const handleAdd = ({ e }: HandleSubmit) => {
+    e.preventDefault();
+    setValue("");
+  };
 
   const handleClick = ({ e, isCheck, setTodoState }: HandleClick) => {
     e.preventDefault();
@@ -67,7 +48,6 @@ export const useTodo = () => {
   const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setValue("");
-    invalidateTodos();
   };
 
   return {
@@ -75,7 +55,6 @@ export const useTodo = () => {
     handleDelete,
     handleAdd,
     handleClick,
-    debounceSearchValue,
     value,
     setValue,
     handleSearch,

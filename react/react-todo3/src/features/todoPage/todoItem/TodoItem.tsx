@@ -1,27 +1,71 @@
 import css from "../../../styles/features/todoPage/todoItem.module.css";
-import Todo from "./Todo";
-import EditTodo from "./EditTodo";
 import TodoButtons from "./TodoButtons";
 import DeleteModal from "./DeleteModal";
-import { useTodoState } from "../../../hooks";
-import { TodoProps } from "../../../types";
+import { TodoObj } from "../../../types";
+import { useState } from "react";
 
-const TodoItem = ({ todo }: TodoProps) => {
-  const { todoState, setTodoState, setIsEdit } = useTodoState(todo);
-  const { isEdit, isCheck, isDelete } = todoState;
+interface TodoItemProps {
+  todo: TodoObj;
+  onDeleteTodoItem: (id: number) => Promise<void>;
+  onEditTodoItem: (params: { editedTodo: string; id: number }) => Promise<void>;
+}
+
+const TodoItem = ({
+  todo,
+  onEditTodoItem,
+  onDeleteTodoItem,
+}: TodoItemProps) => {
+  const [isEdit, setIsEdit] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
+  const [isCheck, setIsCheck] = useState(false);
+  const [editedTodo, setEditedTodo] = useState(todo.todo);
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const id = e.currentTarget.id;
+    if (id === "check") {
+      setIsCheck(!isCheck);
+    } else if (id === "edit") {
+      setIsEdit(true);
+      console.log("info", todo.id, isEdit);
+    } else if (id === "delete") {
+      setIsDelete(true);
+    }
+  };
 
   return (
     <div className={css.itemBox}>
-      {isEdit ? (
-        <EditTodo todo={todo} setIsEdit={setIsEdit} />
-      ) : (
-        <>
-          <Todo todo={todo} isCheck={isCheck} />
-          <TodoButtons isCheck={isCheck} setTodoState={setTodoState} />
-        </>
-      )}
+      <input
+        type="text"
+        defaultValue={editedTodo}
+        readOnly={!isEdit}
+        onChange={(e) => setEditedTodo(e.target.value)}
+      />
 
-      {isDelete && <DeleteModal todo={todo} setTodoState={setTodoState} />}
+      {!isEdit ? (
+        <TodoButtons onHandleClick={handleClick} />
+      ) : (
+        <div className={css.btns}>
+          <p
+            className={css.editBtn}
+            onClick={() => {
+              onEditTodoItem({ editedTodo, id: todo.id });
+              setIsEdit(false);
+            }}
+          >
+            EDIT
+          </p>
+          <p className={css.editBtn} onClick={() => setIsEdit(false)}>
+            CANCEL
+          </p>
+        </div>
+      )}
+      {isDelete && (
+        <DeleteModal
+          setIsDelete={setIsDelete}
+          onDeleteTodoItem={() => onDeleteTodoItem(todo.id)}
+        />
+      )}
     </div>
   );
 };

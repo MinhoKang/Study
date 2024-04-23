@@ -1,16 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import css from "../../../styles/features/todoPage/todoItem.module.css";
-import { TodoState } from "../../../types";
 import { todoButtons } from "../../../constants";
-import { useTodo } from "../../../hooks";
 
 interface Props {
-  isCheck: boolean;
-  setTodoState: React.Dispatch<React.SetStateAction<TodoState>>;
+  onHandleClick: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
-const TodoButtons = ({ isCheck, setTodoState }: Props) => {
-  const { handleClick } = useTodo();
+
+const TodoButtons = ({ onHandleClick }: Props) => {
   return (
     <div className={css.buttons}>
       {todoButtons.map((btn) => (
@@ -18,7 +15,7 @@ const TodoButtons = ({ isCheck, setTodoState }: Props) => {
           key={btn.index}
           id={btn.name}
           className={btn.className}
-          onClick={(e) => handleClick({ e, isCheck, setTodoState })}
+          onClick={(e) => onHandleClick(e)}
         >
           <FontAwesomeIcon icon={btn.icon} />
         </div>
