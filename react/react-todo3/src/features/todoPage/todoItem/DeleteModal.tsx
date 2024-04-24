@@ -1,10 +1,10 @@
 import cn from "classnames";
 import css from "../../../styles/features/todoPage/deleteModal.module.css";
-import React, { SetStateAction } from "react";
+import React, { MouseEventHandler, SetStateAction } from "react";
 
 interface Props {
   setIsDelete: React.Dispatch<SetStateAction<boolean>>;
-  onDeleteTodoItem: (id: number) => Promise<void>;
+  onDeleteTodoItem: MouseEventHandler<HTMLDivElement>;
 }
 
 const DeleteModal = ({ setIsDelete, onDeleteTodoItem }: Props) => {

@@ -2,9 +2,18 @@ import formCss from "../../styles/features/todoPage/todoForm.module.css";
 import { Input } from "../../components";
 import { todoForm } from "../../constants";
 import { useState } from "react";
+import { UseMutateFunction } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
+import { TodoObj } from "../../types";
+import { Context } from "../../types/mutaion";
 
 interface TodoFormProps {
-  onAddTodoItem: (todo: string) => Promise<void>;
+  onAddTodoItem: UseMutateFunction<
+    AxiosResponse<Context>,
+    Context,
+    string,
+    { prevTodos: TodoObj[] }
+  >;
 }
 
 const TodoForm = ({ onAddTodoItem }: TodoFormProps) => {
@@ -13,7 +22,11 @@ const TodoForm = ({ onAddTodoItem }: TodoFormProps) => {
   return (
     <form
       className={formCss.formContainer}
-      onSubmit={() => onAddTodoItem(inputValue)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        onAddTodoItem(inputValue);
+        setInputValue("");
+      }}
     >
       {todoForm.map((form) => (
         <label key={form.index} className={formCss.label}>

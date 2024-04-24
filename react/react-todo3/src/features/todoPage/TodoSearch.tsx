@@ -2,16 +2,15 @@ import React, { SetStateAction } from "react";
 import css from "../../styles/features/todoPage/todoSearch.module.css";
 
 interface Props {
-  value: string;
-  setValue: React.Dispatch<SetStateAction<string>>;
-  handleClear: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<SetStateAction<string>>;
 }
-const TodoSearch = ({ value, setValue, handleClear }: Props) => {
+const TodoSearch = ({ searchQuery, setSearchQuery }: Props) => {
   return (
     <div className={css.container}>
       <form className={css.form}>
-        {value && (
-          <button className={css.clearBtn} onClick={(e) => handleClear(e)}>
+        {searchQuery && (
+          <button className={css.clearBtn} onClick={() => setSearchQuery("")}>
             X
           </button>
         )}
@@ -19,13 +18,10 @@ const TodoSearch = ({ value, setValue, handleClear }: Props) => {
           type="text"
           className={css.input}
           id="input"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           autoFocus
         />
-        {/* <button className={css.button} type="submit">
-          search
-        </button> */}
       </form>
     </div>
   );

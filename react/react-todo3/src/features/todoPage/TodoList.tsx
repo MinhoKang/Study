@@ -1,11 +1,24 @@
 import css from "../../styles/features/todoPage/todoList.module.css";
 import TodoItem from "./todoItem/TodoItem";
 import { TodoObj } from "../../types";
+import { UseMutateFunction } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
+import { Context } from "../../types/mutaion";
 
 interface TodoListProps {
   todos: TodoObj[];
-  onEditTodoItem: (id: number) => Promise<void>;
-  onDeleteTodoItem: (params: { edited: string; id: number }) => Promise<void>;
+  onEditTodoItem: UseMutateFunction<
+    AxiosResponse<Context> | undefined,
+    Context,
+    { editedTodo: string; id: number },
+    { prevTodos: TodoObj[] }
+  >;
+  onDeleteTodoItem: UseMutateFunction<
+    AxiosResponse<Context> | undefined,
+    Context,
+    number,
+    { prevTodos: TodoObj[] }
+  >;
 }
 
 const TodoList = ({
@@ -23,7 +36,7 @@ const TodoList = ({
           onDeleteTodoItem={onDeleteTodoItem}
         />
       ))}
-    </div> 
+    </div>
   );
 };
 

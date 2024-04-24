@@ -3,11 +3,9 @@ import { deleteTodo } from "./deleteTodo";
 import { TodoObj } from "../../types";
 import { addTodo } from "./addTodo";
 import { editTodo } from "./editTodo";
+import { Context } from "../../types/mutaion";
 
-type Context = {
-  data: TodoObj[];
-  [key: string]: object;
-};
+
 
 export const useTodoMutations = (searchValue: string) => {
   const queryClient = useQueryClient();
@@ -20,19 +18,19 @@ export const useTodoMutations = (searchValue: string) => {
         queryKey: ["todos", searchValue],
       });
 
-      const prevTodo: TodoObj[] | [] =
+      const prevTodos: TodoObj[] | [] =
         (await queryClient.getQueryData(["todos", searchValue])) || [];
 
-      const newTodoId = prevTodo.length
-        ? prevTodo[prevTodo.length - 1].id + 1
+      const newTodoId = prevTodos.length
+        ? prevTodos[prevTodos.length - 1].id + 1
         : 0;
-      const newTodo = [...prevTodo, { id: newTodoId, todo }];
+      const newTodo = [...prevTodos, { id: newTodoId, todo }];
       console.log("newTodo", newTodo);
       queryClient.setQueryData(["todos", searchValue], newTodo);
-      return { prevTodo: prevTodo };
+      return { prevTodos };
     },
     onError: (context: Context) => {
-      queryClient.setQueryData(["todos", searchValue], context.prevTodo);
+      queryClient.setQueryData(["todos", searchValue], context.prevTodos);
     },
     onSuccess: (data) => {
       const lastQueryTodoId = (
@@ -51,16 +49,16 @@ export const useTodoMutations = (searchValue: string) => {
     mutationFn: (id: number) => deleteTodo(id, accessToken),
     onMutate: async (targetTodo) => {
       await queryClient.cancelQueries({ queryKey: ["todos", searchValue] });
-      const prevTodo: TodoObj[] | [] =
+      const prevTodos: TodoObj[] | [] =
         queryClient.getQueryData(["todos", searchValue]) || [];
-      const changedData = prevTodo.filter(
+      const changedData = prevTodos.filter(
         (todo: TodoObj) => todo.id !== targetTodo
       );
       queryClient.setQueryData(["todos", searchValue], changedData);
-      return { prevTodo };
+      return { prevTodos };
     },
     onError: (context: Context) => {
-      queryClient.setQueryData(["todos", searchValue], context.prevTodo);
+      queryClient.setQueryData(["todos", searchValue], context.prevTodos);
     },
   });
 
@@ -69,9 +67,9 @@ export const useTodoMutations = (searchValue: string) => {
       editTodo(editedTodo, id, accessToken),
     onMutate: async ({ editedTodo, id }) => {
       await queryClient.cancelQueries({ queryKey: ["todos", searchValue] });
-      const prevTodo: TodoObj[] | [] =
+      const prevTodos: TodoObj[] | [] =
         queryClient.getQueryData(["todos", searchValue]) || [];
-      const changedData = prevTodo.map((todo: TodoObj) => {
+      const changedData = prevTodos.map((todo: TodoObj) => {
         if (todo.id === id) {
           return { ...todo, todo: editedTodo };
         } else {
@@ -80,10 +78,10 @@ export const useTodoMutations = (searchValue: string) => {
       });
 
       queryClient.setQueryData(["todos", searchValue], changedData);
-      return { prevTodo };
+      return { prevTodos };
     },
     onError: (context: Context) => {
-      queryClient.setQueryData(["todos", searchValue], context.prevTodo);
+      queryClient.setQueryData(["todos", searchValue], context.prevTodos);
     },
   });
 
