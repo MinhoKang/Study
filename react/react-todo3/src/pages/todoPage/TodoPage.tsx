@@ -1,22 +1,22 @@
-import TodoList from "../../features/todoPage/TodoList";
 import css from "../../styles/todoPage/todoPage.module.css";
 import { useTodo } from "../../hooks";
-import TodoForm from "../../features/todoPage/TodoForm";
-import { Container } from "../../components";
-import TodoSearch from "../../features/todoPage/TodoSearch";
-import { useGetTodoQuery } from "../../apis/queries";
 import { useDebounce } from "../../hooks/useDebounce";
-import { useTodoMutations } from "../../apis/todo/useTodoMutaions";
+import { useState } from "react";
+import { useGetTodoQuery, useTodoMutations } from "../../apis";
+import TodoSearch from "../../features/todoPage/TodoSearch";
+import TodoList from "../../features/todoPage/TodoList";
+import TodoForm from "../../features/todoPage/TodoForm";
 
 const TodoPage = () => {
-  const { handleLogout, searchQuery, setSearchQuery } = useTodo();
+  const [searchQuery, setSearchQuery] = useState("");
+  const { handleLogout } = useTodo();
   const debounceSeachQuery = useDebounce({ value: searchQuery });
   const { todos, getTodoError } = useGetTodoQuery(debounceSeachQuery);
   const { addTodoItem, deleteTodoItem, editTodoItem } =
     useTodoMutations(searchQuery);
 
   return (
-    <Container className={css.container}>
+    <div className={css.container}>
       <div className={css.logoutBtn} onClick={() => handleLogout()}>
         LOGOUT
       </div>
@@ -29,7 +29,7 @@ const TodoPage = () => {
         onDeleteTodoItem={deleteTodoItem}
       />
       <TodoForm onAddTodoItem={addTodoItem} />
-    </Container>
+    </div>
   );
 };
 

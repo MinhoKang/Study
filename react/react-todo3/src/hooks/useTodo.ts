@@ -1,9 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
-import { useState } from "react";
 
 export const useTodo = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const { logout } = useAuth();
 
@@ -12,9 +10,10 @@ export const useTodo = () => {
     navigate("/");
   };
 
+  const handleButtonClick = () => {};
+
   return {
     handleLogout,
-    searchQuery,
-    setSearchQuery,
+    handleButtonClick,
   };
 };

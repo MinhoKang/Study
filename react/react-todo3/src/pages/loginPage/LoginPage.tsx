@@ -1,19 +1,18 @@
 import { useLogin } from "../../hooks";
 import css from "../../styles/loginPage/loginPage.module.css";
-import { Button, Container, Form, H1, Input } from "../../components";
 import { loginButtons, loginInputs } from "../../constants";
 
 const LoginPage = () => {
   const { onChange, onClick, notValid } = useLogin();
 
   return (
-    <Container className={css.container}>
-      <H1 className={css.title} text="SIGN UP" />
-      <Form id="loginForm" className={css.form}>
+    <div className={css.container}>
+      <h1 className={css.title}>SIGN UP</h1>
+      <form id="loginForm" className={css.form}>
         {loginInputs.map((input) => (
           <label key={input.index}>
             <span>{input.title}</span>
-            <Input
+            <input
               className={input.className}
               type={input.type}
               id={input.id}
@@ -33,21 +32,22 @@ const LoginPage = () => {
             )}
           </label>
         ))}
-      </Form>
+      </form>
 
       <div className={css.btns}>
         {loginButtons.map((btn) => (
-          <Button
+          <button
             key={btn.index}
             type={btn.type}
             className={btn.className}
-            text={btn.text}
             id={btn.id}
             onClick={onClick}
-          />
+          >
+            {btn.text}
+          </button>
         ))}
       </div>
-    </Container>
+    </div>
   );
 };
 

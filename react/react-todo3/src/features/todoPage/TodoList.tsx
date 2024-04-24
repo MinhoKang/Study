@@ -1,25 +1,6 @@
 import css from "../../styles/features/todoPage/todoList.module.css";
 import TodoItem from "./todoItem/TodoItem";
-import { TodoObj } from "../../types";
-import { UseMutateFunction } from "@tanstack/react-query";
-import { AxiosResponse } from "axios";
-import { Context } from "../../types/mutaion";
-
-interface TodoListProps {
-  todos: TodoObj[];
-  onEditTodoItem: UseMutateFunction<
-    AxiosResponse<Context> | undefined,
-    Context,
-    { editedTodo: string; id: number },
-    { prevTodos: TodoObj[] }
-  >;
-  onDeleteTodoItem: UseMutateFunction<
-    AxiosResponse<Context> | undefined,
-    Context,
-    number,
-    { prevTodos: TodoObj[] }
-  >;
-}
+import { TodoListProps, TodoObj } from "../../types";
 
 const TodoList = ({
   todos,
@@ -41,8 +22,3 @@ const TodoList = ({
 };
 
 export default TodoList;
-
-//1. input의 onChange이벤트가 발생
-//2. setValue() -> value가 바뀜
-//3. value를 debounce로 감싸서 (지연시켜서)
-//4. debounce(value) => query실행

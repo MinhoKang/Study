@@ -1,4 +1,5 @@
 import { SetStateAction } from "react";
+import { OnAddTodoItem, OnDeleteTodoItem, OnEditTodoItem } from "./mutaion";
 
 export type TodoObj = {
   id: number;
@@ -36,11 +37,29 @@ export interface HandleClick {
 
 export interface HandleSearch {
   e: React.FormEvent<HTMLFormElement>;
-  // value: string;
   keyword?: string;
 }
 
 export interface UseEditTodo {
   todo: TodoObj;
   setIsEdit: (newValue: boolean) => void;
+}
+
+export interface TodoListProps {
+  todos: TodoObj[];
+  onEditTodoItem: OnEditTodoItem;
+  onDeleteTodoItem: OnDeleteTodoItem;
+}
+
+export interface TodoItemProps {
+  todo: TodoObj;
+  onEditTodoItem: OnEditTodoItem;
+  onDeleteTodoItem: OnDeleteTodoItem;
+}
+
+export interface TodoComponenetProps {
+  todo?: TodoObj;
+  onEditTodoItem?: OnEditTodoItem;
+  onDeleteTodoItem?: OnDeleteTodoItem;
+  onAddTodoItem?: OnAddTodoItem;
 }

@@ -1,6 +1,4 @@
 import css from "../../styles/signUpPage/signUpPage.module.css";
-import { Button, Container, Form, H1, Input } from "../../components";
-import cn from "classnames";
 import { useSignUp } from "../../hooks";
 import { signUpButtons, signUpInput } from "../../constants";
 
@@ -8,13 +6,13 @@ const SignUpPage = () => {
   const { notValid, handleChange, handleClick } = useSignUp();
 
   return (
-    <Container className={css.container}>
-      <H1 className={css.title} text="SIGN UP" />
-      <Form id="signUpForm" className={css.form}>
+    <div className={css.container}>
+      <h1 className={css.title}>SIGN UP</h1>
+      <form id="signUpForm" className={css.form}>
         {signUpInput.map((input) => (
           <label key={input.index}>
             <span key={input.index}>{input.title}</span>
-            <Input
+            <input
               className={input.className}
               type={input.type}
               id={input.id}
@@ -34,21 +32,22 @@ const SignUpPage = () => {
             )}
           </label>
         ))}
-      </Form>
+      </form>
       <div className={css.btns}>
         {signUpButtons.map((btn) => (
-          <Button
+          <button
             key={btn.index}
-            text={btn.text}
-            className={cn(btn.className)}
+            className={btn.className}
             id={btn.id}
-            type={btn.type}
             form={btn.form}
+            type={btn.type}
             onClick={handleClick}
-          />
+          >
+            {btn.text}
+          </button>
         ))}
       </div>
-    </Container>
+    </div>
   );
 };
 

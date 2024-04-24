@@ -1,19 +1,10 @@
-import formCss from "../../styles/features/todoPage/todoForm.module.css";
-import { Input } from "../../components";
+import css from "../../styles/features/todoPage/todoForm.module.css";
 import { todoForm } from "../../constants";
 import { useState } from "react";
-import { UseMutateFunction } from "@tanstack/react-query";
-import { AxiosResponse } from "axios";
-import { TodoObj } from "../../types";
-import { Context } from "../../types/mutaion";
+import { OnAddTodoItem } from "../../types";
 
 interface TodoFormProps {
-  onAddTodoItem: UseMutateFunction<
-    AxiosResponse<Context>,
-    Context,
-    string,
-    { prevTodos: TodoObj[] }
-  >;
+  onAddTodoItem: OnAddTodoItem;
 }
 
 const TodoForm = ({ onAddTodoItem }: TodoFormProps) => {
@@ -21,21 +12,23 @@ const TodoForm = ({ onAddTodoItem }: TodoFormProps) => {
 
   return (
     <form
-      className={formCss.formContainer}
+      className={css.formContainer}
       onSubmit={(e) => {
+        // TODO: 수정
         e.preventDefault();
         onAddTodoItem(inputValue);
         setInputValue("");
       }}
     >
       {todoForm.map((form) => (
-        <label key={form.index} className={formCss.label}>
-          <Input
+        <label key={form.index} className={css.label}>
+          <input
             type={form.type}
             placeholder={form.placeholder}
             name="addInput"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+            autoFocus
           />
           <button type="submit">+</button>
         </label>

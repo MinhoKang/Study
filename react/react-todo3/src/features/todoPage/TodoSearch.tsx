@@ -1,11 +1,12 @@
 import React, { SetStateAction } from "react";
 import css from "../../styles/features/todoPage/todoSearch.module.css";
 
-interface Props {
+interface TodoSearchProps {
   searchQuery: string;
   setSearchQuery: React.Dispatch<SetStateAction<string>>;
 }
-const TodoSearch = ({ searchQuery, setSearchQuery }: Props) => {
+
+const TodoSearch = ({ searchQuery, setSearchQuery }: TodoSearchProps) => {
   return (
     <div className={css.container}>
       <form className={css.form}>
@@ -20,7 +21,7 @@ const TodoSearch = ({ searchQuery, setSearchQuery }: Props) => {
           id="input"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          autoFocus
+          placeholder="검색어를 입력하세요"
         />
       </form>
     </div>
