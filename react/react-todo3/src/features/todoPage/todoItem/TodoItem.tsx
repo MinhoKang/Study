@@ -23,7 +23,6 @@ const TodoItem = ({
       setIsCheck(!isCheck);
     } else if (id === "edit") {
       setIsEdit(true);
-      console.log("info", todo.id, isEdit);
     } else if (id === "delete") {
       setIsDelete(true);
     }
@@ -33,7 +32,7 @@ const TodoItem = ({
     <div className={css.itemBox}>
       <input
         type="text"
-        defaultValue={editedTodo}
+        value={editedTodo}
         readOnly={!isEdit}
         onChange={(e) => setEditedTodo(e.target.value)}
         className={cn(css.editInput, isCheck && css.lineThrough)}
@@ -50,7 +49,13 @@ const TodoItem = ({
           >
             EDIT
           </p>
-          <p className={css.editBtn} onClick={() => setIsEdit(false)}>
+          <p
+            className={css.editBtn}
+            onClick={() => {
+              setEditedTodo(todo.todo);
+              setIsEdit(false);
+            }}
+          >
             CANCEL
           </p>
         </div>

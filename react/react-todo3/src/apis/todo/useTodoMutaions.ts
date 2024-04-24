@@ -1,11 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTodo } from "./deleteTodo";
-import { TodoObj } from "../../types";
+import { Context, TodoObj } from "../../types";
 import { addTodo } from "./addTodo";
 import { editTodo } from "./editTodo";
-import { Context } from "../../types/mutaion";
-
-
+import { deleteTodo } from "./deleteTodo";
 
 export const useTodoMutations = (searchValue: string) => {
   const queryClient = useQueryClient();
@@ -19,7 +16,7 @@ export const useTodoMutations = (searchValue: string) => {
       });
 
       const prevTodos: TodoObj[] | [] =
-        (await queryClient.getQueryData(["todos", searchValue])) || [];
+        queryClient.getQueryData(["todos", searchValue]) || [];
 
       const newTodoId = prevTodos.length
         ? prevTodos[prevTodos.length - 1].id + 1
@@ -76,7 +73,6 @@ export const useTodoMutations = (searchValue: string) => {
           return { ...todo };
         }
       });
-
       queryClient.setQueryData(["todos", searchValue], changedData);
       return { prevTodos };
     },
