@@ -3,6 +3,7 @@ import TodoButtons from "./TodoButtons";
 import { TodoItemProps } from "../../../types";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
+import cn from "classnames";
 
 const TodoItem = ({
   todo,
@@ -35,7 +36,7 @@ const TodoItem = ({
         defaultValue={editedTodo}
         readOnly={!isEdit}
         onChange={(e) => setEditedTodo(e.target.value)}
-        className={css.editInput}
+        className={cn(css.editInput, isCheck && css.lineThrough)}
       />
       {isEdit ? (
         // TODO: 수정
