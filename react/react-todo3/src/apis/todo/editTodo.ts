@@ -3,13 +3,14 @@ import axiosInstance from "../api";
 export const editTodo = async (
   todo: string,
   id: number,
-  accessToken: string
+  accessToken: string,
+  content?: string
 ) => {
   if (!accessToken) return;
   try {
     const response = await axiosInstance.put(
       `/todo?id=${id}`,
-      { todo },
+      { id, todo, content },
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

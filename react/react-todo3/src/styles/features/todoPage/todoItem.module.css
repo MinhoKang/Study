@@ -9,6 +9,19 @@
   box-sizing: border-box;
   position: relative;
 
+  .detail {
+    margin: 0;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    &:hover {
+      background-color: #b3b7ee;
+      color: #15101c;
+      border-radius: 10px;
+    }
+  }
+
   .todoText {
     margin: 0;
   }

@@ -5,6 +5,7 @@ import DeleteModal from "./DeleteModal";
 import cn from "classnames";
 import { useTodoMutations } from "../../../apis";
 import { TodoObj } from "../../../types";
+import { useNavigate } from "react-router-dom";
 
 interface TodoItemProps {
   todo: TodoObj;
@@ -17,6 +18,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
   const [isCheck, setIsCheck] = useState(false);
   const [editedTodo, setEditedTodo] = useState(todo.todo);
 
+  const { editTodoItem } = useTodoMutations();
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     const id = e.currentTarget.id;
@@ -28,11 +30,13 @@ const TodoItem = ({ todo }: TodoItemProps) => {
       setIsDelete(true);
     }
   };
-
-  const { editTodoItem } = useTodoMutations();
+  const navigate = useNavigate();
 
   return (
     <div className={css.itemBox}>
+      <p className={css.detail} onClick={() => navigate(`/todo/${todo.id}`)}>
+        detail
+      </p>
       <input
         type="text"
         value={editedTodo}
