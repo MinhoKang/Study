@@ -1,13 +1,16 @@
 import cn from "classnames";
 import css from "../../../styles/features/todoPage/deleteModal.module.css";
-import React, { MouseEventHandler, SetStateAction } from "react";
+import React, { SetStateAction } from "react";
+import { useTodoMutations } from "../../../apis";
 
 interface DeleteModalProps {
   setIsDelete: React.Dispatch<SetStateAction<boolean>>;
-  onDeleteTodoItem: MouseEventHandler<HTMLDivElement>;
+  todoId: number;
 }
 
-const DeleteModal = ({ setIsDelete, onDeleteTodoItem }: DeleteModalProps) => {
+const DeleteModal = ({ setIsDelete, todoId }: DeleteModalProps) => {
+  const { deleteTodoItem } = useTodoMutations();
+
   return (
     <div className={css.container}>
       <div className={css.modal}>
@@ -15,7 +18,7 @@ const DeleteModal = ({ setIsDelete, onDeleteTodoItem }: DeleteModalProps) => {
         <div className={css.btns}>
           <div
             className={cn(css.btn, css.deleteBtn)}
-            onClick={onDeleteTodoItem}
+            onClick={() => deleteTodoItem(todoId)}
           >
             삭제
           </div>

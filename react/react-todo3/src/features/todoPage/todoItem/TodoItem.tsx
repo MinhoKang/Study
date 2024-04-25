@@ -1,15 +1,16 @@
 import css from "../../../styles/features/todoPage/todoItem.module.css";
 import TodoButtons from "./TodoButtons";
-import { TodoItemProps } from "../../../types";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import cn from "classnames";
+import { useTodoMutations } from "../../../apis";
+import { TodoObj } from "../../../types";
 
-const TodoItem = ({
-  todo,
-  onEditTodoItem,
-  onDeleteTodoItem,
-}: TodoItemProps) => {
+interface TodoItemProps {
+  todo: TodoObj;
+}
+
+const TodoItem = ({ todo }: TodoItemProps) => {
   // TODO: 수정
   const [isEdit, setIsEdit] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -28,6 +29,8 @@ const TodoItem = ({
     }
   };
 
+  const { editTodoItem } = useTodoMutations();
+
   return (
     <div className={css.itemBox}>
       <input
@@ -43,7 +46,7 @@ const TodoItem = ({
           <p
             className={css.editBtn}
             onClick={() => {
-              onEditTodoItem({ editedTodo, id: todo.id });
+              editTodoItem({ editedTodo, id: todo.id });
               setIsEdit(false);
             }}
           >
@@ -62,12 +65,7 @@ const TodoItem = ({
       ) : (
         <TodoButtons onHandleClick={handleClick} />
       )}
-      {isDelete && (
-        <DeleteModal
-          setIsDelete={setIsDelete}
-          onDeleteTodoItem={() => onDeleteTodoItem(todo.id)}
-        />
-      )}
+      {isDelete && <DeleteModal setIsDelete={setIsDelete} todoId={todo.id} />}
     </div>
   );
 };

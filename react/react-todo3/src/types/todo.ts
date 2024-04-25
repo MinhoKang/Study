@@ -45,17 +45,9 @@ export interface UseEditTodo {
   setIsEdit: (newValue: boolean) => void;
 }
 
-export interface TodoListProps {
-  todos: TodoObj[];
-  onEditTodoItem: OnEditTodoItem;
-  onDeleteTodoItem: OnDeleteTodoItem;
-}
 
-export interface TodoItemProps {
-  todo: TodoObj;
-  onEditTodoItem: OnEditTodoItem;
-  onDeleteTodoItem: OnDeleteTodoItem;
-}
+
+
 
 export interface TodoComponenetProps {
   todo?: TodoObj;

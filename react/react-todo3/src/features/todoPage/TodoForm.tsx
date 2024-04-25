@@ -1,22 +1,19 @@
 import css from "../../styles/features/todoPage/todoForm.module.css";
 import { todoForm } from "../../constants";
 import { useState } from "react";
-import { OnAddTodoItem } from "../../types";
+import { useTodoMutations } from "../../apis";
 
-interface TodoFormProps {
-  onAddTodoItem: OnAddTodoItem;
-}
-
-const TodoForm = ({ onAddTodoItem }: TodoFormProps) => {
+const TodoForm = () => {
   const [inputValue, setInputValue] = useState("");
+
+  const { addTodoItem } = useTodoMutations();
 
   return (
     <form
       className={css.formContainer}
       onSubmit={(e) => {
-        // TODO: 수정
         e.preventDefault();
-        onAddTodoItem(inputValue);
+        addTodoItem(inputValue);
         setInputValue("");
       }}
     >
