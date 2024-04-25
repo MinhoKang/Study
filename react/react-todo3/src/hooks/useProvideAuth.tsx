@@ -1,10 +1,13 @@
 import { ReactNode, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const useProvideAuth = () => {
   const [isLogin, setIsLogin] = useState(
     sessionStorage.getItem("accessToken") !== null
   );
+
+  const navigate = useNavigate();
 
   const login = () => {
     setIsLogin(true);
@@ -13,6 +16,7 @@ const useProvideAuth = () => {
   const logout = () => {
     sessionStorage.clear();
     setIsLogin(false);
+    navigate("/");
   };
 
   return {

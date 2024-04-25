@@ -1,5 +1,5 @@
 import css from "../../styles/todoPage/todoPage.module.css";
-import { useTodo } from "../../hooks";
+import { useAuth } from "../../hooks";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useState } from "react";
 import { useGetTodoQuery, useTodoMutations } from "../../apis";
@@ -9,7 +9,7 @@ import TodoForm from "../../features/todoPage/TodoForm";
 
 const TodoPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const { handleLogout } = useTodo();
+  const { logout } = useAuth();
   const debounceSeachQuery = useDebounce({ value: searchQuery });
   const { todos, getTodoError } = useGetTodoQuery(debounceSeachQuery);
   const { addTodoItem, deleteTodoItem, editTodoItem } =
@@ -17,7 +17,7 @@ const TodoPage = () => {
 
   return (
     <div className={css.container}>
-      <div className={css.logoutBtn} onClick={() => handleLogout()}>
+      <div className={css.logoutBtn} onClick={() => logout()}>
         LOGOUT
       </div>
       <h1>TODO LIST</h1>

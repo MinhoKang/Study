@@ -9,11 +9,11 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
-    <ProvideAuth>
-      <BrowserRouter>
+    <BrowserRouter>
+      <ProvideAuth>
         <App />
         <ReactQueryDevtools initialIsOpen={false} />
-      </BrowserRouter>
-    </ProvideAuth>
+      </ProvideAuth>
+    </BrowserRouter>
   </QueryClientProvider>
 );
