@@ -14,6 +14,7 @@ export const useTodoMutations = () => {
       .map((query) => query.queryKey)[0];
   };
 
+  // Add
   const { mutate: addTodoItem } = useMutation({
     mutationFn: (todo: string) => addTodo(todo, accessToken),
     onMutate: async (todo) => {
@@ -51,6 +52,7 @@ export const useTodoMutations = () => {
     },
   });
 
+  // Delete
   const { mutate: deleteTodoItem } = useMutation({
     mutationFn: (id: number) => deleteTodo(id, accessToken),
     onMutate: async (targetTodo) => {
@@ -72,7 +74,8 @@ export const useTodoMutations = () => {
     },
   });
 
-  const { mutate: editTodoItem } = useMutation({
+  // Edit
+  const { mutate: editTodoItem,error } = useMutation({
     mutationFn: ({
       editedTodo,
       id,
@@ -84,7 +87,6 @@ export const useTodoMutations = () => {
     }) => editTodo(editedTodo, id, accessToken, content),
     onMutate: async ({ editedTodo, id, content }) => {
       const todoQueryCache = getTodoQueryCache();
-
       await queryClient.cancelQueries({ queryKey: todoQueryCache });
       const prevTodos: TodoObj[] | [] =
         queryClient.getQueryData(todoQueryCache) || [];
@@ -105,5 +107,5 @@ export const useTodoMutations = () => {
     },
   });
 
-  return { addTodoItem, deleteTodoItem, editTodoItem };
+  return { addTodoItem, deleteTodoItem, editTodoItem ,error};
 };

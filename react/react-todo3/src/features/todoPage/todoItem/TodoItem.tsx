@@ -45,7 +45,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
         className={cn(css.editInput, isCheck && css.lineThrough)}
       />
       {isEdit ? (
-        // TODO: 수정
+        // TODO: 선언적
         <div className={css.editButtons}>
           <p
             className={css.editBtn}
