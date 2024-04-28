@@ -15,6 +15,9 @@ export const useTodo = () => {
     const selected = todos?.find((todo: TodoObj) => todo.id === todoId);
     if (!selected) return {};
     const { id: selectedId, todo, content } = selected;
+    console.log("getTodoDetail", selectedId);
+    console.log("getTodoDetail", todo);
+    console.log("getTodoDetail", content);
     return { selectedId, todo, content };
   };
 

@@ -5,20 +5,20 @@ import DeleteModal from "./DeleteModal";
 import cn from "classnames";
 import { useTodoMutations } from "../../../apis";
 import { TodoObj } from "../../../types";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface TodoItemProps {
   todo: TodoObj;
 }
 
 const TodoItem = ({ todo }: TodoItemProps) => {
-  // TODO: 수정
   const [isEdit, setIsEdit] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
   const [editedTodo, setEditedTodo] = useState(todo.todo);
 
   const { editTodoItem } = useTodoMutations();
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     const id = e.currentTarget.id;
@@ -30,13 +30,12 @@ const TodoItem = ({ todo }: TodoItemProps) => {
       setIsDelete(true);
     }
   };
-  const navigate = useNavigate();
 
   return (
     <div className={css.itemBox}>
-      <p className={css.detail} onClick={() => navigate(`/todo/${todo.id}`)}>
+      <Link to={`/todo/${todo.id}`} className={css.detail}>
         detail
-      </p>
+      </Link>
       <input
         type="text"
         value={editedTodo}
@@ -45,7 +44,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
         className={cn(css.editInput, isCheck && css.lineThrough)}
       />
       {isEdit ? (
-        // TODO: 선언적
+        // ?: 선언적으로 바꾸고 이벤트버블링을 사용해야 하는지, 그렇다면 handleClick과 동일한 구조의 함수가 하나 더 생기는데 useTodo로 빼기?
         <div className={css.editButtons}>
           <p
             className={css.editBtn}

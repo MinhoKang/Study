@@ -17,7 +17,6 @@ export const editTodo = async (
         },
       }
     );
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);
