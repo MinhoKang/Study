@@ -26,7 +26,6 @@ const TodoDetail = () => {
     setTodoTitle(todo);
   }, [content, todo]);
 
-  // ?: useTodo로 빼기?
   const onClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     const id = (e.target as HTMLElement).id;

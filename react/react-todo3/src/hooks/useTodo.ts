@@ -12,14 +12,10 @@ export const useTodo = () => {
 
   const getTodoDetail = (id: number) => {
     const selected = todos?.find((todo: TodoObj) => todo.id === id);
-    console.log("getTodoDetail selected", selected);
 
     if (!selected) return {};
 
     const { id: selectedId, todo, content } = selected;
-    console.log("getTodoDetail selectedId", selectedId);
-    console.log("getTodoDetail todo", todo);
-    console.log("getTodoDetail content", content);
 
     return { selectedId, todo, content };
   };
