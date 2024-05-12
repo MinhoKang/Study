@@ -2,7 +2,8 @@ import type { StorybookConfig } from "@storybook/react-vite";
 import { mergeConfig } from "vite";
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: ["../src/components/**/*.stories.js"],
+
   addons: [
     "@storybook/addon-onboarding",
     "@storybook/addon-links",
@@ -10,6 +11,8 @@ const config: StorybookConfig = {
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
   ],
+  staticDirs: ["../public"],
+
   framework: {
     name: "@storybook/react-vite",
     options: {},
