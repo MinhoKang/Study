@@ -1,12 +1,21 @@
-import "../src/index.css";
+import type { Preview } from "@storybook/react";
 
-//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
+const preview: Preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+      options: {
+        storySort: (a, b) =>
+          a.id === b.id
+            ? 0
+            : a.id.localeCompare(b.id, undefined, { numeric: true }),
+      },
     },
+    layout: "centered",
   },
 };
+
+export default preview;
