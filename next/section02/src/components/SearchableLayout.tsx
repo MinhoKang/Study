@@ -4,6 +4,7 @@ import style from "./searchableLayout.module.css";
 
 export const SearchableLayout = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
+
   const [search, setSearch] = useState("");
 
   const { q } = router.query;
