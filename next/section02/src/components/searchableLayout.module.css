@@ -5,6 +5,7 @@
 }
 
 .searchbarContainer > input {
+  width: 100%;
   float: 1;
   padding: 15px;
   border-radius: 5px;
