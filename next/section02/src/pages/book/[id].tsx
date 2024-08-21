@@ -1,4 +1,6 @@
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import style from "./[id].module.css";
+import fetchOneBook from "@/lib/fetchOneBook";
 
 const MOCK_DATA = {
   id: 1,
@@ -12,9 +14,23 @@ const MOCK_DATA = {
     "https://shopping-phinf.pstatic.net/main_3888828/38888282618.20230913071643.jpg",
 };
 
-const Page = () => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const { id } = context.params!;
+  const book = await fetchOneBook(Number(id));
+
+  return { props: { book } };
+};
+
+const Page = ({
+  book,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  if (!book) return "문제 발생";
+
   const { id, title, subTitle, description, author, publisher, coverImgUrl } =
-    MOCK_DATA;
+    book;
+
   return (
     <div className={style.container}>
       <div
