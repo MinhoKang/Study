@@ -32,7 +32,6 @@ export const getStaticProps = async () => {
   // 컴포넌트보다 먼저 실행되어서, 컴포넌트에 필요한 데이터 불러오는 함수
   // Next에서 약속된 이름의 함수
   // SSG방식으로 작동하게 하는 함수
-  console.log("인덱스");
 
   const [allBooks, recommendedBooks] = await Promise.all([
     fetchBooks(),
@@ -44,6 +43,7 @@ export const getStaticProps = async () => {
       allBooks,
       recommendedBooks,
     },
+    revalidate: 3,
   };
 };
 
