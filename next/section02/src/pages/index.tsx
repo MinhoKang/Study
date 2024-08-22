@@ -44,6 +44,12 @@ export const getStaticProps = async () => {
       allBooks,
       recommendedBooks,
     },
+    // redirect: {
+    //   destination: `/`,
+    //   permenent: true,
+    // },
+    // revalidate: 10,
+    // notFound: true
   };
 };
 
