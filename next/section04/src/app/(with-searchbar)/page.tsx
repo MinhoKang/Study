@@ -4,7 +4,8 @@ import { BookData } from "@/types";
 
 const AllBooks = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
+    { cache: "no-store" }
   );
 
   if (!response.ok) return <div>오류 발생...</div>;
