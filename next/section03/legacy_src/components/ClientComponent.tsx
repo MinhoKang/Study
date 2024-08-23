@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode } from "react";
-import ServerComponent from "./ServerComponent";
 
 const ClientComponent = ({ children }: { children: ReactNode }) => {
   console.log("클라이언트 컴포넌트");
