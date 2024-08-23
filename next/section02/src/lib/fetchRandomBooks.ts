@@ -1,7 +1,7 @@
 import { BookData } from "@/types";
 
 export default async function fetchRandomBooks(): Promise<BookData[]> {
-  const url = `https://onebite-books-server-main-black.vercel.app/random`;
+  const url = `https://onebite-books-server-main-black.vercel.app/book/random`;
 
   try {
     const response = await fetch(url);
