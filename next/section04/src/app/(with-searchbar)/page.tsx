@@ -24,7 +24,7 @@ const AllBooks = async () => {
 const RecommendedBooks = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`,
-    { cache: "force-cache" }
+    { next: { revalidate: 3 } }
   );
 
   if (!response.ok) return <div>오류 발생...</div>;
