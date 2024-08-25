@@ -41,20 +41,34 @@ async function BookDetail({ bookId }: { bookId: string }) {
   );
 }
 
-const ReviewEditor = () => {
+const ReviewEditor = ({ bookId }: { bookId: string }) => {
   async function createReviewAvtion(formData: FormData) {
     "use server";
     const content = formData.get("content")?.toString;
     const author = formData.get("author")?.toString;
 
-    console.log(content, author)
+    if (!content || !author) return;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review`,
+        {
+          method: "POST",
+          body: JSON.stringify({ bookId, content, author }),
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+      return;
+    }
   }
 
   return (
     <section>
       <form action={createReviewAvtion}>
-        <input type="text" name="content" placeholder="리뷰 내용" />
-        <input type="text" name="author" placeholder="작성자" />
+        <input required type="text" name="content" placeholder="리뷰 내용" />
+        <input required type="text" name="author" placeholder="작성자" />
         <button type="submit">작성하기</button>
       </form>
     </section>
@@ -65,7 +79,7 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <div className={style.container}>
       <BookDetail bookId={params.id} />
-      <ReviewEditor />
+      <ReviewEditor bookId={params.id} />
     </div>
   );
 }
