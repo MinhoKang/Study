@@ -11,8 +11,9 @@ export const ReviewEditor = ({ bookId }: { bookId: string }) => {
   );
 
   useEffect(() => {
-    if (state && !state.statue) alert("오류 발생");
+    if (state && !state.statue) alert(state.error);
   }, [state]);
+
   return (
     <section>
       <form action={formAction} className={style.formContainer}>
