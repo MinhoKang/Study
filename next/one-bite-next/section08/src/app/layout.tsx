@@ -32,9 +32,9 @@ export default function RootLayout({
             <Link href={"/"}>📚 ONEBITE BOOKS</Link>
           </header>
           <main>{children}</main>
-          {/* <footer>제작 @winterlood</footer> */}
-          {/* <Footer /> */}
+          <Footer />
         </div>
+        <div id="modal-root"></div>
       </body>
     </html>
   );
