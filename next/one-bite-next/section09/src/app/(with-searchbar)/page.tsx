@@ -5,6 +5,7 @@ import { delay } from "@/util/delay";
 import { Suspense } from "react";
 import BookItemSkeleton from "@/components/skeleton/BookItemSkeleton";
 import BookListSkeleton from "@/components/skeleton/BookListSkeleton";
+import { Metadata } from "next";
 
 const AllBooks = async () => {
   await delay(1500);
@@ -49,6 +50,17 @@ const RecommendedBooks = async () => {
 };
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "한입북스",
+  description: "한입 북스 도서",
+  openGraph: {
+    title: "한입 북스",
+    description: "한입 북스 도서",
+    images: [`/thumbnail.png`],
+    // /만 적으면 public 디렉토리를 의미
+  },
+};
 
 export default async function Home() {
   return (
