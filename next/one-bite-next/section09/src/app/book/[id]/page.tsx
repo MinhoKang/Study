@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import style from "./page.module.css";
-import { ReviewData } from "@/types";
+import { BookData, ReviewData } from "@/types";
 import ReviewItem from "@/components/reviewItem";
 import { ReviewEditor } from "@/components/reviewEditor";
 import Image from "next/image";
+import { Metadata } from "next";
 
 // generateStaticParams에서 return하는 값 외에는 전부 404로 보내기
 // export const dynamicParams = false;
@@ -71,6 +72,30 @@ async function ReviewList({ bookId }: { bookId: string }) {
     </section>
   );
 }
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata | null> => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${params.id}`
+  );
+
+  if (!response.ok) throw new Error(response.statusText);
+
+  const bookData: BookData = await response.json();
+
+  return {
+    title: `${bookData.title} - 한입북스`,
+    description: `${bookData.description}`,
+    openGraph: {
+      title: `${bookData.title} - 한입북스`,
+      description: `${bookData.description}`,
+      images: [`${bookData.coverImgUrl}`],
+    },
+  };
+};
 
 export default function Page({ params }: { params: { id: string } }) {
   return (
