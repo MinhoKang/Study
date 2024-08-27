@@ -27,7 +27,7 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="kr">
       <body>
         <div className={style.container}>
           <header>
