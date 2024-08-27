@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "한입 북스",
     description: "한입 북스 도서",
-    images: [`/thumbnail.png`],
+    images: ["/thumbnail.png"],
     // /만 적으면 public 디렉토리를 의미
   },
 };

@@ -92,7 +92,7 @@ export const generateMetadata = async ({
     openGraph: {
       title: `${bookData.title} - 한입북스`,
       description: `${bookData.description}`,
-      images: [`${bookData.coverImgUrl}`],
+      images: [bookData.coverImgUrl],
     },
   };
 };
