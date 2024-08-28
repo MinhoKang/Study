@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.container > header > a {
+  color: black;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.childrenContainer {
+  width: 500px;
+  max-height: 800px;
+  overflow-y: scroll;
+  padding: 25px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+
+  background: rgba(220, 220, 220, 0.7);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

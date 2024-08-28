@@ -1,18 +1,17 @@
-.loginForm {
+.formContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 20px;
 }
 
-.loginForm label {
+.formContainer > label {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 
-.loginForm input {
+.formContainer > label > input {
   width: 50%;
   padding: 10px;
   box-sizing: border-box;

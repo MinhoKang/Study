@@ -1,3 +1,41 @@
+"use client";
+
+import Link from "next/link";
+import style from "./page.module.css";
+import { useActionState, useEffect } from "react";
+import { login } from "@/actions/login.action";
+
 export default function Home() {
-  return <div className=""></div>;
+  const [state, formAction, isPending] = useActionState(login, null);
+
+  // useEffect(() => {
+  //   if (state && !state.status) alert(state.error);
+  // }, [state]);
+
+  return (
+    <div className={style.container}>
+      <form action={formAction} className={style.loginForm}>
+        <label>
+          ID
+          <input name="id" required disabled={isPending} placeholder="id" />
+        </label>
+        <label>
+          PASSWORD
+          <input
+            type="password"
+            name="password"
+            required
+            disabled={isPending}
+            placeholder="PASSWORD"
+          />
+        </label>
+        <div className={style.buttonContainer}>
+          <button disabled={isPending} type="submit">
+            LOGIN
+          </button>
+          <Link href="/signup">SIGN UP</Link>
+        </div>
+      </form>
+    </div>
+  );
 }
