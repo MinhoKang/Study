@@ -4,6 +4,8 @@ import style from "./page.module.css";
 const TodoInfo = async ({ id }: { id: number }) => {
   const todo = await getTodoById(id);
 
+  if (!todo) return <div>로딩중</div>;
+
   return (
     <section>
       <p>{todo?.id}</p>
