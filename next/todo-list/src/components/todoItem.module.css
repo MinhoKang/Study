@@ -5,6 +5,11 @@
   border-radius: 5px;
   background-color: steelblue;
   color: white;
+  cursor: pointer;
+}
+
+.container:hover {
+  background-color: slategrey;
 }
 
 .container .todoNumber {
@@ -14,4 +19,5 @@
 }
 
 .container > button {
+  cursor: pointer;
 }
