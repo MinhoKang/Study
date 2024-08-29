@@ -1,5 +1,6 @@
 "use server";
 
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 const formSchema = z
@@ -38,14 +39,13 @@ export const signup = async (_: any, formData: FormData) => {
     passwordCheck: formData.get("passwordCheck")?.toString(),
     phoneNumber: formData.get("phoneNumber")?.toString(),
   });
-  
+
   if (!params.success) {
     const { fieldErrors } = params.error.flatten();
     console.log("!params.success");
     return {
       status: false,
       error: "모든 값을 입력하세요",
-      fieldErrors,
     };
   }
 
@@ -63,7 +63,7 @@ export const signup = async (_: any, formData: FormData) => {
     if (!response.ok) throw new Error(response.statusText);
 
     return {
-      state: true,
+      status: true,
       error: "",
     };
   } catch (error) {
