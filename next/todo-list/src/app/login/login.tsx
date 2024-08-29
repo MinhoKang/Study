@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import style from "./page.module.css";
 import { useActionState } from "react";
+import style from "./login.module.css";
 import { login } from "@/actions/login.action";
+import Link from "next/link";
 
-export default function Home() {
+const Login = () => {
   const [state, formAction, isPending] = useActionState(login, null);
 
   return (
@@ -34,4 +34,6 @@ export default function Home() {
       </form>
     </div>
   );
-}
+};
+
+export default Login;
