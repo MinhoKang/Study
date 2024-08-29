@@ -1,6 +1,6 @@
 import TodoItem from "@/components/todoItem";
-import type { TodoProps } from "../../../types/types";
-import { getCookie } from "../../../utils/cookie";
+import type { TodoProps } from "../../../../types/types";
+import { getCookie } from "../../../../utils/cookie";
 import style from "./page.module.css";
 
 const AllTodos = async () => {
