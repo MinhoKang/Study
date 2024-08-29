@@ -38,9 +38,10 @@ export const signup = async (_: any, formData: FormData) => {
     passwordCheck: formData.get("passwordCheck")?.toString(),
     phoneNumber: formData.get("phoneNumber")?.toString(),
   });
-
+  
   if (!params.success) {
     const { fieldErrors } = params.error.flatten();
+    console.log("!params.success");
     return {
       status: false,
       error: "모든 값을 입력하세요",
@@ -53,10 +54,12 @@ export const signup = async (_: any, formData: FormData) => {
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/signup`,
       {
         method: "POST",
-        body: JSON.stringify(params),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params.data),
       }
     );
-
     if (!response.ok) throw new Error(response.statusText);
 
     return {
