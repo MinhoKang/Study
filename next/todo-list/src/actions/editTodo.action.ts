@@ -24,7 +24,6 @@ export const editTodo = async ({ id, todo, content }: TodoProps) => {
         },
       }
     );
-    console.log(await response);
 
     if (!response.ok)
       return {

@@ -12,20 +12,22 @@
 
 .container > label > span {
   font-weight: bold;
+  width: 200px;
 }
 
 .container > label > input {
   border: none;
-  width: 60%;
+  width: 500px;
   padding: 10px;
-  text-align: center;
 }
 
 .container > label > textarea {
   border: none;
   padding: 10px;
   resize: vertical;
-  width: 60%;
+  width: 500px;
   padding: 10px;
   box-sizing: border-box;
+  max-height: 300px;
+  min-height: 50px;
 }

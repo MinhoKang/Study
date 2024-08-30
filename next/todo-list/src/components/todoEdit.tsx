@@ -4,12 +4,18 @@ import { useState } from "react";
 import { TodoProps } from "../../types/types";
 import style from "./todoEdit.module.css";
 import { editTodo } from "@/actions/editTodo.action";
+import { addComments } from "@/actions/comment/addComments.action";
+import { editComments } from "@/actions/comment/editComments.action";
 
-const TodoEdit = ({ todo }: { todo: TodoProps }) => {
+const TodoEdit = ({ todo, comments }: { todo: TodoProps; comments: any }) => {
   const [isEditTodo, setIsEditTodo] = useState(false);
 
   const [todoValue, setTodoValue] = useState(todo?.todo);
   const [todoContentValue, setTodoContentValue] = useState(todo?.content);
+
+  const [todoComment, setTodoComment] = useState(
+    (comments?.[0] as any)?.content ?? "코멘트가 없습니다."
+  );
 
   const onClick = () => {
     const params: TodoProps = {
@@ -18,6 +24,21 @@ const TodoEdit = ({ todo }: { todo: TodoProps }) => {
       content: todoContentValue,
     };
     editTodo(params);
+
+    if (!(comments?.[0] as any)?.content) {
+      console.log("추가");
+      addComments({ id: todo.id, content: todoComment });
+    } else if (
+      (comments?.[0] as any)?.content !== todoComment &&
+      todoComment !== undefined
+    ) {
+      console.log("수정");
+      editComments({
+        id: todo.id,
+        commentId: (comments?.[0] as any)?.id,
+        content: todoComment,
+      });
+    }
   };
 
   return (
@@ -30,7 +51,6 @@ const TodoEdit = ({ todo }: { todo: TodoProps }) => {
           disabled={!isEditTodo}
         />
       </label>
-
       <label>
         <span>CONTENT</span>
         <textarea
@@ -39,9 +59,14 @@ const TodoEdit = ({ todo }: { todo: TodoProps }) => {
           disabled={!isEditTodo}
         />
       </label>
-      <button onClick={() => setIsEditTodo((prev) => !prev)}>
-        {isEditTodo ? "CANCEL" : "EDIT TODO"}
-      </button>
+      <label>
+        <span>COMMENT</span>
+        <textarea
+          value={todoComment}
+          onChange={(e) => setTodoComment(e.target.value)}
+          disabled={!isEditTodo}
+        />
+      </label>
       {isEditTodo && (
         <button
           onClick={() => {
@@ -52,6 +77,9 @@ const TodoEdit = ({ todo }: { todo: TodoProps }) => {
           SUBMIT
         </button>
       )}
+      <button onClick={() => setIsEditTodo((prev) => !prev)}>
+        {isEditTodo ? "CANCEL" : "EDIT TODO"}
+      </button>
     </section>
   );
 };

@@ -1,21 +1,17 @@
 import TodoEdit from "@/components/todoEdit";
 import { getTodoById } from "../../../../utils/todos";
 import style from "./page.module.css";
+import { getComments } from "@/actions/comment/getComments.action";
 
 const TodoInfo = async ({ id }: { id: number }) => {
   const todo = await getTodoById(id);
-
-  return (
-      <TodoEdit todo={todo!} />
-  );
+  const comments = await getComments(id);
+  console.log("commentscommentscomments", comments);
+  return <TodoEdit todo={todo!} comments={comments} />;
 };
 
 const Page = ({ params }: { params: { id: number } }) => {
-  return (
-    <div>
-      <TodoInfo id={params.id} />
-    </div>
-  );
+  return <TodoInfo id={params.id} />;
 };
 
 export default Page;
