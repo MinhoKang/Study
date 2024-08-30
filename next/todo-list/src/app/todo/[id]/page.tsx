@@ -7,8 +7,9 @@ const TodoInfo = async ({ id }: { id: number }) => {
   return (
     <section>
       <p>{todo?.id}</p>
-      <p>{todo?.todo}</p>
+      <input value={todo?.todo} />
       <p>{todo?.content}</p>
+      <button>수정하기</button>
     </section>
   );
 };
@@ -17,7 +18,6 @@ const Page = ({ params }: { params: { id: number } }) => {
   return (
     <div>
       <TodoInfo id={params.id} />
-      <button>수정하기</button>
     </div>
   );
 };
