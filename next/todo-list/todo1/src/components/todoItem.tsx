@@ -17,7 +17,14 @@ const TodoItem = ({ id, todo, content, idx }: TodoProps & { idx: number }) => {
       <p className={style.todoNumber}>{idx}</p>
       <p className={style.todoNumber}>id:{id}</p>
       <p className={style.todo}>{todo}</p>
-      <button onClick={() => removeTodo(id)}>X</button>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          removeTodo(id);
+        }}
+      >
+        X
+      </button>
     </div>
   );
 };

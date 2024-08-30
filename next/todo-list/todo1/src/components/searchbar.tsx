@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./searchbar.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -10,6 +10,10 @@ const Searchbar = () => {
 
   const q = searchParams.get("q");
 
+  useEffect(() => {
+    setSearch(q || "");
+  }, [q]);
+
   const [search, setSearch] = useState("");
 
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,8 +21,7 @@ const Searchbar = () => {
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-    }
+    if (e.key === "Enter") onSubmit();
   };
 
   const onSubmit = () => {
