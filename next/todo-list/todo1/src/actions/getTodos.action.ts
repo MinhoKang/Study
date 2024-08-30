@@ -18,7 +18,7 @@ export const getTodos = async () => {
     if (!response.ok) throw new Error(response.statusText);
 
     const allTodos: TodoProps[] = await response.json();
-
+    console.log("allTodosallTodosallTodos", allTodos);
     return allTodos;
   } catch (error) {
     console.log(error);
