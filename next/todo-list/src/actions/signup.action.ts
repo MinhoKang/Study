@@ -12,7 +12,7 @@ export const signup = async (_: any, formData: FormData) => {
 
   if (!params.success) {
     const { issues } = params.error;
-    console.log("issues", issues);
+
     const fieldErrors: { [key: string]: string } = {};
 
     // 각 필드에 대한 오류 메시지 추출

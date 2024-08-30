@@ -2,11 +2,19 @@
 
 import Link from "next/link";
 import style from "./page.module.css";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { login } from "@/actions/login.action";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const [state, formAction, isPending] = useActionState(login, null);
+
+  useEffect(() => {
+    if (state?.status) {
+      router.push(`/todo`);
+    }
+  }, [state, router]);
 
   return (
     <div className={style.container}>
