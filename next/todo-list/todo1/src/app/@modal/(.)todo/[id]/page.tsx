@@ -6,7 +6,7 @@ const Page = (props: any) => {
   const { id } = props.params;
 
   return (
-    <div>
+    <div className={style.container}>
       <Modal>
         <TodoInfo id={id} />
       </Modal>

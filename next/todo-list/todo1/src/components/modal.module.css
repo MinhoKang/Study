@@ -1,9 +1,16 @@
+.container {
+  width: 100%;
+  position: relative;
+}
+
 .modal {
   width: 20%;
+  height: 100vh;
   min-width: 500px;
-  margin-top: 20px;
   border-radius: 5px;
   border: none;
+  position: absolute;
+  right: 0;
 }
 
 .modal::backdrop {
