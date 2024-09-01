@@ -19,3 +19,14 @@ export const getTodoById = async (id: number) => {
     return null;
   }
 };
+
+export const filterTodos = ({
+  todos,
+  checkedTodoIds,
+}: {
+  todos: TodoProps[];
+  checkedTodoIds: number[];
+}) => {
+  const nonChecked = todos.filter((todo) => !checkedTodoIds.includes(todo.id));
+  return nonChecked;
+};
