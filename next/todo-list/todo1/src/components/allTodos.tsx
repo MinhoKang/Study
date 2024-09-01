@@ -1,5 +1,3 @@
-"use client";
-
 import TodoItem from "./todoItem";
 import style from "./allTodos.module.css";
 import { TodoProps } from "../../types/types";

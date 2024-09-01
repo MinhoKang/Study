@@ -25,6 +25,10 @@ const TodoItem = ({ id, todo, content, idx }: TodoProps & { idx: number }) => {
       >
         X
       </button>
+      <label className="customCheckbox">
+        <input type="checkbox" onClick={(e) => e.stopPropagation()} />
+        <span className="checkmark" />
+      </label>
     </div>
   );
 };
