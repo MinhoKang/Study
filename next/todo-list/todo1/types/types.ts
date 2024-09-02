@@ -10,3 +10,5 @@ export interface SignupProps {
   passwordCheck: string;
   phoneNumber: string;
 }
+
+export type LoginProps = Omit<SignupProps, "passwordCheck" | "phoneNumber">;

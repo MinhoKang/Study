@@ -27,6 +27,7 @@ const Page = () => {
 
   const onSubmit = () => {
     const params = getValues();
+
     signup2(params)
       .then(() => router.push("/"))
       .catch(() => alert("회원가입에 실패 했습니다."));
