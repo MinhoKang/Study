@@ -1,7 +1,13 @@
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 20px;
+  height: 100%;
+  background-color: rgb(176, 193, 194);
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 5px;
 }
 
 .container > label {
@@ -19,6 +25,11 @@
   border: none;
   width: 500px;
   padding: 10px;
+  border-radius: 5px;
+}
+
+.container > label > input:disabled {
+  background: white;
 }
 
 .container > label > textarea {
@@ -30,4 +41,9 @@
   box-sizing: border-box;
   max-height: 300px;
   min-height: 50px;
+  border-radius: 5px;
+}
+
+.container > label > textarea:disabled {
+  background: white;
 }
