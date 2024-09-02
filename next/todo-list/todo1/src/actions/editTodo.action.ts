@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { TodoProps } from "../../types/types";
 import { getCookie } from "../../utils/cookie";
 
@@ -31,12 +32,12 @@ export const editTodo = async ({ id, todo, content }: TodoProps) => {
         error: "fetch 실패",
       };
 
+    revalidateTag("todos");
     return {
       status: true,
       error: "",
     };
   } catch (error) {
-
     return {
       status: false,
       error: "오류 발생",

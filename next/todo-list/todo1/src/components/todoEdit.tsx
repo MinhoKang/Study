@@ -5,9 +5,8 @@ import type { CommentsProps, TodoProps } from "../../types/types";
 import style from "./todoEdit.module.css";
 import { editTodo } from "@/actions/editTodo.action";
 import { addComments } from "@/actions/comment/addComments.action";
-import { editComments } from "@/actions/comment/editComments.action";
-import { revalidateTag } from "next/cache";
 import CommentList from "./commentList";
+import CommentEditor from "./commentEditor";
 
 const TodoEdit = ({
   todo,
@@ -21,11 +20,8 @@ const TodoEdit = ({
   const [todoValue, setTodoValue] = useState(todo?.todo);
   const [todoContentValue, setTodoContentValue] = useState(todo?.content);
   const [commentValue, setCommentValue] = useState("");
-  const [todoComment, setTodoComment] = useState(
-    comments.map((comment) => comment.content) ?? "코멘트가 없습니다."
-  );
 
-  console.log("commentscomments", todoComment);
+  console.log("comments", comments);
 
   const onClick = () => {
     const params: TodoProps = {
@@ -34,18 +30,7 @@ const TodoEdit = ({
       content: todoContentValue,
     };
     editTodo(params);
-    addComments({ id: todo.id, content: commentValue });
-
-    // if (!comments.length) {
-    //   addComments({ id: todo.id, content: commentValue });
-    // }
-    //  else {
-    //   editComments({
-    //     id: todo.id,
-    //     commentId: (comments?.[0] as any)?.id,
-    //     content: commentValue,
-    //   });
-    // }
+    setCommentValue("");
   };
 
   return (
@@ -66,22 +51,14 @@ const TodoEdit = ({
           disabled={!isEditTodo}
         />
       </label>
-      <label>
-        <span>COMMENT</span>
-        <textarea
-          value={commentValue}
-          onChange={(e) => setCommentValue(e.target.value)}
-          disabled={!isEditTodo}
-        />
-      </label>
-      {comments.map((comment) => (
-        <CommentList
-          key={comment.id}
-          id={todo.id}
-          contentId={comment.id}
-          content={comment.content}
-        />
-      ))}
+      <button
+        onClick={() => {
+          setCommentValue("");
+          setIsEditTodo((prev) => !prev);
+        }}
+      >
+        {isEditTodo ? "CANCEL" : "EDIT TODO"}
+      </button>
       {isEditTodo && (
         <button
           onClick={() => {
@@ -92,9 +69,16 @@ const TodoEdit = ({
           SUBMIT
         </button>
       )}
-      <button onClick={() => setIsEditTodo((prev) => !prev)}>
-        {isEditTodo ? "CANCEL" : "EDIT TODO"}
-      </button>
+      <p>COMMENTS</p>
+      <CommentEditor id={todo.id} />
+      {comments.map((comment) => (
+        <CommentList
+          key={comment.id}
+          id={todo.id}
+          contentId={comment.id}
+          content={comment.content}
+        />
+      ))}
     </section>
   );
 };

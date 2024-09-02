@@ -29,7 +29,6 @@ const CommentList = ({ id, content, contentId }: Props) => {
 
   return (
     <div className={style.container}>
-      <div className={style.id}>{id}</div>
       <textarea
         className={style.content}
         value={comment}

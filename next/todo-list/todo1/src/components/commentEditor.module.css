@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.container > label {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.container > label > span {
+  font-weight: bold;
+}
+
+.container > label > textarea {
+  border: none;
+  padding: 10px;
+  width: 100%;
+  resize: vertical;
+  padding: 10px;
+  box-sizing: border-box;
+  max-height: 300px;
+  min-height: 50px;
+  border-radius: 5px;
+}
+
+.container > button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
