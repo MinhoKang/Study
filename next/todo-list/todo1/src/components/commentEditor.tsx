@@ -23,7 +23,9 @@ const CommentEditor = ({ id }: { id: number }) => {
           onClick={(e) => e.stopPropagation()}
         />
       </label>
-      <button onClick={onClick}>SUBMIT</button>
+      <button onClick={onClick} disabled={!commentValue}>
+        SUBMIT
+      </button>
     </div>
   );
 };

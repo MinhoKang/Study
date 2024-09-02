@@ -33,6 +33,7 @@ export const editTodo = async ({ id, todo, content }: TodoProps) => {
       };
 
     revalidateTag("todos");
+
     return {
       status: true,
       error: "",

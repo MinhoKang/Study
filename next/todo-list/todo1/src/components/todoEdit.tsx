@@ -4,8 +4,6 @@ import { useState } from "react";
 import type { CommentsProps, TodoProps } from "../../types/types";
 import style from "./todoEdit.module.css";
 import { editTodo } from "@/actions/editTodo.action";
-import CommentList from "./commentList";
-import CommentEditor from "./commentEditor";
 
 const TodoEdit = ({
   todo,
@@ -63,16 +61,6 @@ const TodoEdit = ({
       >
         {isEditTodo ? "CANCEL" : "EDIT TODO"}
       </button>
-      <p>COMMENTS</p>
-      <CommentEditor id={todo.id} />
-      {comments.map((comment) => (
-        <CommentList
-          key={comment.id}
-          id={todo.id}
-          contentId={comment.id}
-          content={comment.content}
-        />
-      ))}
     </section>
   );
 };
