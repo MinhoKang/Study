@@ -16,6 +16,13 @@
   align-items: center;
 }
 
+.container > button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .container > label > span {
   font-weight: bold;
   width: 200px;
