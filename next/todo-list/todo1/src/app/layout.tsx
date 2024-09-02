@@ -22,7 +22,7 @@ export default function RootLayout({
           <div className={style.childrenContainer}>{children}</div>
         </div>
         {modal}
-        <div id="modal-root" className={style.modalRoot}></div>
+        <div id="modal-root"></div>
       </body>
     </html>
   );
