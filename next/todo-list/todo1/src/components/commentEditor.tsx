@@ -9,6 +9,7 @@ const CommentEditor = ({ id }: { id: number }) => {
 
   const onClick = () => {
     addComments({ id, content: commentValue });
+    setCommentValue("");
   };
 
   return (

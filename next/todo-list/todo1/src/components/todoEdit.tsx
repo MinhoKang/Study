@@ -19,9 +19,6 @@ const TodoEdit = ({
 
   const [todoValue, setTodoValue] = useState(todo?.todo);
   const [todoContentValue, setTodoContentValue] = useState(todo?.content);
-  const [commentValue, setCommentValue] = useState("");
-
-  console.log("comments", comments);
 
   const onClick = () => {
     const params: TodoProps = {
@@ -30,7 +27,6 @@ const TodoEdit = ({
       content: todoContentValue,
     };
     editTodo(params);
-    setCommentValue("");
   };
 
   return (
@@ -53,7 +49,6 @@ const TodoEdit = ({
       </label>
       <button
         onClick={() => {
-          setCommentValue("");
           setIsEditTodo((prev) => !prev);
         }}
       >
