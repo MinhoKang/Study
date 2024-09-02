@@ -1,12 +1,5 @@
-.modal::backdrop {
-  background: rgba(0, 0, 0, 0.7);
-}
-
 .modal {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
   width: 500px;
   height: 100vh;
   background-color: white;
@@ -17,4 +10,8 @@
 
 .modal.open {
   transform: translateX(50%);
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.7);
 }

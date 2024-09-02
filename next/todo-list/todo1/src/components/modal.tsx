@@ -34,7 +34,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
       onClick={(e) => {
         if ((e.target as any).nodeName === "DIALOG") handleClose();
       }}
-      className={`${style.modal} ${isOpen ? style.open : ''}`}
+      className={`${style.modal} ${isOpen ? style.open : ""}`}
     >
       {children}
     </dialog>,
