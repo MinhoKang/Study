@@ -3,12 +3,34 @@
 import { useActionState, useEffect } from "react";
 import style from "./page.module.css";
 import Link from "next/link";
-import { signup } from "@/actions/signup.action";
+import { signup, signup2 } from "@/actions/signup.action";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formSchema } from "../../../types/schema";
+import { SignupProps } from "../../../types/types";
 
 const Page = () => {
   const router = useRouter();
   const [state, formAction, isPending] = useActionState(signup, null);
+
+  const {
+    register,
+    watch,
+    getValues,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<SignupProps>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {},
+  });
+
+  const onSubmit = () => {
+    const params = getValues();
+    signup2(params)
+      .then(() => router.push("/"))
+      .catch(() => alert("회원가입에 실패 했습니다."));
+  };
 
   useEffect(() => {
     if (state?.status) {
@@ -17,14 +39,14 @@ const Page = () => {
   }, [state, router]);
 
   return (
-    <form action={formAction} className={style.formContainer}>
+    <form onSubmit={handleSubmit(onSubmit)} className={style.formContainer}>
       <label>
         <div>
           <span>ID</span>
-          <input type="text" name="id" required disabled={isPending} />
+          <input type="text" disabled={isPending} {...register("id")} />
         </div>
-        {state?.error && (
-          <span className={style.error}>{state.fieldErrors?.id}</span>
+        {errors?.id && (
+          <span className={style.error}>{errors.id?.message}</span>
         )}
       </label>
       <label>
@@ -32,13 +54,12 @@ const Page = () => {
           <span>PASSWORD</span>
           <input
             type="password"
-            name="password"
-            required
+            {...register("password")}
             disabled={isPending}
           />
         </div>
-        {state?.error && (
-          <span className={style.error}>{state.fieldErrors?.password}</span>
+        {errors?.password && (
+          <span className={style.error}>{errors.password?.message}</span>
         )}
       </label>
       <label>
@@ -46,24 +67,21 @@ const Page = () => {
           <span>PASSWORD CHECK</span>
           <input
             type="password"
-            name="passwordCheck"
-            required
+            {...register("passwordCheck")}
             disabled={isPending}
           />
         </div>
-        {state?.error && (
-          <span className={style.error}>
-            {state.fieldErrors?.passwordCheck}
-          </span>
+        {errors?.passwordCheck && (
+          <span className={style.error}>{errors.passwordCheck?.message}</span>
         )}
       </label>
       <label>
         <div>
           <span>PHONE NUMBER</span>
-          <input name="phoneNumber" required disabled={isPending} />
+          <input {...register("phoneNumber")} disabled={isPending} />
         </div>
-        {state?.error && (
-          <span className={style.error}>{state.fieldErrors?.phoneNumber}</span>
+        {errors?.phoneNumber && (
+          <span className={style.error}>{errors.phoneNumber?.message}</span>
         )}
       </label>
       <div className={style.buttonContainer}>

@@ -1,6 +1,7 @@
 "use server";
 
 import { formSchema } from "../../types/schema";
+import { SignupProps } from "../../types/types";
 
 export const signup = async (_: any, formData: FormData) => {
   const params = formSchema.safeParse({
@@ -47,8 +48,33 @@ export const signup = async (_: any, formData: FormData) => {
       error: "",
     };
   } catch (error) {
-    console.log(error);
+    return {
+      status: false,
+      error: "회원가입에 실패 했습니다.",
+    };
+  }
+};
 
+export const signup2 = async (params: SignupProps) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/signup`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+      }
+    );
+
+    if (!response.ok) throw new Error(response.statusText);
+
+    return {
+      status: true,
+      error: "",
+    };
+  } catch (error) {
     return {
       status: false,
       error: "회원가입에 실패 했습니다.",
