@@ -12,10 +12,6 @@ export const editComments = async ({
   commentId: number;
   content: string;
 }) => {
-  console.log("수정");
-  console.log(id);
-  console.log(commentId);
-  console.log(content);
   const accessToken = getCookie("accessToken")?.value;
 
   if (!id || !content || !accessToken) return null;

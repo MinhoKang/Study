@@ -3,6 +3,7 @@
 import { editComments } from "@/actions/comment/editComments.action";
 import style from "./commentList.module.css";
 import { useState } from "react";
+import { removeComments } from "@/actions/comment/removeComments.action";
 
 interface Props {
   id: number;
@@ -22,6 +23,10 @@ const CommentList = ({ id, content, contentId }: Props) => {
     }
   };
 
+  const onDeleteClick = () => {
+    removeComments({ id, commentId: contentId });
+  };
+
   return (
     <div className={style.container}>
       <div className={style.id}>{id}</div>
@@ -35,7 +40,7 @@ const CommentList = ({ id, content, contentId }: Props) => {
         <button onClick={onEditClick}>
           {isEditContent ? "SUBMIT" : "EDIT"}
         </button>
-        <button>DELETE</button>
+        <button onClick={onDeleteClick}>DELETE</button>
         {isEditContent && (
           <button onClick={() => setIsEditContent((prev) => !prev)}>
             CANCEL
