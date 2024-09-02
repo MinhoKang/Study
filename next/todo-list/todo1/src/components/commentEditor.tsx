@@ -8,6 +8,7 @@ const CommentEditor = ({ id }: { id: number }) => {
   const [commentValue, setCommentValue] = useState("");
 
   const onClick = () => {
+    if (!commentValue) return;
     addComments({ id, content: commentValue });
     setCommentValue("");
   };
