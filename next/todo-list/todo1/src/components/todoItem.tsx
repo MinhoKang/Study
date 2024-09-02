@@ -44,6 +44,7 @@ const TodoItem = ({
         onClick={(e) => {
           e.stopPropagation();
           removeTodo(id);
+          console.log(id);
         }}
       >
         X

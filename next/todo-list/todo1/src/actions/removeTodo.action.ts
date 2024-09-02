@@ -6,12 +6,6 @@ import { getCookie } from "../../utils/cookie";
 export const removeTodo = async (id: number) => {
   const accessToken = getCookie("accessToken")?.value;
 
-  if (!id || !accessToken)
-    return {
-      status: false,
-      error: "id 또는 accessToken이 없습니다.",
-    };
-
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/todo?id=${id}`,
@@ -23,7 +17,6 @@ export const removeTodo = async (id: number) => {
         },
       }
     );
-
     if (!response.ok) throw new Error(response.statusText);
 
     revalidateTag("todos");
