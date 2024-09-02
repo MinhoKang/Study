@@ -13,6 +13,7 @@ export const getComments = async (id: number) => {
         headers: {
           Authorization: `Bearer ${getCookie("accessToken")?.value}`,
         },
+        next: { tags: ["comments"] },
       }
     );
     if (!response.ok) {
@@ -27,6 +28,7 @@ export const getComments = async (id: number) => {
     }
 
     const data = await response.json();
+    console.log("comments data", data);
     return data;
   } catch (error) {
     console.log("에러", error);

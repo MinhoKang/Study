@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { getCookie } from "../../../utils/cookie";
 
 export const editComments = async ({
@@ -11,6 +12,10 @@ export const editComments = async ({
   commentId: number;
   content: string;
 }) => {
+  console.log("수정");
+  console.log(id);
+  console.log(commentId);
+  console.log(content);
   const accessToken = getCookie("accessToken")?.value;
 
   if (!id || !content || !accessToken) return null;
@@ -41,6 +46,7 @@ export const editComments = async ({
 
     const data = await response.json();
 
+    revalidateTag(`comments`);
 
     return data;
   } catch (error) {

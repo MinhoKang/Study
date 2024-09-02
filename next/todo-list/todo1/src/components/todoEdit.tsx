@@ -1,22 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { TodoProps } from "../../types/types";
+import type { CommentsProps, TodoProps } from "../../types/types";
 import style from "./todoEdit.module.css";
 import { editTodo } from "@/actions/editTodo.action";
 import { addComments } from "@/actions/comment/addComments.action";
 import { editComments } from "@/actions/comment/editComments.action";
+import { revalidateTag } from "next/cache";
+import CommentList from "./commentList";
 
-
-const TodoEdit = ({ todo, comments }: { todo: TodoProps; comments: any }) => {
+const TodoEdit = ({
+  todo,
+  comments,
+}: {
+  todo: TodoProps;
+  comments: CommentsProps[];
+}) => {
   const [isEditTodo, setIsEditTodo] = useState(false);
 
   const [todoValue, setTodoValue] = useState(todo?.todo);
   const [todoContentValue, setTodoContentValue] = useState(todo?.content);
-
+  const [commentValue, setCommentValue] = useState("");
   const [todoComment, setTodoComment] = useState(
-    (comments?.[0] as any)?.content ?? "코멘트가 없습니다."
+    comments.map((comment) => comment.content) ?? "코멘트가 없습니다."
   );
+
+  console.log("commentscomments", todoComment);
 
   const onClick = () => {
     const params: TodoProps = {
@@ -25,19 +34,18 @@ const TodoEdit = ({ todo, comments }: { todo: TodoProps; comments: any }) => {
       content: todoContentValue,
     };
     editTodo(params);
+    addComments({ id: todo.id, content: commentValue });
 
-    if (!(comments?.[0] as any)?.content) {
-      addComments({ id: todo.id, content: todoComment });
-    } else if (
-      (comments?.[0] as any)?.content !== todoComment &&
-      todoComment !== undefined
-    ) {
-      editComments({
-        id: todo.id,
-        commentId: (comments?.[0] as any)?.id,
-        content: todoComment,
-      });
-    }
+    // if (!comments.length) {
+    //   addComments({ id: todo.id, content: commentValue });
+    // }
+    //  else {
+    //   editComments({
+    //     id: todo.id,
+    //     commentId: (comments?.[0] as any)?.id,
+    //     content: commentValue,
+    //   });
+    // }
   };
 
   return (
@@ -61,11 +69,19 @@ const TodoEdit = ({ todo, comments }: { todo: TodoProps; comments: any }) => {
       <label>
         <span>COMMENT</span>
         <textarea
-          value={todoComment}
-          onChange={(e) => setTodoComment(e.target.value)}
+          value={commentValue}
+          onChange={(e) => setCommentValue(e.target.value)}
           disabled={!isEditTodo}
         />
       </label>
+      {comments.map((comment) => (
+        <CommentList
+          key={comment.id}
+          id={todo.id}
+          contentId={comment.id}
+          content={comment.content}
+        />
+      ))}
       {isEditTodo && (
         <button
           onClick={() => {
