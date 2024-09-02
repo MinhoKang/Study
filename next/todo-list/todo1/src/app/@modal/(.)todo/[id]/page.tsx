@@ -6,11 +6,11 @@ const Page = (props: any) => {
   const { id } = props.params;
 
   return (
-    <div className={style.container}>
+    <aside className={style.container}>
       <Modal>
         <TodoInfo id={id} />
       </Modal>
-    </div>
+    </aside>
   );
 };
 
