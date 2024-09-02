@@ -22,10 +22,10 @@ export const AllTodos = ({
     todos: TodoProps[];
     checkedTodoIds: number[];
   }) => {
-    const nonChecked = todos.filter(
+    const nonChecked = todos?.filter(
       (todo) => !checkedTodoIds.includes(todo.id)
     );
-    const checked = todos.filter((todo) => checkedTodoIds.includes(todo.id));
+    const checked = todos?.filter((todo) => checkedTodoIds.includes(todo.id));
     return { nonChecked, checked };
   };
 
