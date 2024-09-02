@@ -49,6 +49,7 @@ export const AllTodos = ({
 
   return (
     <section className={style.container}>
+      <span>미완료</span>
       {nonCheckedTodos?.map((todo, idx) => (
         <TodoItem
           key={todo.id}
@@ -59,6 +60,7 @@ export const AllTodos = ({
         />
       ))}
       <div className={style.line}></div>
+      <span>완료</span>
       {checkedTodos?.map((todo, idx) => (
         <TodoItem
           key={todo.id}
