@@ -36,7 +36,7 @@ const CommentList = ({ id, content, contentId }: Props) => {
         disabled={!isEditContent}
         onChange={(e) => setComment(e.target.value)}
       />
-      <div className="">
+      <div className={style.buttonContainer}>
         <button onClick={onEditClick}>
           {isEditContent ? "SUBMIT" : "EDIT"}
         </button>

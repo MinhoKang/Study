@@ -10,3 +10,24 @@
   padding: 15px 10px;
   border-radius: 5px;
 }
+
+.container > textarea {
+  resize: vertical;
+  min-height: 50px;
+  max-height: 300px;
+}
+
+.container > .buttonContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.buttonContainer > button {
+  padding: 5px 15px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
