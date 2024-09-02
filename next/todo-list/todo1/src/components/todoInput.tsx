@@ -9,7 +9,7 @@ const TodoInput = () => {
 
   return (
     <form action={formAction} className={style.formContainer}>
-      <input type="text" required disabled={isPending} name="todo" />
+      <input type="text" required disabled={isPending} name="todo" autoFocus />
       <button type="submit" disabled={isPending}>
         {isPending ? "..." : "ADD"}
       </button>

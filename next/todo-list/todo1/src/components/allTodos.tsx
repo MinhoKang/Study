@@ -3,9 +3,16 @@
 import TodoItem from "./todoItem";
 import style from "./allTodos.module.css";
 import { TodoProps } from "../../types/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const AllTodos = ({ allTodos }: { allTodos: TodoProps[] }) => {
+export const AllTodos = ({
+  allTodos,
+  q,
+}: {
+  allTodos: TodoProps[];
+  q?: string;
+}) => {
+  const [searchedTodos, setSearchedTodos] = useState(allTodos);
   const [checkedTodoIds, setCheckedTodoIds] = useState<number[]>([]);
 
   const filterTodos = ({
@@ -23,14 +30,22 @@ export const AllTodos = ({ allTodos }: { allTodos: TodoProps[] }) => {
   };
 
   const nonCheckedTodos = filterTodos({
-    todos: allTodos,
+    todos: searchedTodos,
     checkedTodoIds,
   }).nonChecked;
 
   const checkedTodos = filterTodos({
-    todos: allTodos,
+    todos: searchedTodos,
     checkedTodoIds,
   }).checked;
+
+  useEffect(() => {
+    if (!q) return setSearchedTodos(allTodos);
+
+    const searched = allTodos.filter((todo) => todo.todo.includes(q));
+
+    setSearchedTodos(searched);
+  }, [q, allTodos]);
 
   return (
     <section className={style.container}>

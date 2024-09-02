@@ -36,7 +36,6 @@ export const editTodo = async ({ id, todo, content }: TodoProps) => {
       error: "",
     };
   } catch (error) {
-    console.log(error);
 
     return {
       status: false,

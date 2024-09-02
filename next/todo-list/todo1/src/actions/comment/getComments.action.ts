@@ -15,7 +15,6 @@ export const getComments = async (id: number) => {
         },
       }
     );
-    // console.log(response);
     if (!response.ok) {
       const errorText = await response.text();
       console.error(

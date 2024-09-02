@@ -26,13 +26,11 @@ const TodoEdit = ({ todo, comments }: { todo: TodoProps; comments: any }) => {
     editTodo(params);
 
     if (!(comments?.[0] as any)?.content) {
-      console.log("추가");
       addComments({ id: todo.id, content: todoComment });
     } else if (
       (comments?.[0] as any)?.content !== todoComment &&
       todoComment !== undefined
     ) {
-      console.log("수정");
       editComments({
         id: todo.id,
         commentId: (comments?.[0] as any)?.id,

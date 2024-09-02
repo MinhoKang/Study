@@ -36,7 +36,6 @@ export const login = async (_: any, formData: FormData) => {
       error: "",
     };
   } catch (error) {
-    console.log("로그인 실패", error);
     return {
       status: false,
       error: "로그인에 실패 했습니다.",

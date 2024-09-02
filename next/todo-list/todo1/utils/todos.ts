@@ -1,3 +1,5 @@
+"use server";
+
 import type { TodoProps } from "../types/types";
 import { getCookie } from "./cookie";
 
@@ -18,15 +20,4 @@ export const getTodoById = async (id: number) => {
   } catch (error) {
     return null;
   }
-};
-
-export const filterTodos = ({
-  todos,
-  checkedTodoIds,
-}: {
-  todos: TodoProps[];
-  checkedTodoIds: number[];
-}) => {
-  const nonChecked = todos.filter((todo) => !checkedTodoIds.includes(todo.id));
-  return nonChecked;
 };

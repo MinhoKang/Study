@@ -4,7 +4,6 @@ export const middleware = (request: NextRequest) => {
   const accessToken = request.cookies.has("accessToken");
 
   if (!accessToken && request.nextUrl.pathname !== "/") {
-    console.log("gggg");
     return NextResponse.redirect(new URL("/", request.url));
   }
 

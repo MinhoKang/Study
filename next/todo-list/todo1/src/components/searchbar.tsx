@@ -25,7 +25,7 @@ const Searchbar = () => {
   };
 
   const onSubmit = () => {
-    if (!search || q === search) return;
+    if (q === search) return;
     router.push(`/todo?q=${search}`);
   };
 

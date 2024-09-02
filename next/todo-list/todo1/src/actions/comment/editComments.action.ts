@@ -12,10 +12,6 @@ export const editComments = async ({
   content: string;
 }) => {
   const accessToken = getCookie("accessToken")?.value;
-  console.log(id);
-  console.log(content);
-  console.log(accessToken);
-  console.log(commentId);
 
   if (!id || !content || !accessToken) return null;
 
@@ -45,7 +41,6 @@ export const editComments = async ({
 
     const data = await response.json();
 
-    console.log("data", data);
 
     return data;
   } catch (error) {
