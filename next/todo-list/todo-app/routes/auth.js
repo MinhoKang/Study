@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const users = {
-  admin: "test1234",
+  admin: "test1234!",
 };
 
 const SECRET_KEY = "zwon-fe";

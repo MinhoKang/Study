@@ -15,7 +15,7 @@ app.use(express.json());
 const users = [
   {
     id: "admin@admin.com",
-    password: "test1234",
+    password: "test1234!",
     phoneNumber: "01012345678",
   },
 ];
