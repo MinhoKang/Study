@@ -36,8 +36,6 @@ export const addTodo = async (_: any, formData: FormData) => {
       error: "",
     };
   } catch (error) {
-    console.log("에러", error);
-
     return {
       status: false,
       error: "투두 추가를 실패했습니다.",

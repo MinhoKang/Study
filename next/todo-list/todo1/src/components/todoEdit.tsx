@@ -23,7 +23,6 @@ const TodoEdit = ({
       todo: todoValue,
       content: todoContentValue,
     };
-    console.log(params);
     editTodo(params);
   };
 
