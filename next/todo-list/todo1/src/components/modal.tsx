@@ -24,7 +24,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
     setIsOpen(false);
     setTimeout(() => {
       router.back();
-    }, 300); // 모달 닫힘 애니메이션 완료 후 이동
+    }, 300);
   };
 
   return createPortal(

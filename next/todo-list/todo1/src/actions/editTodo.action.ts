@@ -6,7 +6,9 @@ import { getCookie } from "../../utils/cookie";
 
 export const editTodo = async ({ id, todo, content }: TodoProps) => {
   const accessToken = getCookie("accessToken")?.value;
-
+  console.log(id);
+  console.log(todo);
+  console.log(content);
   if (!accessToken)
     return {
       statue: false,
@@ -25,7 +27,7 @@ export const editTodo = async ({ id, todo, content }: TodoProps) => {
         },
       }
     );
-
+    console.log(response);
     if (!response.ok)
       return {
         status: false,
@@ -33,7 +35,6 @@ export const editTodo = async ({ id, todo, content }: TodoProps) => {
       };
 
     revalidateTag("todos");
-
     return {
       status: true,
       error: "",

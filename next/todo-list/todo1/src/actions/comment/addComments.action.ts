@@ -31,7 +31,7 @@ export const addComments = async ({
 
     const data = await response.json();
     revalidateTag(`comments`);
-
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

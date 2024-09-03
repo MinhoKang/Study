@@ -9,7 +9,6 @@ import { CommentsProps, TodoProps } from "../../types/types";
 export const TodoInfo = async ({ id }: { id: number }) => {
   const todo: TodoProps | null = await getTodoById(id);
   const comments: CommentsProps[] = await getComments(id);
-
   return (
     <div className={style.container}>
       {todo ? (

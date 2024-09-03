@@ -3,16 +3,17 @@
 import { getCookie } from "../../../utils/cookie";
 
 export const getComments = async (id: number) => {
-  console.log("id b", id);
-  if (!id) return null;
-  console.log("id a", id);
+  const accessToken = getCookie("accessToken")?.value;
+
+  if (!id || !accessToken) return null;
+
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/todo/${id}/comments`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getCookie("accessToken")?.value}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         next: { tags: ["comments"] },
       }
@@ -33,5 +34,6 @@ export const getComments = async (id: number) => {
     return data;
   } catch (error) {
     console.log("에러", error);
+    return null;
   }
 };

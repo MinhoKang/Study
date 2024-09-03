@@ -16,9 +16,8 @@ const CommentList = ({ id, content, contentId }: Props) => {
   const [comment, setComment] = useState(content);
 
   const onEditClick = () => {
-    if (!isEditContent) {
-      setIsEditContent((prev) => !prev);
-    } else {
+    setIsEditContent((prev) => !prev);
+    if (isEditContent) {
       editComments({ id, commentId: contentId, content: comment });
     }
   };
