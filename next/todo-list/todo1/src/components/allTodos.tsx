@@ -3,7 +3,8 @@
 import TodoItem from "./todoItem";
 import style from "./allTodos.module.css";
 import { TodoProps } from "../../types/types";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import TodoListSkeleton from "./skeleton/todoListSkeleton";
 
 export const AllTodos = ({
   allTodos,
@@ -51,24 +52,28 @@ export const AllTodos = ({
     <section className={style.container}>
       <span>미완료</span>
       {nonCheckedTodos?.map((todo, idx) => (
-        <TodoItem
-          key={todo.id}
-          idx={idx}
-          setCheckedTodoIds={setCheckedTodoIds}
-          checked={checkedTodoIds.includes(todo.id)}
-          {...todo}
-        />
+        <Suspense key={todo.id} fallback={<TodoListSkeleton count={3} />}>
+          <TodoItem
+            key={todo.id}
+            idx={idx}
+            setCheckedTodoIds={setCheckedTodoIds}
+            checked={checkedTodoIds.includes(todo.id)}
+            {...todo}
+          />
+        </Suspense>
       ))}
       <div className={style.line}></div>
       <span>완료</span>
       {checkedTodos?.map((todo, idx) => (
-        <TodoItem
-          key={todo.id}
-          idx={idx}
-          setCheckedTodoIds={setCheckedTodoIds}
-          checked={checkedTodoIds.includes(todo.id)}
-          {...todo}
-        />
+        <Suspense key={todo.id} fallback={<TodoListSkeleton count={3} />}>
+          <TodoItem
+            key={todo.id}
+            idx={idx}
+            setCheckedTodoIds={setCheckedTodoIds}
+            checked={checkedTodoIds.includes(todo.id)}
+            {...todo}
+          />
+        </Suspense>
       ))}
     </section>
   );
