@@ -13,7 +13,7 @@
 @media screen and (360px <= width < 768px) {
   .container {
     position: unset;
-    width: 100%;
+    width: 30%;
     padding: 10px 0px;
   }
 }

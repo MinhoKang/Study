@@ -13,16 +13,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     setMounted(true);
   }, []);
 
-  if (mounted)
-    return (
-      <div className={theme} style={{ width: "100vw", height: "100vh" }}>
-        {children}
-      </div>
-    );
+  if (mounted) return <div className={theme}>{children}</div>;
 
-  return (
-    <div className={theme} style={{ width: "100vw", height: "100vh" }}>
-      {children}
-    </div>
-  );
+  return <div className={theme}>{children}</div>;
 };

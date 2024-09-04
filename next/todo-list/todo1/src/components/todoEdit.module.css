@@ -4,7 +4,7 @@
   justify-content: center;
   gap: 20px;
   height: 100%;
-  background-color: rgb(176, 193, 194);
+  background-color: var(--softBg);
   padding: 20px;
   box-sizing: border-box;
   border-radius: 5px;

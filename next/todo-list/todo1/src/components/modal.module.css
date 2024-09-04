@@ -4,7 +4,7 @@
   right: 0;
   top: 0;
   width: 500px;
-  background-color: white;
+  background-color: var(--bg);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;

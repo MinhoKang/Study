@@ -11,8 +11,7 @@
   --textColor:black; 
   --softBg: #f0f0f0;
   --softTextColor: #626262;
-  width: 100vw;
-  height: 100vh;
+
 }
 
 .dark{
@@ -31,7 +30,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: var(--bg-color);
+  background-color: var(--bg);
 }
 
 a,

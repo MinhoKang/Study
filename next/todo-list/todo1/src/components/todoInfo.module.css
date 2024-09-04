@@ -4,6 +4,8 @@
   gap: 10px;
   border-radius: 5px;
   width: 100%;
+  color: var(--textColor);
+  background-color: var(--softBg);
 }
 
 .container > p {
