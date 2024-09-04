@@ -4,9 +4,11 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  width: 100%;
-  max-width: 50%;
-  min-width: 300px;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
+  color: var(--textColor);
+  border-radius: 5px;
 }
 
 .container > header > a {
@@ -33,8 +35,6 @@
   right: 0;
 }
 
-@media screen and (360px <= width < 768px) {
-  .title {
-    color: white;
-  }
+.title {
+  color: var(--textColor);
 }

@@ -1,22 +1,30 @@
-/*
-  pc width >= 1280px 
-  태블릿 768px <= width < 1280px 
-  모바일 360px <= width < 768px
-*/
-
 :root {
-  --pc: 1280px;
-  --tablet-min: 768px;
-  --tablet-max: 1280px;
-  --mobile-min: 360px;
-  --mobile-max: 768px;
+  --bg:white,
+  --textColor:black,
+  --softBg: #f0f0f0,
+  --softTextColor: #626262,
+  --borderRadius: 5px;
+}
 
-  --bg-color: white;
+.light {
+  --bg:white;
+  --textColor:black; 
+  --softBg: #f0f0f0;
+  --softTextColor: #626262;
+  width: 100vw;
+  height: 100vh;
+}
+
+.dark{
+  --bg:#0f172a;
+  --textColor:#ddd; 
+  --softBg: #1f273a;
+  --softTextColor: #a6a6a6;
 }
 
 html,
 body {
-  width: 100%;
+  width: 100vw;
   margin: 0px;
   padding: 0px;
   display: flex;
@@ -26,24 +34,12 @@ body {
   background-color: var(--bg-color);
 }
 
-p {
-  margin: 0;
-}
-
-a {
+a,
+p,
+button {
   text-decoration: none;
   cursor: pointer;
   margin: 0;
   padding: 0;
 }
 
-button {
-  margin: 0;
-  padding: 0;
-}
-
-@media screen and (360px <= width < 768px) {
-  :root {
-    --bg-color: black;
-  }
-}
