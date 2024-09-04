@@ -38,7 +38,6 @@ const TodoItem = ({
   return (
     <div className={style.container} onClick={onClick}>
       <p className={style.todoNumber}>{idx}</p>
-      <p className={style.todoNumber}>id:{id}</p>
       <p className={style.todo}>{todo}</p>
       <button
         onClick={(e) => {
@@ -46,7 +45,7 @@ const TodoItem = ({
           removeTodo(id);
         }}
       >
-        X
+        ❌
       </button>
       <input
         type="checkbox"

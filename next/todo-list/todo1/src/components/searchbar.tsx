@@ -32,7 +32,7 @@ const Searchbar = () => {
   return (
     <div className={style.container}>
       <input value={search} onChange={onChangeSearch} onKeyDown={onKeyDown} />
-      <button onClick={onSubmit}>SEARCH</button>
+      <button onClick={onSubmit}>🔍</button>
     </div>
   );
 };

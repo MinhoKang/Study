@@ -43,3 +43,4 @@ const Modal = ({ children }: { children: ReactNode }) => {
 };
 
 export default Modal;
+

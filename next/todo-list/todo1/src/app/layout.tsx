@@ -15,11 +15,13 @@ export default function RootLayout({
     <html lang="kr">
       <body>
         <div className={style.container}>
-          {getCookie("accessToken") && <LogoutBtn />}
           <header>
-            <Link href={"/"}>TODO LIST</Link>
+            <Link href={"/"}>
+              <p className={style.title}>TODO LIST</p>
+            </Link>
           </header>
           <div className={style.childrenContainer}>{children}</div>
+          {getCookie("accessToken") && <LogoutBtn />}
         </div>
         <div id="modal-root" className={style.modalRoot}>
           {modal}

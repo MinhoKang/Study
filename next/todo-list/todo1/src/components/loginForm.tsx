@@ -53,7 +53,6 @@ const Login = () => {
         {errors.password && (
           <span className={style.error}>{errors.password?.message}</span>
         )}
-
         <div className={style.buttonContainer}>
           <button disabled={isPending} type="submit">
             LOGIN
