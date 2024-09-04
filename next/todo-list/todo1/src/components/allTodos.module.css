@@ -14,7 +14,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(52, 31, 190);
+  color: var(--textColor);
   font-weight: bold;
   font-size: 20px;
 }
