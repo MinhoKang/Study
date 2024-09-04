@@ -17,7 +17,7 @@ export default function RootLayout({
         <div className={style.container}>
           <header>
             <Link href={"/"}>
-              <p className={style.title}>TODO LIST</p>
+              <h1 className={style.title}>TODO LIST</h1>
             </Link>
           </header>
           <div className={style.childrenContainer}>{children}</div>
