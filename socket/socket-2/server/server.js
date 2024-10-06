@@ -14,8 +14,13 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   socket.on("send_msg", (msg) => {
-    console.log(msg);
     socket.broadcast.emit("recieve_msg", msg);
+  });
+  socket.on("new_user", (data) => {
+    socket.broadcast.emit("new_user", data.user);
+  });
+  socket.on("user_typing", (data) => {
+    socket.broadcast.emit("user_typing", data);
   });
 });
 

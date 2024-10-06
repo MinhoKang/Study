@@ -9,14 +9,11 @@ export const Input = ({ setChat, user, socket }) => {
 
   const uploadInput = useRef(null);
 
-  const userTypying = (e: ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-
   const sendMessage = () => {
     if (input) {
       const msg = { content: input, type: "text", user };
       socket.emit("send_msg", msg);
+      socket.emit("user_typing", { user: user.name, typing: false });
       setChat((prev) => [...prev, msg]);
       setInput("");
     } else {
@@ -34,6 +31,14 @@ export const Input = ({ setChat, user, socket }) => {
     }
   };
 
+  const userTyping = (e) => {
+    setInput(e.target.value);
+    socket.emit("user_typing", {
+      user: user.name,
+      typing: e.target.value ? true : false,
+    });
+  };
+
   return (
     <div className="w-full absolute bottom-0 text-xl grid grid-cols-5 gradient md:bg-none md:text-3xl md:flex md:justify-center md:relative">
       <input
@@ -41,10 +46,9 @@ export const Input = ({ setChat, user, socket }) => {
         type="text"
         placeholder="Enter your message"
         value={input}
-        onChange={(e) => userTypying(e)}
+        onChange={(e) => userTyping(e)}
         onKeyDown={(e) => e.key === "Enter" && sendMessage()}
       />
-      <input className="hidden" type="file" />
       <input
         type="file"
         className="hidden"
