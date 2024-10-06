@@ -2,20 +2,36 @@
 
 import Image from "next/image";
 import { send, upload } from "@/assets";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 
 export const Input = ({ setChat, user, socket }) => {
   const [input, setInput] = useState("");
+
+  const uploadInput = useRef(null);
 
   const userTypying = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
   const sendMessage = () => {
-    const msg = { content: input, type: "text", user };
-    socket.emit("send_msg", msg);
-    setChat((prev) => [...prev, msg]);
-    setInput("");
+    if (input) {
+      const msg = { content: input, type: "text", user };
+      socket.emit("send_msg", msg);
+      setChat((prev) => [...prev, msg]);
+      setInput("");
+    } else {
+      uploadInput.current?.click();
+    }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file.type === "image/jpeg" || file.type === "image/png") {
+      const img = URL.createObjectURL(file);
+      const msg = { content: img, type: "image", user };
+      setChat((prev) => [...prev, msg]);
+      socket.emit("send_msg", msg);
+    }
   };
 
   return (
@@ -29,6 +45,12 @@ export const Input = ({ setChat, user, socket }) => {
         onKeyDown={(e) => e.key === "Enter" && sendMessage()}
       />
       <input className="hidden" type="file" />
+      <input
+        type="file"
+        className="hidden"
+        ref={uploadInput}
+        onChange={(e) => handleImageUpload(e)}
+      />
       <button
         onClick={sendMessage}
         className="w-full py-2 px-3 bg-sky-400 text-white font-fold rounded-md text-xl gradient md:w-1/12 md:text-2xl"
