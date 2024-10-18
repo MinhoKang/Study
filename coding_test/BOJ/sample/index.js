@@ -1,2 +1,2 @@
 const fs = require("fs");
-const input = fs.readFileSync("./input.txt");
+const input = fs.readFileSync("./input.txt").toString();
