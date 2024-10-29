@@ -1,18 +1,28 @@
 const fs = require("fs");
 const input = fs.readFileSync("./input.txt").toString().trim().split("\n");
 
-const T = +input[0];
-let answer = "";
+const [T, ...rest] = input;
 
-for (i = 1; i <= T; i++) {
-  const [times, word] = input[i].split(" ");
-  const wordArr = word.split('')
-  console.log(wordArr)
-  wordArr.map(i => console.log(i))
-  // for(j=0;j< +times; j++) {
-  //   word.split('').forEach(w =>
-  //     answer += w.repeat(+times)
-  //   )
-  // }
-}
-console.log(answer);
+const answer = rest.reduce((a, c) => {
+  const arr = [];
+  const [R, S] = c.split(" ");
+  const SArr = S.split("");
+
+  SArr.forEach((w) => {
+    for (let i = 0; i < +R; i++) {
+      arr.push(w);
+    }
+  });
+
+  a.push(arr);
+
+  return a;
+}, []);
+
+console.log(
+  answer
+    .map((a) => {
+      return a.join("").trim();
+    })
+    .join("\n")
+);
