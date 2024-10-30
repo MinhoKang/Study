@@ -1,5 +1,5 @@
 const fs = require("fs");
-const input = fs.readFileSync("./input.txt").toString().trim().split("\n");
+const input = fs.readFileSync("./input.txt").toString().split("\n");
 
 const answer = input.reduce((a, c) => {
   const obj = {
