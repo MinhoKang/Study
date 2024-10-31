@@ -1,7 +1,9 @@
 const fs = require("fs");
-const input = fs.readFileSync("./input.txt").toString().trim().split("\n");
+const input = fs.readFileSync("./input.txt").toString().split("\n");
 
-const answer = input.reduce((a, c) => {
+const filtedInput = input.filter((i) => i !== "");
+
+const answer = filtedInput.reduce((a, c) => {
   const obj = {
     lower: 0,
     upper: 0,
@@ -11,6 +13,9 @@ const answer = input.reduce((a, c) => {
   const words = c.split("");
 
   words.forEach((i) => {
+    if (i === "\r") {
+      return;
+    }
     if (i === i.toLowerCase() && i !== " " && isNaN(Number(i))) {
       obj.lower = obj.lower + 1;
     } else if (i === i.toUpperCase() && i !== " " && isNaN(Number(i))) {
