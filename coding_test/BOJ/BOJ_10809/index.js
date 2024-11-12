@@ -1,12 +1,14 @@
 const fs = require("fs");
 const input = fs.readFileSync("./input.txt").toString().trim();
 
-const wordArr = input.split("");
+const alphabets = Array.from({ length: 26 }).fill(-1);
 
-wordArr.map((a) => {
-  const index = input.indexOf(a)
-  console.log(index);
-  console.log(wordArr)
-  wordArr.splice(index, index +1)
-  console.log(wordArr)
-});
+for (let i = 0; i < input.length; i++) {
+  const target = input[i];
+  const index = target.charCodeAt() - 97;
+  if (alphabets[index] === -1) {
+    alphabets[index] = i;
+  }
+}
+
+console.log(alphabets.join(" "));
