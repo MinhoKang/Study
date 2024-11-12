@@ -8,4 +8,9 @@ const input = fs
 
 const [N, ...rest] = input;
 
-console.log(rest.sort((a, b) => a - b).join("\n"));
+console.log(
+  rest
+    .sort((a, b) => a - b)
+    .join("\n")
+    .trim()
+);
